@@ -214,7 +214,7 @@
                         <span class="post-category">
                     Category:
                             
-                                <a href="/categories/Other/">Other</a>
+                                <a href="/categories/Deploy/">Deploy</a>
                             
                         </span>
                     
@@ -223,53 +223,59 @@
         </header>
 
         <div class="post-content">
-            <h2 id="Why-build-a-private-blog"><a href="#Why-build-a-private-blog" class="headerlink" title="Why build a private blog"></a>Why build a private blog</h2><ul>
+            <h2 id="Why-build-a-personal-blog"><a href="#Why-build-a-personal-blog" class="headerlink" title="Why build a personal blog"></a>Why build a personal blog</h2><ul>
 <li>Organize my Thoughts and Summarize the knowledge.</li>
 <li>Share experience and Exchange information.</li>
 <li>Meet and Communicate with different people.</li>
 </ul>
-<h2 id="Introducation"><a href="#Introducation" class="headerlink" title="Introducation"></a>Introducation</h2><p>Tool : Hexo + GitHub<br>Hexo is a tool for generating and uploading static pages. It uses markdown to parse articles.<br>GitHub is a code hosting platform for open source and private software projects.</p>
+<h2 id="Introducation"><a href="#Introducation" class="headerlink" title="Introducation"></a>Introducation</h2><p>Tool : Hexo + GitHub<br>Hexo is a tool for generating and uploading static pages. It uses markdown to parse articles.<br>GitHub is a code hosting platform for open source and personal software projects.</p>
+<p><img src="https://pic.jitudisk.com/public/2022/06/26/002b48da1099a.png" alt="hexo.png"></p>
 <h2 id="Step"><a href="#Step" class="headerlink" title="Step"></a>Step</h2><h3 id="install-Node-js"><a href="#install-Node-js" class="headerlink" title="install Node.js"></a>install Node.js</h3><p><a target="_blank" rel="noopener" href="http://nodejs.org/">http://nodejs.org/</a></p>
 <h3 id="install-Git"><a href="#install-Git" class="headerlink" title="install Git"></a>install Git</h3><p><a target="_blank" rel="noopener" href="http://git-scm.com/">http://git-scm.com/</a></p>
 <h3 id="Set-up-github-io-Repository"><a href="#Set-up-github-io-Repository" class="headerlink" title="Set up github.io Repository"></a>Set up github.io Repository</h3><p>Set your ssh key.</p>
 <p>Name the repository as YourGithubName.github.io</p>
+<p><img src="https://pic.jitudisk.com/public/2022/06/26/d96d8e25152c9.png" alt="SetupRepository.png"></p>
 <h3 id="Install-and-initialize-hexo"><a href="#Install-and-initialize-hexo" class="headerlink" title="Install and initialize hexo"></a>Install and initialize hexo</h3><pre><code class="bash">$ npm install -g hexo-cli
 </code></pre>
 <p>you can use <strong>hexo -v</strong> to check whether hexo is successfully installed.</p>
 <p>Some common commands of hexo.</p>
 <blockquote>
-<p>Hexo init: used to initialize the local folder as the root of the web site<br>Hexo new / hexo n: used to create a new article<br>Hexo generate / hexo G: used to generate static files<br>Hexo server / hexo s: used to start the local server<br>Hexo deploy / hero D: for deploying websites<br>Hexo clean: used to clean cache files</p>
+<p><strong>Hexo init</strong>: used to initialize the local folder as the root of the web site<br><strong>Hexo new / hexo n</strong>: used to create a new article<br><strong>Hexo generate / hexo G</strong>: used to generate static files<br><strong>Hexo server / hexo s</strong>: used to start the local server<br><strong>Hexo deploy / hero D</strong>: for deploying websites<br><strong>Hexo clean</strong>: used to clean cache files</p>
 </blockquote>
 <p>Then you can create a folder in favorite location, such as blog. </p>
 <pre><code class="bash">$ hexo init blog
 </code></pre>
 <p><strong>brief introducation of the main files:</strong></p>
 <blockquote>
-<p><strong>_config.yml</strong>: global configuration file, which configures many information of the website, such as website name, subtitle, description, author, language, theme, deployment, etc.<br><strong>package.json</strong>: configure the parameters and dependent plug-ins of the hexo framework<br><strong>scaffolds</strong>When a new article is created, hexo is built according to the files in this directory.<br><strong>source</strong>All new articles are saved in this directory* Posts is where we write* MD files in the posts directory will be compiled into HTML files and put into the public folder.<br><strong>themes</strong>: website subject directory, the default is landscape<br><strong>node_modules</strong>: it is mainly used to store some functional files of hexo, such as renderers and various plug-ins<br><strong>public</strong>: store the generated static file and generate it after the hexo g command</p>
+<p><strong>_config.yml</strong>: global configuration file, which configures many information of the website, such as website name, subtitle, description, author, language, theme, deployment, etc.<br><strong>package.json</strong>: configure the parameters and dependent plug-ins of the hexo framework<br><strong>scaffolds</strong>: When a new article is created, hexo is built according to the files in this directory.<br><strong>source</strong>: All new articles are saved in this directory* Posts is where we write* MD files in the posts directory will be compiled into HTML files and put into the public folder.<br><strong>themes</strong>: website subject directory, the default is landscape<br><strong>node_modules</strong>: it is mainly used to store some functional files of hexo, such as renderers and various plug-ins<br><strong>public</strong>: store the generated static file and generate it after the hexo g command</p>
 </blockquote>
 <h3 id="Edit-config-yml"><a href="#Edit-config-yml" class="headerlink" title="Edit _config.yml"></a>Edit _config.yml</h3><pre><code class="yaml">deploy:
   type: &#39;git&#39;
   branch: main
-  repo: &#39;https://github.com/NatalieXSelina/NatalieXSelina.github.io.git&#39; # put your Github name here
+  repo: &#39;https://github.com/NatalieXSelina/NatalieXSelina.github.io.git&#39;  # put your Github name here
 </code></pre>
+<p><img src="https://pic.jitudisk.com/public/2022/06/26/67f708bbbb54c.png" alt="ymlEdit.png"></p>
 <h3 id="Install-deployer"><a href="#Install-deployer" class="headerlink" title="Install deployer"></a>Install deployer</h3><pre><code class="bash">$ npm install hexo-deployer-git --save
 </code></pre>
 <p>build local blog</p>
-<pre><code class="bash">$ hexo cl &amp;&amp; hexo g &amp;&amp; hexo s
+<pre><code class="bash">$ hexo cl &amp;&amp; hexo g &amp;&amp; hexo s  # visit http://localhost:4000
 </code></pre>
-<p>visit <a target="_blank" rel="noopener" href="http://localhost:4000/">http://localhost:4000</a></p>
 <p>build remote websites</p>
-<pre><code class="bash">$ hexo cl &amp;&amp; hexo g &amp;&amp; hexo d
+<pre><code class="bash">$ hexo cl &amp;&amp; hexo g &amp;&amp; hexo d  # vist https://nataliexselina.github.io/   here should be your githubname 
 </code></pre>
-<p>vist <a href="https://nataliexselina.github.io/">https://nataliexselina.github.io/</a>   # here should be your githubname</p>
 <h3 id="Write-MD-File"><a href="#Write-MD-File" class="headerlink" title="Write MD File"></a>Write MD File</h3><p>You can create a new MD file with the following command:</p>
 <pre><code class="bash">hexo new &quot;articleTitle&quot;
 </code></pre>
+<p>Then write your own MD file.</p>
+<p><img src="https://pic.jitudisk.com/public/2022/06/26/a717403c65653.png" alt="mdEditor.png"></p>
 <h3 id="Choose-the-theme-you-like"><a href="#Choose-the-theme-you-like" class="headerlink" title="Choose the theme you like"></a>Choose the theme you like</h3><p>You can choose other themes to build blog with your style. <a target="_blank" rel="noopener" href="https://hexo.io/themes/">https://hexo.io/themes/</a></p>
+<p><img src="https://pic.jitudisk.com/public/2022/06/26/ef1a31f6083bf.png" alt="themes.png"></p>
 <p><strong>edit _config.yml</strong></p>
-<pre><code class="yaml">theme: xxx
+<pre><code class="yaml">theme: hexo-theme-Chic
 </code></pre>
-<h2 id="The-End"><a href="#The-End" class="headerlink" title="The End"></a>The End</h2><p>The above is the tutorial of building a private blog with hexo + GitHub. If you like, you can pay attention to and collect my private blog.</p>
+<p><img src="https://pic.jitudisk.com/public/2022/06/26/47f49e32e383d.png" alt="theme.png"></p>
+<h3 id="How-to-Build-Categories-and-Tags"><a href="#How-to-Build-Categories-and-Tags" class="headerlink" title="How to Build Categories and Tags"></a>How to Build Categories and Tags</h3><p><a target="_blank" rel="noopener" href="https://hexo.io/docs/front-matter">https://hexo.io/docs/front-matter</a></p>
+<h2 id="The-End"><a href="#The-End" class="headerlink" title="The End"></a>The End</h2><p>The above is the tutorial of building a personal blog with hexo + GitHub. If you like, you can pay attention to and collect my personal blog.</p>
 
         </div>
 
@@ -303,7 +309,11 @@
                 <span class="tag">
                     
                     
-                        <a href="/tags/Write/"># Write</a>
+                        <a href="/tags/Hexo/"># Hexo</a>
+                    
+                        <a href="/tags/Github/"># Github</a>
+                    
+                        <a href="/tags/Node-js/"># Node.js</a>
                     
                         
                 </span>
