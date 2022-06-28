@@ -129,6 +129,71 @@
                 <div class="container">
     
     
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    var tocbot_timer;
+    var DEPTH_MAX = 6; // 为 6 时展开所有
+    var tocbot_default_config = {
+        tocSelector: '.tocbot-list',
+        contentSelector: '.post-content',
+        headingSelector: 'h1, h2, h3, h4, h5',
+        orderedList: false,
+        scrollSmooth: true,
+        onClick: extend_click,
+    };
+
+    function extend_click() {
+        clearTimeout(tocbot_timer);
+        tocbot_timer = setTimeout(function() {
+            tocbot.refresh(obj_merge(tocbot_default_config, {
+                hasInnerContainers: true
+            }));
+        }, 420); // 这个值是由 tocbot 源码里定义的 scrollSmoothDuration 得来的
+    }
+
+    document.ready(function() {
+        tocbot.init(obj_merge(tocbot_default_config, {
+            collapseDepth: 1
+        }));
+    });
+
+    function expand_toc() {
+        var b = document.querySelector('.tocbot-toc-expand');
+        var expanded = b.getAttribute('data-expanded');
+        expanded ? b.removeAttribute('data-expanded') : b.setAttribute('data-expanded', true);
+        tocbot.refresh(obj_merge(tocbot_default_config, {
+            collapseDepth: expanded ? 1 : DEPTH_MAX
+        }));
+        b.innerText = expanded ? 'Expand all' : 'Collapse all';
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+    function obj_merge(target, source) {
+        for (var item in source) {
+            if (source.hasOwnProperty(item)) {
+                target[item] = source[item];
+            }
+        }
+        return target;
+    }
+</script>
+    
 
     
     <article class="post-wrap">
@@ -158,7 +223,15 @@
         </header>
 
         <div class="post-content">
-            
+            <h1 id="What-is-AO3"><a href="#What-is-AO3" class="headerlink" title="What is AO3"></a>What is AO3</h1><blockquote>
+<p>Archive of Our Own (often shortened to AO3) is a nonprofit open source repository for fanfiction and other fanworks contributed by users.</p>
+</blockquote>
+<h1 id="Why-to-Start-Fanworks"><a href="#Why-to-Start-Fanworks" class="headerlink" title="Why to Start Fanworks"></a>Why to Start Fanworks</h1><p>Fanworks like a myriad of parallel universes, which represents infinite possibilities. In the whole world, there are always people who like the same characters as I do. I wish I could meet them.</p>
+<h1 id="Why-to-Choose-AO3"><a href="#Why-to-Choose-AO3" class="headerlink" title="Why to Choose AO3"></a>Why to Choose AO3</h1><p>Due to China’s cleanliness initiative, words with sexual depictions cannot be posted on popular platforms. So I hosted my work on AO3 for readers.</p>
+<h1 id="My-AO3-Home-Page"><a href="#My-AO3-Home-Page" class="headerlink" title="My AO3 Home Page"></a>My AO3 Home Page</h1><p><a target="_blank" rel="noopener" href="https://archiveofourown.org/users/pokegongzi">https://archiveofourown.org/users/pokegongzi</a></p>
+<p><em>My article describes Girl’s Love and is written in Chinese.</em></p>
+<p><img src="https://pic.jitudisk.com/public/2022/06/28/a5b44f15f0d3c.png" alt="ao3.png"></p>
+
         </div>
 
         
