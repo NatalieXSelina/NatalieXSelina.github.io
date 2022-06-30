@@ -129,6 +129,71 @@
                 <div class="container">
     
     
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    var tocbot_timer;
+    var DEPTH_MAX = 6; // 为 6 时展开所有
+    var tocbot_default_config = {
+        tocSelector: '.tocbot-list',
+        contentSelector: '.post-content',
+        headingSelector: 'h1, h2, h3, h4, h5',
+        orderedList: false,
+        scrollSmooth: true,
+        onClick: extend_click,
+    };
+
+    function extend_click() {
+        clearTimeout(tocbot_timer);
+        tocbot_timer = setTimeout(function() {
+            tocbot.refresh(obj_merge(tocbot_default_config, {
+                hasInnerContainers: true
+            }));
+        }, 420); // 这个值是由 tocbot 源码里定义的 scrollSmoothDuration 得来的
+    }
+
+    document.ready(function() {
+        tocbot.init(obj_merge(tocbot_default_config, {
+            collapseDepth: 1
+        }));
+    });
+
+    function expand_toc() {
+        var b = document.querySelector('.tocbot-toc-expand');
+        var expanded = b.getAttribute('data-expanded');
+        expanded ? b.removeAttribute('data-expanded') : b.setAttribute('data-expanded', true);
+        tocbot.refresh(obj_merge(tocbot_default_config, {
+            collapseDepth: expanded ? 1 : DEPTH_MAX
+        }));
+        b.innerText = expanded ? 'Expand all' : 'Collapse all';
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+    function obj_merge(target, source) {
+        for (var item in source) {
+            if (source.hasOwnProperty(item)) {
+                target[item] = source[item];
+            }
+        }
+        return target;
+    }
+</script>
+    
 
     
     <article class="post-wrap">
@@ -158,7 +223,39 @@
         </header>
 
         <div class="post-content">
-            
+            <h1 id="Difference-Between-Functional-Testing-and-Exploratory-Testing"><a href="#Difference-Between-Functional-Testing-and-Exploratory-Testing" class="headerlink" title="Difference Between Functional Testing and Exploratory Testing"></a>Difference Between Functional Testing and Exploratory Testing</h1><h2 id="Functional-Testing"><a href="#Functional-Testing" class="headerlink" title="Functional Testing"></a>Functional Testing</h2><ul>
+<li>Based on functional testcases</li>
+<li>Mainly cover interaction, requirements and functional scenarios</li>
+<li>Focus on whether the system is functionally perfect and whether the implementation is accurate</li>
+</ul>
+<h2 id="Exploratory-Testing"><a href="#Exploratory-Testing" class="headerlink" title="Exploratory Testing"></a>Exploratory Testing</h2><ul>
+<li>Rely on the experience of QA</li>
+<li>A simultaneous process of test design and test execution all done at the same time</li>
+<li>Focus on discovery missing edge cases that are not easily covered in the scope of other tests</li>
+</ul>
+<h1 id="Common-Methods"><a href="#Common-Methods" class="headerlink" title="Common Methods"></a>Common Methods</h1><h2 id="UAT"><a href="#UAT" class="headerlink" title="UAT"></a>UAT</h2><ul>
+<li>Focus on business scenarios of online active users</li>
+<li>Filter historical customer bugs in the module you are going to test</li>
+<li>Expand by combining the two scenarios above to find out some complex cases</li>
+</ul>
+<h2 id="Interaction-Testing"><a href="#Interaction-Testing" class="headerlink" title="Interaction Testing"></a>Interaction Testing</h2><ul>
+<li>Multiple operations</li>
+<li>Components rendering </li>
+<li>Specific interactions among data points in implementation ( As value depending on earlier ones )</li>
+<li>Concerned with unexpected interactions</li>
+</ul>
+<h2 id="Exception-Scenarios"><a href="#Exception-Scenarios" class="headerlink" title="Exception Scenarios"></a>Exception Scenarios</h2><h2 id="Performance-testing"><a href="#Performance-testing" class="headerlink" title="Performance testing"></a>Performance testing</h2><ul>
+<li>Large amount of data</li>
+<li>QPS</li>
+<li>Semaphore</li>
+</ul>
+<h2 id="Data-Compatibility"><a href="#Data-Compatibility" class="headerlink" title="Data Compatibility"></a>Data Compatibility</h2><h2 id="Expansion-testing"><a href="#Expansion-testing" class="headerlink" title="Expansion testing."></a>Expansion testing.</h2><ul>
+<li>Concerned with Database: mongodb, redis</li>
+<li>Concerned with cache: localstorage, cookies</li>
+<li>Order of the completion of API requests</li>
+</ul>
+<h2 id="Focus-on-the-impact-on-other-modules"><a href="#Focus-on-the-impact-on-other-modules" class="headerlink" title="Focus on the impact on other modules"></a>Focus on the impact on other modules</h2><h2 id="Blind-Spot"><a href="#Blind-Spot" class="headerlink" title="Blind Spot"></a>Blind Spot</h2><p>It’s Up to your project. You should list them by yourself.</p>
+
         </div>
 
         

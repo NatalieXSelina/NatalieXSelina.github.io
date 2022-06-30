@@ -129,6 +129,71 @@
                 <div class="container">
     
     
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    var tocbot_timer;
+    var DEPTH_MAX = 6; // 为 6 时展开所有
+    var tocbot_default_config = {
+        tocSelector: '.tocbot-list',
+        contentSelector: '.post-content',
+        headingSelector: 'h1, h2, h3, h4, h5',
+        orderedList: false,
+        scrollSmooth: true,
+        onClick: extend_click,
+    };
+
+    function extend_click() {
+        clearTimeout(tocbot_timer);
+        tocbot_timer = setTimeout(function() {
+            tocbot.refresh(obj_merge(tocbot_default_config, {
+                hasInnerContainers: true
+            }));
+        }, 420); // 这个值是由 tocbot 源码里定义的 scrollSmoothDuration 得来的
+    }
+
+    document.ready(function() {
+        tocbot.init(obj_merge(tocbot_default_config, {
+            collapseDepth: 1
+        }));
+    });
+
+    function expand_toc() {
+        var b = document.querySelector('.tocbot-toc-expand');
+        var expanded = b.getAttribute('data-expanded');
+        expanded ? b.removeAttribute('data-expanded') : b.setAttribute('data-expanded', true);
+        tocbot.refresh(obj_merge(tocbot_default_config, {
+            collapseDepth: expanded ? 1 : DEPTH_MAX
+        }));
+        b.innerText = expanded ? 'Expand all' : 'Collapse all';
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+    function obj_merge(target, source) {
+        for (var item in source) {
+            if (source.hasOwnProperty(item)) {
+                target[item] = source[item];
+            }
+        }
+        return target;
+    }
+</script>
+    
 
     
     <article class="post-wrap">
@@ -158,7 +223,32 @@
         </header>
 
         <div class="post-content">
-            
+            <h1 id="Plugin-cypress-iframe"><a href="#Plugin-cypress-iframe" class="headerlink" title="Plugin cypress-iframe"></a>Plugin cypress-iframe</h1><p><a target="_blank" rel="noopener" href="https://www.npmjs.com/package/cypress-iframe">https://www.npmjs.com/package/cypress-iframe</a></p>
+<h2 id="Install"><a href="#Install" class="headerlink" title="Install"></a>Install</h2><pre><code class="JS">import &#39;cypress-iframe&#39;
+</code></pre>
+<h2 id="frameLoaded"><a href="#frameLoaded" class="headerlink" title="frameLoaded"></a>frameLoaded</h2><pre><code class="JS">// This will verify that the iframe is loaded to any page other than &#39;about:blank&#39;
+cy.frameLoaded()
+ 
+// This will verify that the iframe is loaded to any url containing the given path part
+cy.frameLoaded(&#123; url: &#39;https://google.com&#39; &#125;)
+cy.frameLoaded(&#123; url: &#39;/join&#39; &#125;)
+cy.frameLoaded(&#123; url: &#39;?some=query&#39; &#125;)
+cy.frameLoaded(&#123; url: &#39;#/hash/path&#39; &#125;)
+ 
+// You can also give it a selector to check that a specific iframe has loaded
+cy.frameLoaded(&#39;#my-frame&#39;)
+cy.frameLoaded(&#39;#my-frame&#39;, &#123; url: &#39;/join&#39; &#125;)
+</code></pre>
+<h2 id="iframe"><a href="#iframe" class="headerlink" title="iframe"></a>iframe</h2><pre><code class="JS">// This will verify that the iframe is loaded to any page other than &#39;about:blank&#39;
+cy.iframe().find(&#39;.some-button&#39;).should(&#39;be.visible&#39;).click()
+cy.iframe().contains(&#39;Some hidden element&#39;).should(&#39;not.be.visible&#39;)
+cy.find(&#39;#outside-iframe&#39;).click() // this will be executed outside the iframe
+ 
+// You can also give it a selector to find elements inside of a specific iframe
+cy.iframe(&#39;#my-frame&#39;).find(&#39;.some-button&#39;).should(&#39;be.visible&#39;).click()
+cy.iframe(&#39;#my-second-frame&#39;).contains(&#39;Some hidden element&#39;).should(&#39;not.be.visible&#39;)
+</code></pre>
+
         </div>
 
         

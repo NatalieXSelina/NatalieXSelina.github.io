@@ -129,6 +129,71 @@
                 <div class="container">
     
     
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    var tocbot_timer;
+    var DEPTH_MAX = 6; // 为 6 时展开所有
+    var tocbot_default_config = {
+        tocSelector: '.tocbot-list',
+        contentSelector: '.post-content',
+        headingSelector: 'h1, h2, h3, h4, h5',
+        orderedList: false,
+        scrollSmooth: true,
+        onClick: extend_click,
+    };
+
+    function extend_click() {
+        clearTimeout(tocbot_timer);
+        tocbot_timer = setTimeout(function() {
+            tocbot.refresh(obj_merge(tocbot_default_config, {
+                hasInnerContainers: true
+            }));
+        }, 420); // 这个值是由 tocbot 源码里定义的 scrollSmoothDuration 得来的
+    }
+
+    document.ready(function() {
+        tocbot.init(obj_merge(tocbot_default_config, {
+            collapseDepth: 1
+        }));
+    });
+
+    function expand_toc() {
+        var b = document.querySelector('.tocbot-toc-expand');
+        var expanded = b.getAttribute('data-expanded');
+        expanded ? b.removeAttribute('data-expanded') : b.setAttribute('data-expanded', true);
+        tocbot.refresh(obj_merge(tocbot_default_config, {
+            collapseDepth: expanded ? 1 : DEPTH_MAX
+        }));
+        b.innerText = expanded ? 'Expand all' : 'Collapse all';
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+    function obj_merge(target, source) {
+        for (var item in source) {
+            if (source.hasOwnProperty(item)) {
+                target[item] = source[item];
+            }
+        }
+        return target;
+    }
+</script>
+    
 
     
     <article class="post-wrap">
@@ -158,7 +223,167 @@
         </header>
 
         <div class="post-content">
-            
+            <h1 id="Introducation"><a href="#Introducation" class="headerlink" title="Introducation"></a>Introducation</h1><h2 id="Official-Profile"><a href="#Official-Profile" class="headerlink" title="Official Profile"></a>Official Profile</h2><p><a target="_blank" rel="noopener" href="https://docs.cypress.io/">https://docs.cypress.io/</a></p>
+<h2 id="Mocha-chai"><a href="#Mocha-chai" class="headerlink" title="Mocha + chai"></a>Mocha + chai</h2><p>Mocha: <a target="_blank" rel="noopener" href="https://mochajs.org/">https://mochajs.org/</a><br>chai: <a target="_blank" rel="noopener" href="https://www.chaijs.com/">https://www.chaijs.com/</a></p>
+<blockquote>
+<p>What are describe, it, and expect?</p>
+</blockquote>
+<blockquote>
+<p>All of these functions come from Bundled Libraries that Cypress bakes in.</p>
+</blockquote>
+<blockquote>
+<p>describe and it come from Mocha<br>expect comes from Chai<br>Cypress builds on these popular tools and frameworks that you hopefully already have some familiarity and knowledge of. If not, that’s okay too.</p>
+</blockquote>
+<h1 id="What-You-Need-to-Know-Before-Writing-Testcases"><a href="#What-You-Need-to-Know-Before-Writing-Testcases" class="headerlink" title="What You Need to Know Before Writing Testcases"></a>What You Need to Know Before Writing Testcases</h1><h2 id="Suite-And-Hooks"><a href="#Suite-And-Hooks" class="headerlink" title="Suite And Hooks"></a>Suite And Hooks</h2><pre><code class="JS">describe(&#39;Level 1 Suite&#39;, () =&gt; &#123;
+    before(() =&gt; &#123;
+        cy.log(&#39;before hook in Level 1 Suite&#39;)
+    &#125;)
+
+    beforeEach(() =&gt; &#123;
+        cy.log(&#39;beforeEach hook in Level 1 Suite&#39;)
+    &#125;)
+
+    after(() =&gt; &#123;
+        cy.log(&#39;after hook in Level 1 Suite&#39;)
+    &#125;)
+
+    afterEach(() =&gt; &#123;
+        cy.log(&#39;afterEach hook in Level 1 Suite&#39;)
+    &#125;)
+
+    it(&#39;testcaseA in Level 1 Suite&#39;, () =&gt; &#123;
+        cy.log(&#39;testcaseA in Level 1 Suite&#39;)
+    &#125;)
+    it(&#39;testcaseB in Level 1 Suite&#39;, () =&gt; &#123;
+        cy.log(&#39;testcaseB in Level 1 Suite&#39;)
+    &#125;)
+
+    describe(&#39;Level 2 Suite&#39;, () =&gt; &#123;
+        before(() =&gt; &#123;
+            cy.log(&#39;before hook in Level 2 Suite&#39;)
+        &#125;)
+    
+        beforeEach(() =&gt; &#123;
+            cy.log(&#39;beforeEach hook in Level 2 Suite&#39;)
+        &#125;)
+    
+        after(() =&gt; &#123;
+            cy.log(&#39;after hook in Level 2 Suite&#39;)
+        &#125;)
+    
+        afterEach(() =&gt; &#123;
+            cy.log(&#39;afterEach hook in Level 2 Suite&#39;)
+        &#125;)
+    
+        it(&#39;testcaseA in Level 2 Suite&#39;, () =&gt; &#123;
+            cy.log(&#39;testcaseA in Level 2 Suite&#39;)
+        &#125;)
+        it(&#39;testcaseB in Level 2 Suite&#39;, () =&gt; &#123;
+            cy.log(&#39;testcaseB in Level 2 Suite&#39;)
+        &#125;)
+
+        describe(&#39;Level 3 Suite&#39;, () =&gt; &#123;
+            it(&#39;testcase in Level 3 Suite&#39;, () =&gt; &#123;
+                cy.log(&#39;testcase in Level 3 Suite&#39;)
+            &#125;)
+        &#125;)
+    &#125;)
+&#125;)
+</code></pre>
+<p><img src="https://pic.jitudisk.com/public/2022/06/29/eafd60e56eb44.jpg" alt="SuiteAndHooks.jpg"></p>
+<h2 id="Basic-Locators"><a href="#Basic-Locators" class="headerlink" title="Basic Locators"></a>Basic Locators</h2><h3 id="Main-functions"><a href="#Main-functions" class="headerlink" title="Main functions"></a>Main functions</h3><pre><code class="JS">// cy.get(selector)
+cy.get(&#39;li.selected .user&#39;) 
+// cy.get(alias)
+cy.get(&#39;li.selected .user&#39;).as(&#39;user&#39;)
+cy.get(&#39;@user&#39;)
+// .find(selector)
+cy.get(&#39;li.selected&#39;).find(&#39;user&#39;)
+// .contains(content) 
+cy.get(&#39;li.selected .user&#39;).contains(&#39;natalie&#39;) // return the first element
+</code></pre>
+<h3 id="Auxiliary-functions"><a href="#Auxiliary-functions" class="headerlink" title="Auxiliary functions"></a>Auxiliary functions</h3><pre><code class="JS">.children(selector) 
+.parents()
+.parent()
+.siblings()
+.first()
+.last()                     
+.next()
+.nextUntil(selector)
+.prev()
+.prevUntil(selector)
+.eq() // nth-child(1)
+</code></pre>
+<h2 id="Basic-Assertion"><a href="#Basic-Assertion" class="headerlink" title="Basic Assertion"></a>Basic Assertion</h2><pre><code class="JS">// Length
+cy.get(&#39;li.selected&#39;).should(&#39;have.length&#39;,3)
+// Class
+cy.get(&#39;form&#39;).find(&#39;input&#39;).should(&#39;not.hava.class&#39;,&#39;disabled&#39;)
+// Value
+cy.get(&#39;textarea&#39;).should(&#39;have.value&#39;,&#39;natalie&#39;)
+// Text Content
+cy.get(&#39;a&#39;).parent(&#39;span.help&#39;).should(&#39;not.contain&#39;,&#39;click me&#39;)
+// Visibility
+cy.get(&#39;button&#39;).should(&#39;be.visible&#39;)
+// Existence
+cy.get(&#39;#loading&#39;).should(&#39;not.exist&#39;)
+//  State
+cy.get(&#39;:radio&#39;).should(&#39;be.checked&#39;)
+// CSS
+cy.get(&#39;.completed&#39;).should(&#39;have.css&#39;,&#39;text-decoration&#39;,&#39;line-through&#39;)
+</code></pre>
+<h2 id="Interact-With-Element"><a href="#Interact-With-Element" class="headerlink" title="Interact With Element"></a>Interact With Element</h2><pre><code class="JS">.click()
+.dblclick()
+.rightclick()
+.clear()
+.check()
+.uncheck()
+.select()
+.trigger()
+.selectFile()
+.blur()
+.type()
+/* keyboard */
+// .type() with special character sequences
+.type(&#39;&#123;leftarrow&#125;&#123;rightarrow&#125;&#123;uparrow&#125;&#123;downarrow&#125;&#39;)
+.type(&#39;&#123;del&#125;&#123;selectall&#125;&#123;backspace&#125;&#39;)
+// .type() with key modifiers
+.type(&#39;&#123;alt&#125;&#123;option&#125;&#39;) //these are equivalent
+.type(&#39;&#123;ctrl&#125;&#123;control&#125;&#39;) //these are equivalent
+.type(&#39;&#123;meta&#125;&#123;command&#125;&#123;cmd&#125;&#39;) //these are equivalent
+.type(&#39;&#123;shift&#125;&#39;)
+</code></pre>
+<h1 id="One-Example-for-Automation"><a href="#One-Example-for-Automation" class="headerlink" title="One Example for Automation"></a>One Example for Automation</h1><pre><code class="JS">describe(&#39;Example&#39;, () =&gt; &#123;
+
+    beforeEach(() =&gt; &#123;
+        cy.visit(&#39;https://mochajs.org/&#39;)
+    &#125;)
+
+    it(&#39;test1&#39;, () =&gt; &#123;
+        cy.get(&#39;header&#39;).children(&#39;p&#39;).eq(0).should(&#39;have.css&#39;, &#39;color&#39;, &#39;rgb(194, 157, 127)&#39;)
+        cy.get(&#39;main#content&#39;).should(&#39;contain.text&#39;, &#39;Node.js&#39;)
+        cy.get(&#39;main#content p:first a&#39;).should(&#39;have.length&#39;, 2)
+    &#125;)
+
+    it(&#39;test2&#39;, () =&gt; &#123;
+        cy.get(&#39;main#content p:first a[href=&quot;https://nodejs.org/&quot;]&#39;).click()
+        cy.location().should((location) =&gt; &#123;
+            expect(location.origin).to.eq(&#39;https://nodejs.org&#39;)
+        &#125;)
+    &#125;)
+&#125;)
+</code></pre>
+<p>You can modify <strong>numTestsKeptInMemory</strong> option in <strong>cypress.json</strong></p>
+<blockquote>
+<p>The number of tests for which snapshots and command data are kept in memory. Reduce this number if you are experiencing high memory consumption in your browser during a test run.</p>
+</blockquote>
+<p>I configured its value to 10 for local debugging. Running on a server, I recommend setting it to 0.</p>
+<p><img src="https://pic.jitudisk.com/public/2022/06/30/9cb5202428890.png" alt="example.png"></p>
+<p>Now, you can start to write your own testcases!</p>
+<p>If you have problems or difficulties in writing automation testcases, you can find the solutions here:</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://docs.cypress.io/faq/questions/using-cypress-faq">https://docs.cypress.io/faq/questions/using-cypress-faq</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/cypress-io/cypress/issues">https://github.com/cypress-io/cypress/issues</a></li>
+</ul>
+
         </div>
 
         

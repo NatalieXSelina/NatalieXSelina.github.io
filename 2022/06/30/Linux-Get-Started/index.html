@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="NatalieXSelina">
+
+
+    <meta name="subtitle" content=" b l o g">
+
+
+
+
+<title>Linux-Get Started | L i f e L i n e</title>
+
+
+
+    <link rel="icon" href="/favicon.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+<body>
+    <script>
+        // this function is used to check current theme before page loaded.
+        (() => {
+            const currentTheme = window.localStorage && window.localStorage.getItem('theme') || '';
+            const isDark = currentTheme === 'dark';
+            const pagebody = document.getElementsByTagName('body')[0]
+            if (isDark) {
+                pagebody.classList.add('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Dark"
+            } else {
+                pagebody.classList.remove('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Light"
+            }
+        })();
+    </script>
+
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">L i f e L i n e</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">L i f e L i n e</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+            <div class="main">
+                <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    var tocbot_timer;
+    var DEPTH_MAX = 6; // 为 6 时展开所有
+    var tocbot_default_config = {
+        tocSelector: '.tocbot-list',
+        contentSelector: '.post-content',
+        headingSelector: 'h1, h2, h3, h4, h5',
+        orderedList: false,
+        scrollSmooth: true,
+        onClick: extend_click,
+    };
+
+    function extend_click() {
+        clearTimeout(tocbot_timer);
+        tocbot_timer = setTimeout(function() {
+            tocbot.refresh(obj_merge(tocbot_default_config, {
+                hasInnerContainers: true
+            }));
+        }, 420); // 这个值是由 tocbot 源码里定义的 scrollSmoothDuration 得来的
+    }
+
+    document.ready(function() {
+        tocbot.init(obj_merge(tocbot_default_config, {
+            collapseDepth: 1
+        }));
+    });
+
+    function expand_toc() {
+        var b = document.querySelector('.tocbot-toc-expand');
+        var expanded = b.getAttribute('data-expanded');
+        expanded ? b.removeAttribute('data-expanded') : b.setAttribute('data-expanded', true);
+        tocbot.refresh(obj_merge(tocbot_default_config, {
+            collapseDepth: expanded ? 1 : DEPTH_MAX
+        }));
+        b.innerText = expanded ? 'Expand all' : 'Collapse all';
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+    function obj_merge(target, source) {
+        for (var item in source) {
+            if (source.hasOwnProperty(item)) {
+                target[item] = source[item];
+            }
+        }
+        return target;
+    }
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">Linux-Get Started</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">NatalieXSelina</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">June 30, 2022&nbsp;&nbsp;11:05:30</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/Tech/">Tech</a>
+                            
+                        </span>
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <h1 id="Linux-File-Hierarchy-Structure"><a href="#Linux-File-Hierarchy-Structure" class="headerlink" title="Linux File Hierarchy Structure"></a>Linux File Hierarchy Structure</h1><p>Linux file system has a hierarchal file structure as it contains a root directory and its subdirectories. All other directories can be accessed from the root directory. </p>
+<p><img src="https://pic.jitudisk.com/public/2022/06/29/9971034e56301.jpg" alt="FileStructure.jpg"></p>
+<p>Use <strong>ls</strong> to see the directory structure after connection established.</p>
+<p><img src="https://pic.jitudisk.com/public/2022/06/29/c7ae09b8fafd0.png" alt="mine.png"></p>
+<p>Introducation: <a target="_blank" rel="noopener" href="https://www.w3schools.blog/linux-file-hierarchy-structure">https://www.w3schools.blog/linux-file-hierarchy-structure</a></p>
+<h1 id="Commonly-Used-Directories"><a href="#Commonly-Used-Directories" class="headerlink" title="Commonly Used Directories"></a>Commonly Used Directories</h1><h2 id="root"><a href="#root" class="headerlink" title="/root"></a>/root</h2><p>Everything on your Linux system is located under the / directory, known as the root directory. You can think of the / directory as being similar to the C:\ directory on Windows – but this isn’t strictly true, as Linux doesn’t have drive letters. While another partition would be located at D:\ on Windows, this other partition would appear in another folder under / on Linux.</p>
+<h2 id="opt-–-Optional-Packages"><a href="#opt-–-Optional-Packages" class="headerlink" title="/opt – Optional Packages"></a>/opt – Optional Packages</h2><p>The /opt directory contains subdirectories for optional software packages. It’s commonly used by proprietary software that doesn’t obey the standard file system hierarchy – for example, a proprietary program might dump its files in /opt/application when you install it.</p>
+<p><strong>JMeter is installed here.</strong></p>
+<h2 id="var-–-Variable-Data-Files"><a href="#var-–-Variable-Data-Files" class="headerlink" title="/var – Variable Data Files"></a>/var – Variable Data Files</h2><p>The /var directory is the writable counterpart to the /usr directory, which must be read-only in normal operation. Log files and everything else that would normally be written to /usr during normal operation are written to the /var directory. For example, you’ll find log files in /var/log.</p>
+<p><strong>Jenkins is installed here.</strong></p>
+<h2 id="usr-–-User-Binaries-amp-Read-Only-Data"><a href="#usr-–-User-Binaries-amp-Read-Only-Data" class="headerlink" title="/usr – User Binaries &amp; Read-Only Data"></a>/usr – User Binaries &amp; Read-Only Data</h2><p>The /usr directory contains applications and files used by users, as opposed to applications and files used by the system. For example, non-essential applications are located inside the /usr/bin directory instead of the /bin directory and non-essential system administration binaries are located in the /usr/sbin directory instead of the /sbin directory. Libraries for each are located inside the /usr/lib directory. The /usr directory also contains other directories – for example, architecture-independent files like graphics are located in /usr/share.</p>
+<p>The /usr/local directory is where locally compiled applications install to by default – this prevents them from mucking up the rest of the system.</p>
+<h2 id="etc-–-Configuration-Files"><a href="#etc-–-Configuration-Files" class="headerlink" title="/etc – Configuration Files"></a>/etc – Configuration Files</h2><p>The /etc directory contains configuration files, which can generally be edited by hand in a text editor. Note that the /etc/ directory contains system-wide configuration files – user-specific configuration files are located in each user’s home directory.</p>
+<p><strong>Service are put here.</strong></p>
+<h3 id="etc-profile"><a href="#etc-profile" class="headerlink" title="/etc/profile"></a>/etc/profile</h3><p>This file gets executed whenever a bash login shell is entered (e.g. when logging in from the console or over ssh), as well as by the DisplayManager when the desktop session loads.**<br><strong>How to Configure it</strong></p>
+<pre><code class="bash">vim /etc/profile
+</code></pre>
+<h1 id="Remote-Connection-Tool"><a href="#Remote-Connection-Tool" class="headerlink" title="Remote Connection Tool"></a>Remote Connection Tool</h1><h2 id="Xshell"><a href="#Xshell" class="headerlink" title="Xshell"></a>Xshell</h2><blockquote>
+<p>Xshell is an SSH Client with superior session management, advanced customizations, and an intuitive UI. Xshell is Free for Home and School users.</p>
+</blockquote>
+<p><img src="https://pic.jitudisk.com/public/2022/06/30/d9c669776fc7f.png" alt="Xshell.png"></p>
+<h2 id="Xftp"><a href="#Xftp" class="headerlink" title="Xftp"></a>Xftp</h2><p>Using xftp, the installation of applications and plugins can be done.</p>
+<p><img src="https://pic.jitudisk.com/public/2022/06/30/7c4735beb3aa2.png" alt="xftp.png"></p>
+<h1 id="Linux-Commands"><a href="#Linux-Commands" class="headerlink" title="Linux Commands"></a>Linux Commands</h1><p>Here is commands list in linux, so you can always look them up if you forget when using them.</p>
+<p><a target="_blank" rel="noopener" href="https://kinsta.com/blog/linux-commands/">https://kinsta.com/blog/linux-commands/</a></p>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Usage</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ls</td>
+<td>Lists the content of a directory</td>
+</tr>
+<tr>
+<td>alias</td>
+<td>Define or display aliases</td>
+</tr>
+<tr>
+<td>unalias</td>
+<td>Remove alias definitions</td>
+</tr>
+<tr>
+<td>pwd</td>
+<td>Prints the working directory</td>
+</tr>
+<tr>
+<td>cd</td>
+<td>Changes directory</td>
+</tr>
+<tr>
+<td>cp</td>
+<td>Copies files and directories</td>
+</tr>
+<tr>
+<td>rm</td>
+<td>Remove files and directories</td>
+</tr>
+<tr>
+<td>mv</td>
+<td>Moves (renames) files and directories</td>
+</tr>
+<tr>
+<td>mkdir</td>
+<td>Creates directories</td>
+</tr>
+<tr>
+<td>man</td>
+<td>Displays manual page of other commands</td>
+</tr>
+<tr>
+<td>touch</td>
+<td>Creates empty files</td>
+</tr>
+<tr>
+<td>chmod</td>
+<td>Changes file permissions</td>
+</tr>
+<tr>
+<td>./</td>
+<td>Runs an executable</td>
+</tr>
+<tr>
+<td>exit</td>
+<td>Exits the current shell session</td>
+</tr>
+<tr>
+<td>sudo</td>
+<td>Executes commands as superuser</td>
+</tr>
+<tr>
+<td>shutdown</td>
+<td>Shutdowns your machine</td>
+</tr>
+<tr>
+<td>htop</td>
+<td>Displays processes and resources information</td>
+</tr>
+<tr>
+<td>unzip</td>
+<td>Extracts compressed ZIP files</td>
+</tr>
+<tr>
+<td>apt, yum, pacman</td>
+<td>Package managers</td>
+</tr>
+<tr>
+<td>echo</td>
+<td>Displays lines of text</td>
+</tr>
+<tr>
+<td>cat</td>
+<td>Prints file contents</td>
+</tr>
+<tr>
+<td>ps</td>
+<td>Reports shell processes status</td>
+</tr>
+<tr>
+<td>kill</td>
+<td>Terminates programs</td>
+</tr>
+<tr>
+<td>ping</td>
+<td>Tests network connectivity</td>
+</tr>
+<tr>
+<td>vim</td>
+<td>Efficient text editing</td>
+</tr>
+<tr>
+<td>history</td>
+<td>Shows a list of previous commands</td>
+</tr>
+<tr>
+<td>passwd</td>
+<td>Changes user password</td>
+</tr>
+<tr>
+<td>which</td>
+<td>Returns the full binary path of a program</td>
+</tr>
+<tr>
+<td>shred</td>
+<td>Overwrites a file to hide its contents</td>
+</tr>
+<tr>
+<td>less</td>
+<td>Inspects files interactively</td>
+</tr>
+<tr>
+<td>tail</td>
+<td>Displays last lines of a file</td>
+</tr>
+<tr>
+<td>head</td>
+<td>Displays first lines of a file</td>
+</tr>
+<tr>
+<td>grep</td>
+<td>Prints lines that match patterns</td>
+</tr>
+<tr>
+<td>whoami</td>
+<td>Outputs username</td>
+</tr>
+<tr>
+<td>whatis</td>
+<td>Shows single-line descriptions</td>
+</tr>
+<tr>
+<td>wc</td>
+<td>Word count files</td>
+</tr>
+<tr>
+<td>uname</td>
+<td>Displays OS information</td>
+</tr>
+<tr>
+<td>neofetch</td>
+<td>Displays OS and hardware information</td>
+</tr>
+<tr>
+<td>find</td>
+<td>Searches for files that follow a pattern</td>
+</tr>
+<tr>
+<td>wget</td>
+<td>Retrieves files from the internet</td>
+</tr>
+</tbody></table>
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>NatalieXSelina</span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="https://nataliexselina.github.io/2022/06/30/Linux-Get-Started/">https://nataliexselina.github.io/2022/06/30/Linux-Get-Started/</a></span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>License:</span>
+                        <span>Copyright (c) 2019 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc/4.0/">CC-BY-NC-4.0</a> LICENSE</span>
+                    </p>
+                
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/Linux/"># Linux</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+                <a class="prev" rel="prev" href="/2022/06/30/Install-and-Configure-Jenkins-in-Linux/">Install and Configure Jenkins in Linux</a>
+            
+            
+            <a class="next" rel="next" href="/2022/06/28/JavaScript-Modularization/">JavaScript Modularization</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+            </div>
+            <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© NatalieXSelina | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+
+</html>

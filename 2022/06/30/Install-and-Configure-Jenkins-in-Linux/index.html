@@ -15,7 +15,7 @@
 
 
 
-<title>Local and Server UTC time | L i f e L i n e</title>
+<title>Install and Configure Jenkins in Linux | L i f e L i n e</title>
 
 
 
@@ -129,76 +129,11 @@
                 <div class="container">
     
     
-        <div class="post-toc">
-    <div class="tocbot-list">
-    </div>
-    <div class="tocbot-list-menu">
-        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
-        <a onclick="go_top()">Back to top</a>
-        <a onclick="go_bottom()">Go to bottom</a>
-    </div>
-</div>
-
-<script>
-    var tocbot_timer;
-    var DEPTH_MAX = 6; // 为 6 时展开所有
-    var tocbot_default_config = {
-        tocSelector: '.tocbot-list',
-        contentSelector: '.post-content',
-        headingSelector: 'h1, h2, h3, h4, h5',
-        orderedList: false,
-        scrollSmooth: true,
-        onClick: extend_click,
-    };
-
-    function extend_click() {
-        clearTimeout(tocbot_timer);
-        tocbot_timer = setTimeout(function() {
-            tocbot.refresh(obj_merge(tocbot_default_config, {
-                hasInnerContainers: true
-            }));
-        }, 420); // 这个值是由 tocbot 源码里定义的 scrollSmoothDuration 得来的
-    }
-
-    document.ready(function() {
-        tocbot.init(obj_merge(tocbot_default_config, {
-            collapseDepth: 1
-        }));
-    });
-
-    function expand_toc() {
-        var b = document.querySelector('.tocbot-toc-expand');
-        var expanded = b.getAttribute('data-expanded');
-        expanded ? b.removeAttribute('data-expanded') : b.setAttribute('data-expanded', true);
-        tocbot.refresh(obj_merge(tocbot_default_config, {
-            collapseDepth: expanded ? 1 : DEPTH_MAX
-        }));
-        b.innerText = expanded ? 'Expand all' : 'Collapse all';
-    }
-
-    function go_top() {
-        window.scrollTo(0, 0);
-    }
-
-    function go_bottom() {
-        window.scrollTo(0, document.body.scrollHeight);
-    }
-
-    function obj_merge(target, source) {
-        for (var item in source) {
-            if (source.hasOwnProperty(item)) {
-                target[item] = source[item];
-            }
-        }
-        return target;
-    }
-</script>
-    
 
     
     <article class="post-wrap">
         <header class="post-header">
-            <h1 class="post-title">Local and Server UTC time</h1>
+            <h1 class="post-title">Install and Configure Jenkins in Linux</h1>
             
                 <div class="post-meta">
                     
@@ -207,14 +142,14 @@
 
                     
                         <span class="post-time">
-                        Date: <a href="#">January 12, 2022&nbsp;&nbsp;15:19:13</a>
+                        Date: <a href="#">June 30, 2022&nbsp;&nbsp;11:06:55</a>
                         </span>
                     
                     
                         <span class="post-category">
                     Category:
                             
-                                <a href="/categories/Solutions/">Solutions</a>
+                                <a href="/categories/Tech/">Tech</a>
                             
                         </span>
                     
@@ -223,11 +158,7 @@
         </header>
 
         <div class="post-content">
-            <h1 id="Convert-Server-UTC-time-to-Local-time"><a href="#Convert-Server-UTC-time-to-Local-time" class="headerlink" title="Convert Server UTC time to Local time"></a>Convert Server UTC time to Local time</h1><p>In date storage, server time is UTC.</p>
-<p>When to display on pages, we need to convert server UTC time to local time.</p>
-<pre><code class="JS">var local = moment(res.date).utcOffset(8).format(&#39;YYYY-MM-DD HH:mm:ss&#39;)
-</code></pre>
-
+            
         </div>
 
         
@@ -241,7 +172,7 @@
                 
                     <p class="copyright-item">
                         <span>Permalink:</span>
-                        <span><a href="https://nataliexselina.github.io/2022/01/12/Local-and-Server-UTC-time/">https://nataliexselina.github.io/2022/01/12/Local-and-Server-UTC-time/</a></span>
+                        <span><a href="https://nataliexselina.github.io/2022/06/30/Install-and-Configure-Jenkins-in-Linux/">https://nataliexselina.github.io/2022/06/30/Install-and-Configure-Jenkins-in-Linux/</a></span>
                     </p>
                 
                 
@@ -260,9 +191,17 @@
                 <span class="tag">
                     
                     
-                        <a href="/tags/Cypress/"># Cypress</a>
+                        <a href="/tags/Linux/"># Linux</a>
                     
-                        <a href="/tags/JavaScript/"># JavaScript</a>
+                        <a href="/tags/Jenkins/"># Jenkins</a>
+                    
+                        <a href="/tags/JDK/"># JDK</a>
+                    
+                        <a href="/tags/Maven/"># Maven</a>
+                    
+                        <a href="/tags/GIT/"># GIT</a>
+                    
+                        <a href="/tags/CI-CD/"># CI/CD</a>
                     
                         
                 </span>
@@ -275,10 +214,8 @@
         </section>
         <section class="post-nav">
             
-                <a class="prev" rel="prev" href="/2022/01/27/Cypress-Advanced/">Cypress-Advanced</a>
             
-            
-            <a class="next" rel="next" href="/2022/01/03/Cypress-CurrentTime/">Cypress-CurrentTime</a>
+            <a class="next" rel="next" href="/2022/06/30/Linux-Get-Started/">Linux-Get Started</a>
             
         </section>
 
