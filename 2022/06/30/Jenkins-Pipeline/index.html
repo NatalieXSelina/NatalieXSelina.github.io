@@ -15,7 +15,7 @@
 
 
 
-<title>Practices for Exploratory Testing | L i f e L i n e</title>
+<title>Jenkins Pipeline | L i f e L i n e</title>
 
 
 
@@ -198,7 +198,7 @@
     
     <article class="post-wrap">
         <header class="post-header">
-            <h1 class="post-title">Practices for Exploratory Testing</h1>
+            <h1 class="post-title">Jenkins Pipeline</h1>
             
                 <div class="post-meta">
                     
@@ -207,7 +207,7 @@
 
                     
                         <span class="post-time">
-                        Date: <a href="#">May 10, 2022&nbsp;&nbsp;18:35:10</a>
+                        Date: <a href="#">June 30, 2022&nbsp;&nbsp;11:06:55</a>
                         </span>
                     
                     
@@ -223,39 +223,84 @@
         </header>
 
         <div class="post-content">
-            <h2 id="Difference-Between-Functional-and-Exploratory-Testing"><a href="#Difference-Between-Functional-and-Exploratory-Testing" class="headerlink" title="Difference Between Functional and Exploratory Testing"></a>Difference Between Functional and Exploratory Testing</h2><h3 id="Functional-Testing"><a href="#Functional-Testing" class="headerlink" title="Functional Testing"></a>Functional Testing</h3><ul>
-<li>Based on functional testcases</li>
-<li>Mainly cover interaction, requirements and functional scenarios</li>
-<li>Focus on whether the system is functionally perfect and whether the implementation is accurate</li>
+            <h1 id="Prerequisites"><a href="#Prerequisites" class="headerlink" title="Prerequisites"></a>Prerequisites</h1><h2 id="Linux-Recommanded"><a href="#Linux-Recommanded" class="headerlink" title="Linux(Recommanded)"></a>Linux(Recommanded)</h2><p>For the presentation, I will be working on a Linux server, you may also need to install xshell and xftp.</p>
+<p><img src="https://pic.jitudisk.com/public/2022/07/01/15f9566688304.png" alt="Xshell.png"></p>
+<p>You can get a basic understanding of Linux here: <a href="https://nataliexselina.github.io/2022/06/30/Linux-Get-Started/">https://nataliexselina.github.io/2022/06/30/Linux-Get-Started/</a></p>
+<h2 id="JDK"><a href="#JDK" class="headerlink" title="JDK"></a>JDK</h2><p>You should install JDK and add it to the environment path for preparation.</p>
+<h3 id="You-can-Install-by-Command"><a href="#You-can-Install-by-Command" class="headerlink" title="You can Install by Command"></a>You can Install by Command</h3><p>If you choose this method, no need to configure the environment path.</p>
+<ol>
+<li>Search for JDK version by command<pre><code class="bash">yum search java|grep jdk
+</code></pre>
+</li>
+<li>Select the version you need to install<pre><code class="bash">yum install java-11-openjdk.x86_64 -y
+</code></pre>
+</li>
+</ol>
+<p>Tips:</p>
+<ul>
+<li>Error: Nothing to do<br>You may CentOS7<pre><code class="bash">yum -y update
+yum clean all
+yum makecache
+</code></pre>
+</li>
 </ul>
-<h3 id="Exploratory-Testing"><a href="#Exploratory-Testing" class="headerlink" title="Exploratory Testing"></a>Exploratory Testing</h3><ul>
-<li>Rely on the experience of QA</li>
-<li>A simultaneous process of test design and test execution all done at the same time</li>
-<li>Focus on discovery missing edge cases that are not easily covered in the scope of other tests</li>
+<ol start="3">
+<li>Check your installation<pre><code class="bash">java -version
+</code></pre>
+</li>
+</ol>
+<h3 id="You-also-can-Install-by-Xftp"><a href="#You-also-can-Install-by-Xftp" class="headerlink" title="You also can Install by Xftp"></a>You also can Install by Xftp</h3><ol>
+<li><p>Choose and Download file<br><a target="_blank" rel="noopener" href="https://www.oracle.com/java/technologies/downloads/#java8">https://www.oracle.com/java/technologies/downloads/#java8</a></p>
+</li>
+<li><p>mkdir java folder</p>
+<pre><code class="bash">cd /usr
+mkdir java
+</code></pre>
+</li>
+<li><p>Upload through Xftp and tar</p>
+<pre><code class="bash">tar -zxvf jdk-17_linux-x64_bin.tar.gz
+</code></pre>
+</li>
+<li><p>Configure the environment path</p>
+<pre><code class="bash">vim /etc/profile
+</code></pre>
+<p>Type <strong>i</strong> to switch into insert mode.</p>
+<pre><code>export JAVA_HOME=/usr/java/jdk17.0.1.1
+export JRE_HOME=$&#123;JAVA_HOME&#125;/jre
+export CLASSPATH=.:$&#123;JAVA_HOME&#125;/lib:$&#123;JRE_HOME&#125;/lib:$CLASSPATH
+export JAVA_PATH=$&#123;JAVA_HOME&#125;/bin:$&#123;JRE_HOME&#125;/bin
+export PATH=$PATH:$&#123;JAVA_PATH&#125;
+</code></pre>
+<p>Type <esc> :wq!</p>
+</li>
+</ol>
+<pre><code class="bash">source /etc/profile
+</code></pre>
+<p>Tips:</p>
+<ul>
+<li>If you forgot <strong>sudo</strong> before, you can save file as following:<pre><code>:w !sudo tee %
+</code></pre>
+</li>
 </ul>
-<h2 id="Common-Methods"><a href="#Common-Methods" class="headerlink" title="Common Methods"></a>Common Methods</h2><h3 id="UAT"><a href="#UAT" class="headerlink" title="UAT"></a>UAT</h3><ul>
-<li>Focus on business scenarios of online active users</li>
-<li>Filter historical customer bugs in the module you are going to test</li>
-<li>Expand by combining the two scenarios above to find out some complex cases</li>
-</ul>
-<h3 id="Interaction-Testing"><a href="#Interaction-Testing" class="headerlink" title="Interaction Testing"></a>Interaction Testing</h3><ul>
-<li>Multiple operations</li>
-<li>Components rendering </li>
-<li>Specific interactions among data points in implementation ( As value depending on earlier ones )</li>
-<li>Concerned with unexpected interactions</li>
-</ul>
-<h3 id="Exception-Scenarios"><a href="#Exception-Scenarios" class="headerlink" title="Exception Scenarios"></a>Exception Scenarios</h3><h3 id="Performance-testing"><a href="#Performance-testing" class="headerlink" title="Performance testing"></a>Performance testing</h3><ul>
-<li>Large amount of data</li>
-<li>QPS</li>
-<li>Semaphore</li>
-</ul>
-<h3 id="Data-Compatibility"><a href="#Data-Compatibility" class="headerlink" title="Data Compatibility"></a>Data Compatibility</h3><h3 id="Expansion-testing"><a href="#Expansion-testing" class="headerlink" title="Expansion testing."></a>Expansion testing.</h3><ul>
-<li>Concerned with Database: mongodb, redis</li>
-<li>Concerned with cache: localstorage, cookies</li>
-<li>Order of the completion of API requests</li>
-</ul>
-<h3 id="Focus-on-the-impact-on-other-modules"><a href="#Focus-on-the-impact-on-other-modules" class="headerlink" title="Focus on the impact on other modules"></a>Focus on the impact on other modules</h3><h3 id="Blind-Spot"><a href="#Blind-Spot" class="headerlink" title="Blind Spot"></a>Blind Spot</h3><p>Up to your project. You should list them by yourself.</p>
-
+<ol start="5">
+<li>Check your installation and configuration<pre><code class="bash">javac
+java --version
+echo $PATH
+</code></pre>
+</li>
+</ol>
+<h1 id="Download-Jenkins"><a href="#Download-Jenkins" class="headerlink" title="Download Jenkins"></a>Download Jenkins</h1><p><a target="_blank" rel="noopener" href="https://www.jenkins.io/download/">https://www.jenkins.io/download/</a></p>
+<p><img src="https://pic.jitudisk.com/public/2022/07/01/e40421686ea2c.png" alt="jenkinswar.png"></p>
+<p>You can use Xftp or yum or weget to install Jenkins.</p>
+<p>No further demonstration here.</p>
+<h1 id="Execute-as-Java-Binary"><a href="#Execute-as-Java-Binary" class="headerlink" title="Execute as Java Binary"></a>Execute as Java Binary</h1><p>After Jenkins Downloading, execute it by command:</p>
+<pre><code class="bash">cd &lt;your Jenkins downloaded path&gt;
+java -jar jenkins.war
+</code></pre>
+<p>You can set port by <strong>–httpPort=8080</strong></p>
+<h1 id="Web-Browser"><a href="#Web-Browser" class="headerlink" title="Web Browser"></a>Web Browser</h1><p>Open your web browser and visit your localhost:8080.</p>
+<p>It should go straight to Jenkins dashboard like this: </p>
+<h1 id="Create-A-Job-Pipeline"><a href="#Create-A-Job-Pipeline" class="headerlink" title="Create A Job(Pipeline)"></a>Create A Job(Pipeline)</h1>
         </div>
 
         
@@ -269,7 +314,7 @@
                 
                     <p class="copyright-item">
                         <span>Permalink:</span>
-                        <span><a href="https://nataliexselina.github.io/2022/05/10/Practices-for-Exploratory-Testing/">https://nataliexselina.github.io/2022/05/10/Practices-for-Exploratory-Testing/</a></span>
+                        <span><a href="https://nataliexselina.github.io/2022/06/30/Jenkins-Pipeline/">https://nataliexselina.github.io/2022/06/30/Jenkins-Pipeline/</a></span>
                     </p>
                 
                 
@@ -288,7 +333,19 @@
                 <span class="tag">
                     
                     
-                        <a href="/tags/Exploratory-Test/"># Exploratory Test</a>
+                        <a href="/tags/Linux/"># Linux</a>
+                    
+                        <a href="/tags/Jenkins/"># Jenkins</a>
+                    
+                        <a href="/tags/JDK/"># JDK</a>
+                    
+                        <a href="/tags/Maven/"># Maven</a>
+                    
+                        <a href="/tags/CI-CD/"># CI/CD</a>
+                    
+                        <a href="/tags/Pipeline/"># Pipeline</a>
+                    
+                        <a href="/tags/DevOps/"># DevOps</a>
                     
                         
                 </span>
@@ -301,10 +358,10 @@
         </section>
         <section class="post-nav">
             
-                <a class="prev" rel="prev" href="/2022/05/18/Cypress-CURD-in-MongoDB/">Cypress-CURD in MongoDB</a>
+                <a class="prev" rel="prev" href="/2022/07/04/Life%C2%B7Photography%C2%B7Food%20in%202022/">Life · Photography · Food in 2022</a>
             
             
-            <a class="next" rel="next" href="/2022/04/27/JavaScript-shallow-copy-and-deep-copy/">JavaScript-shallow copy and deep copy</a>
+            <a class="next" rel="next" href="/2022/06/30/Linux-Get-Started/">Linux-Get Started</a>
             
         </section>
 

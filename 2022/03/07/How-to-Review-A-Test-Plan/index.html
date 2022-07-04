@@ -129,6 +129,71 @@
                 <div class="container">
     
     
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    var tocbot_timer;
+    var DEPTH_MAX = 6; // 为 6 时展开所有
+    var tocbot_default_config = {
+        tocSelector: '.tocbot-list',
+        contentSelector: '.post-content',
+        headingSelector: 'h1, h2, h3, h4, h5',
+        orderedList: false,
+        scrollSmooth: true,
+        onClick: extend_click,
+    };
+
+    function extend_click() {
+        clearTimeout(tocbot_timer);
+        tocbot_timer = setTimeout(function() {
+            tocbot.refresh(obj_merge(tocbot_default_config, {
+                hasInnerContainers: true
+            }));
+        }, 420); // 这个值是由 tocbot 源码里定义的 scrollSmoothDuration 得来的
+    }
+
+    document.ready(function() {
+        tocbot.init(obj_merge(tocbot_default_config, {
+            collapseDepth: 1
+        }));
+    });
+
+    function expand_toc() {
+        var b = document.querySelector('.tocbot-toc-expand');
+        var expanded = b.getAttribute('data-expanded');
+        expanded ? b.removeAttribute('data-expanded') : b.setAttribute('data-expanded', true);
+        tocbot.refresh(obj_merge(tocbot_default_config, {
+            collapseDepth: expanded ? 1 : DEPTH_MAX
+        }));
+        b.innerText = expanded ? 'Expand all' : 'Collapse all';
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+    function obj_merge(target, source) {
+        for (var item in source) {
+            if (source.hasOwnProperty(item)) {
+                target[item] = source[item];
+            }
+        }
+        return target;
+    }
+</script>
+    
 
     
     <article class="post-wrap">
@@ -158,7 +223,65 @@
         </header>
 
         <div class="post-content">
-            
+            <h4 id="Normalization-And-Readability"><a href="#Normalization-And-Readability" class="headerlink" title="Normalization And Readability"></a>Normalization And Readability</h4><ul>
+<li><strong>It meets test plan specification requirements.</strong></li>
+</ul>
+<ol>
+<li>Collection of design/requirement documents for all features.</li>
+<li>Test plan file and Screenshot are required.</li>
+<li>You should invite reviewers.</li>
+<li>It should have smoke test cases to ensure the product is ready for testing.</li>
+</ol>
+<ul>
+<li><strong>The test plan must be structured and your overall thinking can be understood based on your test plan.</strong></li>
+</ul>
+<h4 id="Completeness-Of-Coverage"><a href="#Completeness-Of-Coverage" class="headerlink" title="Completeness Of Coverage"></a>Completeness Of Coverage</h4><ul>
+<li><strong>Focus on the business-related aspect of the product. These includes prototypes, functional tests and testing examples of scenarios.</strong></li>
+</ul>
+<ol>
+<li><p>Cover all new features and key expected results.</p>
+<ol>
+<li>PRD（Pproduct Requirement Document）</li>
+<li>DRD（Design Requirement Drawing）</li>
+<li>DFV（Designs for Vision）</li>
+</ol>
+</li>
+<li><p>Consider influence between crossover modules.</p>
+</li>
+<li><p>Determine the test boundary to prevent the spread of tests.</p>
+</li>
+</ol>
+<ul>
+<li><strong>Nonfunctional requirements, including compatibility, security and performance stability.</strong><ol>
+<li>Compatibility<ol>
+<li>Cross-browser, cross-device, cross-platform</li>
+<li>Data Compatibility Test</li>
+</ol>
+</li>
+<li>Security</li>
+<li>Performance Stability</li>
+<li>APIs</li>
+<li>Exception Testing</li>
+<li>Event Tracking</li>
+</ol>
+</li>
+</ul>
+<h4 id="Test-Environment"><a href="#Test-Environment" class="headerlink" title="Test Environment"></a>Test Environment</h4><ul>
+<li>List reliable test environments and define test plans for the corresponding test environments.</li>
+<li>A targeted plan of relevant tests for the test environment.</li>
+</ul>
+<h4 id="Risk-Assessment"><a href="#Risk-Assessment" class="headerlink" title="Risk Assessment"></a>Risk Assessment</h4><h5 id="Module-Stability-Risk"><a href="#Module-Stability-Risk" class="headerlink" title="Module Stability Risk"></a>Module Stability Risk</h5><ul>
+<li>Determine if it affects the stability of other modules.</li>
+<li>Determine if the relevant module person need to cooperate with the test.</li>
+</ul>
+<h5 id="Time-Risk-Project-Schedule-Risk"><a href="#Time-Risk-Project-Schedule-Risk" class="headerlink" title="Time Risk(Project Schedule Risk)"></a>Time Risk(Project Schedule Risk)</h5><ul>
+<li>Consider whether there are conflicts that affect the testing schedule.</li>
+<li>Consider if test time will take longer than expected.</li>
+</ul>
+<h4 id="Resource-Assessment"><a href="#Resource-Assessment" class="headerlink" title="Resource Assessment"></a>Resource Assessment</h4><ul>
+<li>Combine with project progress to assess manpower and test time.</li>
+</ul>
+
         </div>
 
         
