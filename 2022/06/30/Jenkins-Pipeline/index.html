@@ -297,9 +297,27 @@ echo $PATH
 <pre><code class="bash">cd &lt;your Jenkins downloaded path&gt;
 java -jar jenkins.war
 </code></pre>
-<p>You can set port by <strong>–httpPort=8080</strong></p>
-<h1 id="Web-Browser"><a href="#Web-Browser" class="headerlink" title="Web Browser"></a>Web Browser</h1><p>Open your web browser and visit your localhost:8080.</p>
-<p>It should go straight to Jenkins dashboard like this: </p>
+<p>You can set port by <strong>–httpPort=2022</strong></p>
+<p>Tips:</p>
+<ul>
+<li>You can use <strong>netstat -tunlp</strong> to check the port situation.</li>
+</ul>
+<h1 id="Web-Browser"><a href="#Web-Browser" class="headerlink" title="Web Browser"></a>Web Browser</h1><p>Open your web browser and visit <a target="_blank" rel="noopener" href="http://ip:8080/">http://ip:8080</a></p>
+<p>You should get the access to Jenkins: </p>
+<p><img src="https://pic.jitudisk.com/public/2022/07/05/af4092caacd67.png" alt="unlock.png"></p>
+<p>Now, enter the password to start.</p>
+<p><img src="https://pic.jitudisk.com/public/2022/07/05/567fe900b84c0.png" alt="password.png"></p>
+<p>You can choose the plugins which you like or need to install.</p>
+<p><img src="https://pic.jitudisk.com/public/2022/07/05/999d1667c46c3.png" alt="plugins.png"></p>
+<p>After create your own account, you will go straight to Jenkins dashboard like this: </p>
+<p><img src="https://pic.jitudisk.com/public/2022/07/05/5bfba2569772d.png" alt="dashboard.png"></p>
+<p>Tips: jenkinsUrl is ip:httpPort</p>
+<ul>
+<li>jenkinsUrl/safeRestart - Let you to wait for running JOBS to get complete and do a RESTART.</li>
+<li>jenkinsUrl/restart - Do a restart immediately without waiting for the jobs which are running currently.</li>
+<li>jenkinsUrl/exit - It stops/shutdown the JENKINS services</li>
+<li>jenkinsUrl/reload - To reload the configuration changes.</li>
+</ul>
 <h1 id="Create-A-Job-Pipeline"><a href="#Create-A-Job-Pipeline" class="headerlink" title="Create A Job(Pipeline)"></a>Create A Job(Pipeline)</h1>
         </div>
 
