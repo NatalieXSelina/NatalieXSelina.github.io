@@ -272,10 +272,10 @@ export JAVA_PATH=$&#123;JAVA_HOME&#125;/bin:$&#123;JRE_HOME&#125;/bin
 export PATH=$PATH:$&#123;JAVA_PATH&#125;
 </code></pre>
 <p>Type <esc> :wq!</p>
-</li>
-</ol>
 <pre><code class="bash">source /etc/profile
 </code></pre>
+</li>
+</ol>
 <p>Tips:</p>
 <ul>
 <li>If you forgot <strong>sudo</strong> before, you can save file as following:<pre><code>:w !sudo tee %
@@ -318,7 +318,61 @@ java -jar jenkins.war
 <li>jenkinsUrl/exit - It stops/shutdown the JENKINS services</li>
 <li>jenkinsUrl/reload - To reload the configuration changes.</li>
 </ul>
-<h1 id="Create-A-Job-Pipeline"><a href="#Create-A-Job-Pipeline" class="headerlink" title="Create A Job(Pipeline)"></a>Create A Job(Pipeline)</h1>
+<h1 id="Create-A-Job-Pipeline"><a href="#Create-A-Job-Pipeline" class="headerlink" title="Create A Job(Pipeline)"></a>Create A Job(Pipeline)</h1><p><a target="_blank" rel="noopener" href="https://www.jenkins.io/doc/book/pipeline/syntax/">https://www.jenkins.io/doc/book/pipeline/syntax/</a></p>
+<p>Enter your pipeline name and choose pipeline to create a job.</p>
+<p>Then it comes to pipeline configuration.</p>
+<p><img src="https://pic.jitudisk.com/public/2022/07/05/39055ee243ce9.png" alt="select.png"></p>
+<h2 id="Pipeline-script"><a href="#Pipeline-script" class="headerlink" title="Pipeline script"></a>Pipeline script</h2><pre><code class="groovy">// Declarative 
+pipeline &#123;
+    agent any
+    stages &#123;
+        stage(&#39;Build&#39;) &#123; 
+            steps &#123;
+                println &quot;Build&quot; 
+            &#125;
+        &#125;
+        stage(&#39;Test&#39;) &#123; 
+            steps &#123;
+                sh &quot;echo `pwd`&quot;
+            &#125;
+        &#125;
+        stage(&#39;Deploy&#39;) &#123; 
+            steps &#123;
+                println &quot;Deploy&quot; 
+            &#125;
+        &#125;
+    &#125;
+&#125;
+</code></pre>
+<p>Build the pipeline by clicking <strong>Build Now</strong>. Because it is a very small script, so it will not take a lot of time.</p>
+<p>If everything goes right, you can see the output of each stages by click <strong>logs</strong>.And then you will see the stage logs message like this:</p>
+<p><img src="https://pic.jitudisk.com/public/2022/07/05/452b790eecf8f.png" alt="log.png"></p>
+<p><img src="https://pic.jitudisk.com/public/2022/07/06/f9da6187176ba.png" alt="console1.png"></p>
+<p>This is how you do it with a direct script.</p>
+<h2 id="Pipeline-script-from-SCM"><a href="#Pipeline-script-from-SCM" class="headerlink" title="Pipeline script from SCM"></a>Pipeline script from SCM</h2><p>Here, I will use Github as my repositories.</p>
+<h3 id="Github-Settings-Webhooks"><a href="#Github-Settings-Webhooks" class="headerlink" title="Github Settings - Webhooks"></a>Github Settings - Webhooks</h3><p><img src="https://pic.jitudisk.com/public/2022/07/06/43ff8c22150d1.png" alt="webhook_github.png"></p>
+<h3 id="Jenkins-Settings"><a href="#Jenkins-Settings" class="headerlink" title="Jenkins Settings"></a>Jenkins Settings</h3><ul>
+<li>Create your own Credentials. ( Same username and password as your Github account )</li>
+<li>Set your Repositories. ( Repository URL and Credentials )</li>
+<li>(Optional) Set Repository browser as <strong>githubweb</strong> and enter url</li>
+<li>Set Relative location. ( Where your Jenkinsfile located )</li>
+<li>Save</li>
+</ul>
+<p>If everything goes right, you can see the output of each stages by click <strong>logs</strong>.And then you will see the stage logs message like this:</p>
+<p><img src="https://pic.jitudisk.com/public/2022/07/06/19ec8fd1ece95.png" alt="SCM.png"></p>
+<p>Yes, we have one additional stage called <strong>Declarative: Checkout SCM</strong>. You can check how the source control cloning process went as well.</p>
+<p><img src="https://pic.jitudisk.com/public/2022/07/06/9d244e987b9c2.png" alt="SCMlogs.png"></p>
+<h1 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h1><ul>
+<li>Firstly, congratulations on actually building your Jenkins Pipeline.</li>
+<li>This tutorial has just provided to you a glimpse of what Jenkins Pipeline can do.</li>
+<li>You can extend its capabilities by integrating it with other tools.</li>
+</ul>
+<p>Here are some examples for pipeline:</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/bryantson/CICDPractice">https://github.com/bryantson/CICDPractice</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/jenkinsci/pipeline-examples">https://github.com/jenkinsci/pipeline-examples</a></li>
+</ul>
+
         </div>
 
         
