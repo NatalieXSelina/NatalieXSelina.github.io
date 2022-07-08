@@ -248,6 +248,30 @@ cy.find(&#39;#outside-iframe&#39;).click() // this will be executed outside the 
 cy.iframe(&#39;#my-frame&#39;).find(&#39;.some-button&#39;).should(&#39;be.visible&#39;).click()
 cy.iframe(&#39;#my-second-frame&#39;).contains(&#39;Some hidden element&#39;).should(&#39;not.be.visible&#39;)
 </code></pre>
+<h2 id="Used-Skillfully"><a href="#Used-Skillfully" class="headerlink" title="Used Skillfully"></a>Used Skillfully</h2><p>When you encounter an automation test case that requires you to open two browser tabs to execute it.</p>
+<p>Then you will find that Cypress says they will never support for multiple browser tabs, after checking the official documentation. </p>
+<p><a target="_blank" rel="noopener" href="https://docs.cypress.io/guides/references/trade-offs#Permanent-trade-offs-1">https://docs.cypress.io/guides/references/trade-offs#Permanent-trade-offs-1</a></p>
+<p><img src="https://pic.jitudisk.com/public/2022/07/08/d1d19046e16ca.png" alt="browsertabs.png"></p>
+<h3 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h3><p>Do not be too upset!</p>
+<p>Here is my solution for you to try:  <strong>create an iframe</strong> by using <strong>Element.append()</strong> to complete it.</p>
+<h3 id="create-an-iframe"><a href="#create-an-iframe" class="headerlink" title="create an iframe"></a>create an iframe</h3><p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/8726455/creating-an-iframe-using-javascript">https://stackoverflow.com/questions/8726455/creating-an-iframe-using-javascript</a></p>
+<h3 id="Element-append"><a href="#Element-append" class="headerlink" title="Element.append()"></a>Element.append()</h3><p><a target="_blank" rel="noopener" href="https://www.javascripttutorial.net/javascript-dom/javascript-append/">https://www.javascripttutorial.net/javascript-dom/javascript-append/</a></p>
+<h3 id="An-Example-For-You"><a href="#An-Example-For-You" class="headerlink" title="An Example For You"></a>An Example For You</h3><p>I can not show my code directly due to commercial reasons, so I wrote a demo using elements from ‘<a target="_blank" rel="noopener" href="https://mochajs.org/&#39;">https://mochajs.org/&#39;</a>.</p>
+<p><img src="https://pic.jitudisk.com/public/2022/07/08/47d089697707e.png" alt="iframeExample.png"></p>
+<pre><code class="JS">it(&#39;test&#39;, () =&gt; &#123;
+    cy.visit(&#39;https://mochajs.org/&#39;)
+    cy.get(&#39;main#content a&#39;).contains(&#39;Node.js&#39;).then(($el) =&gt; &#123;
+        cy.get($el).click()
+        var iframe = document.createElement(&#39;iframe&#39;);
+        iframe.src = $el.href;
+        iframe.id = &#39;test&#39;
+        iframe.width = 700
+        Cypress.$($el).append(iframe)
+        // cy.frameLoaded(&#39;#test&#39;)
+        // You can go on your automation
+    &#125;)
+&#125;)
+</code></pre>
 
         </div>
 
