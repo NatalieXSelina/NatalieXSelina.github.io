@@ -15,7 +15,7 @@
 
 
 
-<title>JMeter-plugin install | L i f e L i n e</title>
+<title>JMeter-plugin jedis | L i f e L i n e</title>
 
 
 
@@ -129,11 +129,76 @@
                 <div class="container">
     
     
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    var tocbot_timer;
+    var DEPTH_MAX = 6; // 为 6 时展开所有
+    var tocbot_default_config = {
+        tocSelector: '.tocbot-list',
+        contentSelector: '.post-content',
+        headingSelector: 'h1, h2, h3, h4, h5',
+        orderedList: false,
+        scrollSmooth: true,
+        onClick: extend_click,
+    };
+
+    function extend_click() {
+        clearTimeout(tocbot_timer);
+        tocbot_timer = setTimeout(function() {
+            tocbot.refresh(obj_merge(tocbot_default_config, {
+                hasInnerContainers: true
+            }));
+        }, 420); // 这个值是由 tocbot 源码里定义的 scrollSmoothDuration 得来的
+    }
+
+    document.ready(function() {
+        tocbot.init(obj_merge(tocbot_default_config, {
+            collapseDepth: 1
+        }));
+    });
+
+    function expand_toc() {
+        var b = document.querySelector('.tocbot-toc-expand');
+        var expanded = b.getAttribute('data-expanded');
+        expanded ? b.removeAttribute('data-expanded') : b.setAttribute('data-expanded', true);
+        tocbot.refresh(obj_merge(tocbot_default_config, {
+            collapseDepth: expanded ? 1 : DEPTH_MAX
+        }));
+        b.innerText = expanded ? 'Expand all' : 'Collapse all';
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+    function obj_merge(target, source) {
+        for (var item in source) {
+            if (source.hasOwnProperty(item)) {
+                target[item] = source[item];
+            }
+        }
+        return target;
+    }
+</script>
+    
 
     
     <article class="post-wrap">
         <header class="post-header">
-            <h1 class="post-title">JMeter-plugin install</h1>
+            <h1 class="post-title">JMeter-plugin jedis</h1>
             
                 <div class="post-meta">
                     
@@ -158,7 +223,36 @@
         </header>
 
         <div class="post-content">
-            
+            <h2 id="CURD-in-Redis"><a href="#CURD-in-Redis" class="headerlink" title="CURD in Redis"></a>CURD in Redis</h2><p>jedis supports all CURD operations (Create, Update, Retrieve and Delete) of redis. </p>
+<h3 id="install"><a href="#install" class="headerlink" title="install"></a>install</h3><p><a target="_blank" rel="noopener" href="https://mvnrepository.com/artifact/redis.clients/jedis">https://mvnrepository.com/artifact/redis.clients/jedis</a></p>
+<p>Download <strong>jedis-3.6.3.jar</strong></p>
+<p><img src="https://pic.jitudisk.com/public/2022/07/10/89092d76a3ede.png" alt="fileupload1.png"></p>
+<h4 id="local"><a href="#local" class="headerlink" title="local"></a>local</h4><p>folder <strong>jedis-3.6.3.jar</strong> to /lib</p>
+<p><img src="https://pic.jitudisk.com/public/2022/07/11/1640affd62606.png" alt="windows.png"></p>
+<h4 id="Remote-Server"><a href="#Remote-Server" class="headerlink" title="Remote Server"></a>Remote Server</h4><p>use Xshell + Xftp to upload and folder <strong>jedis-3.6.3.jar</strong> to /lib</p>
+<h3 id="BeanShell-Script"><a href="#BeanShell-Script" class="headerlink" title="BeanShell Script"></a>BeanShell Script</h3><p>In this article, I will only demonstrate doing a delete operation on redis.</p>
+<p>You can see all the methods provided by jedis for details: <a target="_blank" rel="noopener" href="https://github.com/redis/jedis">https://github.com/redis/jedis</a></p>
+<pre><code class="BeanShell">import redis.clients.jedis.Jedis;
+import org.apache.commons.lang3.StringUtils;
+
+String host = &quot;$&#123;redis-host&#125;&quot;;
+int port = $&#123;redis-port&#125;;
+String password = &quot;$&#123;redis-password&#125;&quot;;
+int index = $&#123;db&#125;;
+String key = &quot;$&#123;key&#125;&quot;;
+
+
+Jedis jedis = new Jedis(host, port);
+if(StringUtils.isNotBlank(password))&#123;
+    jedis.auth(password);
+  &#125;
+jedis.select(index); 
+
+ if (jedis.exists(key))&#123;
+     jedis.del(key);
+     &#125;
+</code></pre>
+
         </div>
 
         
@@ -172,7 +266,7 @@
                 
                     <p class="copyright-item">
                         <span>Permalink:</span>
-                        <span><a href="https://nataliexselina.github.io/2021/12/04/JMeter-plugin-install/">https://nataliexselina.github.io/2021/12/04/JMeter-plugin-install/</a></span>
+                        <span><a href="https://nataliexselina.github.io/2021/12/04/JMeter-plugin-jedis/">https://nataliexselina.github.io/2021/12/04/JMeter-plugin-jedis/</a></span>
                     </p>
                 
                 

@@ -129,6 +129,71 @@
                 <div class="container">
     
     
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    var tocbot_timer;
+    var DEPTH_MAX = 6; // 为 6 时展开所有
+    var tocbot_default_config = {
+        tocSelector: '.tocbot-list',
+        contentSelector: '.post-content',
+        headingSelector: 'h1, h2, h3, h4, h5',
+        orderedList: false,
+        scrollSmooth: true,
+        onClick: extend_click,
+    };
+
+    function extend_click() {
+        clearTimeout(tocbot_timer);
+        tocbot_timer = setTimeout(function() {
+            tocbot.refresh(obj_merge(tocbot_default_config, {
+                hasInnerContainers: true
+            }));
+        }, 420); // 这个值是由 tocbot 源码里定义的 scrollSmoothDuration 得来的
+    }
+
+    document.ready(function() {
+        tocbot.init(obj_merge(tocbot_default_config, {
+            collapseDepth: 1
+        }));
+    });
+
+    function expand_toc() {
+        var b = document.querySelector('.tocbot-toc-expand');
+        var expanded = b.getAttribute('data-expanded');
+        expanded ? b.removeAttribute('data-expanded') : b.setAttribute('data-expanded', true);
+        tocbot.refresh(obj_merge(tocbot_default_config, {
+            collapseDepth: expanded ? 1 : DEPTH_MAX
+        }));
+        b.innerText = expanded ? 'Expand all' : 'Collapse all';
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+    function obj_merge(target, source) {
+        for (var item in source) {
+            if (source.hasOwnProperty(item)) {
+                target[item] = source[item];
+            }
+        }
+        return target;
+    }
+</script>
+    
 
     
     <article class="post-wrap">
@@ -158,7 +223,27 @@
         </header>
 
         <div class="post-content">
-            
+            <h3 id="Error-Message"><a href="#Error-Message" class="headerlink" title="Error Message"></a>Error Message</h3><p>error: cy… () failed because the element you are chaining off of has become detached or removed from the dom</p>
+<p><img src="https://pic.jitudisk.com/public/2022/07/10/eab6f8604bba3.png" alt="error.png"></p>
+<h3 id="Reason"><a href="#Reason" class="headerlink" title="Reason"></a>Reason</h3><p>If there is <strong>a re-rendering in the process</strong>, the previous element may be found by Cypress. Such problems are particularly likely to occur on pages using <strong>React</strong>. </p>
+<p>Many Cypress users have given feedback about this problem: <a target="_blank" rel="noopener" href="https://github.com/cypress-io/cypress/issues/7306">https://github.com/cypress-io/cypress/issues/7306</a></p>
+<p>The actual problem is that an element has been <strong>re-rendered</strong> during the process, but the keyword for positione is the same (assumed to be <strong>Element A</strong>). <strong>Element A</strong> already existed before <strong>Command L2</strong> was executed, <strong>Command L1</strong> caused <strong>Element A</strong> to be re-rendered, but <strong>Command L1</strong> was delayed for some reasons, and when <strong>Command L2</strong> was being executed, <strong>Element A</strong> was re-rendered and was judged to be detached.</p>
+<h3 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h3><p>The solution to the problem is simply to make sure that <strong>Element A</strong> has been already re-rendered when <strong>Command L2</strong> is being executed:</p>
+<ul>
+<li><p>Compare whether the value of <strong>Element A</strong> attributes have changed.</p>
+</li>
+<li><p>Determine that <strong>Element A</strong> state has been stable.</p>
+</li>
+</ul>
+<p>You can observe the rendering of the DOM by <strong>breakpoints</strong>.</p>
+<h3 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h3><pre><code class="JS">function ElementExist(element, number)&#123;
+    cy.waitUntil(() =&gt; cy.get(element).then(($el) =&gt; $el.length &gt;= number))
+&#125;
+
+// All users are loaded (assuming a total of 5) as the re-rendering is complete and the element is stable
+ElementExist(&#39;.user-item&#39;, 5) 
+</code></pre>
+
         </div>
 
         

@@ -158,7 +158,79 @@
         </header>
 
         <div class="post-content">
-            
+            <p>You can do it with HTTP Request sampler, just make sure:</p>
+<ul>
+<li><p>You use POST (in some cases it can be PUT) method</p>
+</li>
+<li><p><strong>Use multipart/form-data for POST</strong> box is checked</p>
+</li>
+</ul>
+<p><img src="https://pic.jitudisk.com/public/2022/07/10/89092d76a3ede.png" alt="fileupload1.png"></p>
+<ul>
+<li><p>In Files Upload section the following values are provided:<br>  <img src="https://pic.jitudisk.com/public/2022/07/10/7165e3f89ae54.png" alt="fileupload2.png"></p>
+<ol>
+<li><p>File Path (either absolute or relative to JMeter’s “bin” folder)</p>
+</li>
+<li><p>Parameter Name (form name which contains &lt;input type=”file” …&gt; tag, you can figure that out from upload page source code)</p>
+</li>
+<li><p>File MIME Type (Pictured is xlsx file)</p>
+<table>
+<thead>
+<tr>
+<th>file</th>
+<th>MIME</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>html</td>
+<td>text/html</td>
+</tr>
+<tr>
+<td>txt</td>
+<td>text/plain</td>
+</tr>
+<tr>
+<td>rtf</td>
+<td>application/rtf</td>
+</tr>
+<tr>
+<td>gif</td>
+<td>image/gif</td>
+</tr>
+<tr>
+<td>jpeg,jpg</td>
+<td>image/jpeg</td>
+</tr>
+<tr>
+<td>au</td>
+<td>audio/basic</td>
+</tr>
+<tr>
+<td>mid,midi</td>
+<td>audio/midi,audio/x-midi</td>
+</tr>
+<tr>
+<td>mpeg</td>
+<td>video/mpeg</td>
+</tr>
+<tr>
+<td>avi</td>
+<td>video/x-msvideo</td>
+</tr>
+<tr>
+<td>gz</td>
+<td>application/x-gzip</td>
+</tr>
+<tr>
+<td>tar</td>
+<td>application/x-tar</td>
+</tr>
+</tbody></table>
+</li>
+</ol>
+</li>
+</ul>
+
         </div>
 
         

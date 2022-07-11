@@ -158,7 +158,53 @@
         </header>
 
         <div class="post-content">
-            
+            <pre><code class="JS">var MongoClient = require(&#39;mongodb&#39;).MongoClient;
+var ObjectID = require(&#39;mongodb&#39;).ObjectID;
+var url = &#39;mongodb://localhost&#39; // connect url
+
+function mongodbUpdate (dbname, collection, findStr, updateStr) &#123; 
+    return new Promise((resolve, reject) =&gt; &#123;
+        var findStr1 = findStr;
+        var updateStr1 = updateStr;
+        MongoClient.connect(url, &#123;
+            useNewUrlParser: true,
+            useUnifiedTopology: true
+        &#125;, function (err, db) &#123;
+            if (err) throw err;
+            var dbo = db.db(dbname);
+            dbo.collection(collection).updateMany(findStr1, updateStr1, function (err, res) &#123;
+                if (err) throw err;
+                console.log(res.result.nModified + &#39; updated&#39;);
+                resolve(res.result);
+                db.close();
+            &#125;)
+        &#125;)
+    &#125;)
+&#125;;
+
+function mongodbDelete (dbname, collection, object_id) &#123; 
+    return new Promise((resolve, reject) =&gt; &#123;
+        console.log(collection);
+        MongoClient.connect(url, &#123;
+            useNewUrlParser: true,
+            useUnifiedTopology: true
+        &#125;, function (err, db) &#123;
+            if (err) throw err;
+            var dbo = db.db(dbname);
+            var queryStr = &#123; object_id: new ObjectID(object_id) &#125;
+            dbo.collection(collection).deleteMany(queryStr, function (err, res) &#123;
+                if (err) throw err;
+                console.log(res.result.n + &#39; removed&#39;);
+                resolve(res.result);
+                db.close();
+            &#125;)
+        &#125;)
+    &#125;);
+&#125;;
+
+module.exports = &#123; mongodbUpdate, mongodbDelete &#125;;
+</code></pre>
+
         </div>
 
         
