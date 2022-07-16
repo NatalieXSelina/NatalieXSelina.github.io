@@ -129,6 +129,71 @@
                 <div class="container">
     
     
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    var tocbot_timer;
+    var DEPTH_MAX = 6; // 为 6 时展开所有
+    var tocbot_default_config = {
+        tocSelector: '.tocbot-list',
+        contentSelector: '.post-content',
+        headingSelector: 'h1, h2, h3, h4, h5',
+        orderedList: false,
+        scrollSmooth: true,
+        onClick: extend_click,
+    };
+
+    function extend_click() {
+        clearTimeout(tocbot_timer);
+        tocbot_timer = setTimeout(function() {
+            tocbot.refresh(obj_merge(tocbot_default_config, {
+                hasInnerContainers: true
+            }));
+        }, 420); // 这个值是由 tocbot 源码里定义的 scrollSmoothDuration 得来的
+    }
+
+    document.ready(function() {
+        tocbot.init(obj_merge(tocbot_default_config, {
+            collapseDepth: 1
+        }));
+    });
+
+    function expand_toc() {
+        var b = document.querySelector('.tocbot-toc-expand');
+        var expanded = b.getAttribute('data-expanded');
+        expanded ? b.removeAttribute('data-expanded') : b.setAttribute('data-expanded', true);
+        tocbot.refresh(obj_merge(tocbot_default_config, {
+            collapseDepth: expanded ? 1 : DEPTH_MAX
+        }));
+        b.innerText = expanded ? 'Expand all' : 'Collapse all';
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+    function obj_merge(target, source) {
+        for (var item in source) {
+            if (source.hasOwnProperty(item)) {
+                target[item] = source[item];
+            }
+        }
+        return target;
+    }
+</script>
+    
 
     
     <article class="post-wrap">
@@ -158,7 +223,30 @@
         </header>
 
         <div class="post-content">
-            
+            <h3 id="Directory-Structure-of-Cypress"><a href="#Directory-Structure-of-Cypress" class="headerlink" title="Directory Structure of Cypress"></a>Directory Structure of Cypress</h3><p><img src="https://pic.jitudisk.com/public/2022/07/16/126bb7729ba94.png" alt="Cypress.png"></p>
+<h3 id="Define-Methods-in-Your-Project"><a href="#Define-Methods-in-Your-Project" class="headerlink" title="Define Methods in Your Project"></a>Define Methods in Your Project</h3><ol>
+<li><p>Its own API</p>
+<p> Cypress comes with its own API: you can call it directly without additional processing.</p>
+<p> For details on how to use it, please refer to the documentation and the FAQ afterwards: <a target="_blank" rel="noopener" href="https://docs.cypress.io/api">https://docs.cypress.io/api</a></p>
+</li>
+<li><p>Custom global methods</p>
+<p> Custom global methods: there are many scenarios in the test cases are the same, the code of these scenarios can be encapsulated to facilitate a unified call, which can not only reduce duplicate code, but also to unify the code specification.</p>
+<p> In this case, you can use <strong>Cypress.Commands.add</strong> in <strong>/support/command.js</strong>.</p>
+</li>
+<li><p>cy.task() and cy.exec()</p>
+<p> As Cypress is executed in the browser, some operations may need to be executed using nodejs or command.</p>
+<p> In this case, you need to use <strong>cy.task()</strong> or <strong>cy.exec()</strong>.Of course you need to define your own methods, where the <strong>task</strong> method needs to be defined in <strong>/plugins</strong> directory and the <strong>exec</strong> method needs to be defined in <strong>root(cypress/)</strong> directory.</p>
+</li>
+<li><p>A single function or class</p>
+<p> When a function needs to be called in a number of other files, but does not need to be defined globally, you can use this way.</p>
+</li>
+</ol>
+<h3 id="Examples"><a href="#Examples" class="headerlink" title="Examples"></a>Examples</h3><pre><code class="JS">cy.login() // login() is defined in command.js
+cy.task(&#39;A&#39;) // task A is defined in plugins/index.js 里定义
+cy.exec(&#39;node test.js&#39;) // test.js is defined in root directory
+dash.check()  // function check() is defined in dash.utils.js
+</code></pre>
+
         </div>
 
         
