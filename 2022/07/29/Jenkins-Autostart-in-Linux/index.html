@@ -15,7 +15,7 @@
 
 
 
-<title>Cypress-Advanced | L i f e L i n e</title>
+<title>Jenkins Autostart in Linux | L i f e L i n e</title>
 
 
 
@@ -198,7 +198,7 @@
     
     <article class="post-wrap">
         <header class="post-header">
-            <h1 class="post-title">Cypress-Advanced</h1>
+            <h1 class="post-title">Jenkins Autostart in Linux</h1>
             
                 <div class="post-meta">
                     
@@ -207,14 +207,14 @@
 
                     
                         <span class="post-time">
-                        Date: <a href="#">January 27, 2022&nbsp;&nbsp;17:30:04</a>
+                        Date: <a href="#">July 29, 2022&nbsp;&nbsp;15:03:03</a>
                         </span>
                     
                     
                         <span class="post-category">
                     Category:
                             
-                                <a href="/categories/Tech/">Tech</a>
+                                <a href="/categories/Solutions/">Solutions</a>
                             
                         </span>
                     
@@ -223,29 +223,83 @@
         </header>
 
         <div class="post-content">
-            <h3 id="Directory-Structure-of-Cypress"><a href="#Directory-Structure-of-Cypress" class="headerlink" title="Directory Structure of Cypress"></a>Directory Structure of Cypress</h3><p><img src="https://pic.jitudisk.com/public/2022/07/16/126bb7729ba94.png" alt="Cypress.png"></p>
-<h3 id="Define-Methods-in-Your-Project"><a href="#Define-Methods-in-Your-Project" class="headerlink" title="Define Methods in Your Project"></a>Define Methods in Your Project</h3><ol>
-<li><p>Its own API</p>
-<p> Cypress comes with its own API: you can call it directly without additional processing.</p>
-<p> For details on how to use it, please refer to the documentation: <a target="_blank" rel="noopener" href="https://docs.cypress.io/api">https://docs.cypress.io/api</a></p>
-</li>
-<li><p>Custom global methods</p>
-<p> Custom global methods: there are many scenarios in the test cases are the same, the code of these scenarios can be encapsulated to facilitate a unified call, which can not only reduce duplicate code, but also to unify the code specification.</p>
-<p> In this case, you can use <strong>Cypress.Commands.add</strong> in <strong>/support/command.js</strong>.</p>
-</li>
-<li><p>cy.task() and cy.exec()</p>
-<p> As Cypress is executed in the browser, some operations may need to be executed using nodejs or command.</p>
-<p> In this case, you need to use <strong>cy.task()</strong> or <strong>cy.exec()</strong>.Of course you need to define your own methods, where the <strong>task</strong> method needs to be defined in <strong>/plugins</strong> directory and the <strong>exec</strong> method needs to be defined in <strong>root(/)</strong> directory.</p>
-</li>
-<li><p>A single function or class</p>
-<p> When a function needs to be called in a number of other files, but does not need to be defined globally, you can use this way.</p>
-</li>
-</ol>
-<h3 id="Examples-for-call-methods"><a href="#Examples-for-call-methods" class="headerlink" title="Examples for call methods"></a>Examples for call methods</h3><pre><code class="JS">cy.login() // login() is defined in command.js
-cy.task(&#39;A&#39;) // task A is defined in plugins/index.js
-cy.exec(&#39;node test.js&#39;) // test.js is defined in root directory
-dash.check()  // function check() is defined in dash.utils.js
+            <h3 id="Step1-create-jenkins-sh"><a href="#Step1-create-jenkins-sh" class="headerlink" title="Step1: create jenkins.sh"></a>Step1: create jenkins.sh</h3><h4 id="jenkins-sh"><a href="#jenkins-sh" class="headerlink" title="jenkins.sh"></a>jenkins.sh</h4><pre><code class="shell">#!/bin/bash
+JAVA_HOME=/usr/java/jdk-17.0.3.1   # put your own JAVA_HOME
+
+pid=`ps -ef | grep jenkins.war | grep -v &#39;grep&#39;| awk &#39;&#123;print $2&#125;&#39;| wc -l`
+  if [ &quot;$1&quot; = &quot;start&quot; ];then
+  if [ $pid -gt 0 ];then
+  echo &#39;jenkins is running...&#39;
+else
+  # put your own path of java and jenkins.war
+  ### What is &gt;/dev/null 2&gt;&amp;1 ?
+  ### https://www.linuxshelltips.com/redirect-output-in-linux/
+  nohup $JAVA_HOME/bin/java -jar /usr/local/src/jenkins/jenkins.war --httpPort=2022 &gt;/dev/null 2&gt;&amp;1 &amp;
+  fi
+  elif [ &quot;$1&quot; = &quot;stop&quot; ];then
+  exec ps -ef | grep jenkins | grep -v grep | awk &#39;&#123;print $2&#125;&#39;| xargs kill -9
+  echo &#39;jenkins is stop..&#39;
+else
+  echo &quot;Please input like this:&quot;./jenkins.sh start&quot; or &quot;./jenkins.sh stop&quot;&quot;
+  fi
 </code></pre>
+<h4 id="Code-in-vim-editor"><a href="#Code-in-vim-editor" class="headerlink" title="Code in vim editor"></a>Code in vim editor</h4><pre><code class="bash">vi jenkins.sh
+</code></pre>
+<h4 id="Code-in-IDE-and-Upload-it"><a href="#Code-in-IDE-and-Upload-it" class="headerlink" title="Code in IDE and Upload it"></a>Code in IDE and Upload it</h4><p><strong>Tips:</strong></p>
+<ul>
+<li><p>If you use Windows, you should be aware of the /\ issue between Windows and Linux.</p>
+</li>
+<li><p>This can be handled with this command line:</p>
+<pre><code class="bash">sed -i &quot;s/\r//&quot; ***.sh
+</code></pre>
+</li>
+</ul>
+<h4 id="Learn-about-shell-script"><a href="#Learn-about-shell-script" class="headerlink" title="Learn about shell script"></a>Learn about shell script</h4><h5 id="Get-Started"><a href="#Get-Started" class="headerlink" title="Get Started"></a>Get Started</h5><p>Want to learn about shell, you can see my article: </p>
+<h5 id="Advanced"><a href="#Advanced" class="headerlink" title="Advanced"></a>Advanced</h5><p>You can go futher by this article: <a target="_blank" rel="noopener" href="https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html">https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html</a></p>
+<h3 id="Step2-Set-Permission-for-jenkins-sh"><a href="#Step2-Set-Permission-for-jenkins-sh" class="headerlink" title="Step2: Set Permission for jenkins.sh"></a>Step2: Set Permission for jenkins.sh</h3><pre><code class="bash">chmod +x jenkins.sh   # execute
+# chmod 777 jenkins.sh   # all
+</code></pre>
+<h3 id="Step-Check-Check-the-start-stop-via-jenkins-sh"><a href="#Step-Check-Check-the-start-stop-via-jenkins-sh" class="headerlink" title="Step-Check: Check the start/stop via jenkins.sh"></a>Step-Check: Check the start/stop via jenkins.sh</h3><h4 id="Start"><a href="#Start" class="headerlink" title="Start"></a>Start</h4><pre><code class="bash">/jenkins.sh start
+</code></pre>
+<h4 id="Stop"><a href="#Stop" class="headerlink" title="Stop"></a>Stop</h4><pre><code class="bash">/jenkins.sh stop
+</code></pre>
+<h3 id="Step3-create-jenkins-service"><a href="#Step3-create-jenkins-service" class="headerlink" title="Step3: create jenkins.service"></a>Step3: create jenkins.service</h3><pre><code class="bash">cd /lib/systemd/system
+vi jenkins.service
+</code></pre>
+<pre><code>[Unit]
+Description=Jenkins
+After=network.target
+ 
+[Service]
+Type=forking
+ExecStart=/jenkins.sh start
+ExecReload=
+ExecStop=/jenkins.sh stop
+PrivateTmp=true
+ 
+[Install]
+WantedBy=multi-user.target
+</code></pre>
+<h4 id="Learn-about-service-in-Linux"><a href="#Learn-about-service-in-Linux" class="headerlink" title="Learn about service in Linux"></a>Learn about service in Linux</h4><p>You can see this article: <a target="_blank" rel="noopener" href="https://linuxconfig.org/how-to-create-systemd-service-unit-in-linux">https://linuxconfig.org/how-to-create-systemd-service-unit-in-linux</a></p>
+<h3 id="Step-Check-Check-jenkins-service"><a href="#Step-Check-Check-jenkins-service" class="headerlink" title="Step-Check: Check jenkins.service"></a>Step-Check: Check jenkins.service</h3><h4 id="daemon-reload"><a href="#daemon-reload" class="headerlink" title="daemon-reload"></a>daemon-reload</h4><pre><code class="bash">systemctl daemon-reload
+</code></pre>
+<h4 id="start-service"><a href="#start-service" class="headerlink" title="start service"></a>start service</h4><pre><code class="bash">systemctl start jenkins.service
+</code></pre>
+<h4 id="service-status"><a href="#service-status" class="headerlink" title="service status"></a>service status</h4><pre><code class="bash">systemctl status jenkins.service
+</code></pre>
+<p><img src="https://pic.jitudisk.com/public/2022/07/29/0fff9c80b2f48.png" alt="status.png"></p>
+<h3 id="Step4-Set-jenkins-service-to-boot-up"><a href="#Step4-Set-jenkins-service-to-boot-up" class="headerlink" title="Step4: Set jenkins.service to boot up"></a>Step4: Set jenkins.service to boot up</h3><pre><code class="bash">systemctl enable jenkins.service
+</code></pre>
+<h3 id="Step-Check-Check-all-service"><a href="#Step-Check-Check-all-service" class="headerlink" title="Step-Check: Check all service"></a>Step-Check: Check all service</h3><p>Check if jenkins.service exists with this command line:</p>
+<pre><code class="bash">systemctl list-units --type=service
+</code></pre>
+<h3 id="Step5-Stop-jenkins-service"><a href="#Step5-Stop-jenkins-service" class="headerlink" title="Step5: Stop jenkins.service"></a>Step5: Stop jenkins.service</h3><pre><code class="bash">systemctl stop jenkins.service
+</code></pre>
+<h3 id="The-Ultimate-Test"><a href="#The-Ultimate-Test" class="headerlink" title="The Ultimate Test"></a>The Ultimate Test</h3><p>Restart the server to see if jenkins can autostart.</p>
+<pre><code class="bash">ps -ef | grep -i jenkins
+</code></pre>
+<p>If everything goes right, you will see that jenkins is started.</p>
+<p><img src="https://pic.jitudisk.com/public/2022/07/29/b4d60249c0e95.png" alt="autostart.png"></p>
 
         </div>
 
@@ -260,7 +314,7 @@ dash.check()  // function check() is defined in dash.utils.js
                 
                     <p class="copyright-item">
                         <span>Permalink:</span>
-                        <span><a href="https://nataliexselina.github.io/2022/01/27/Cypress-Advanced/">https://nataliexselina.github.io/2022/01/27/Cypress-Advanced/</a></span>
+                        <span><a href="https://nataliexselina.github.io/2022/07/29/Jenkins-Autostart-in-Linux/">https://nataliexselina.github.io/2022/07/29/Jenkins-Autostart-in-Linux/</a></span>
                     </p>
                 
                 
@@ -279,11 +333,13 @@ dash.check()  // function check() is defined in dash.utils.js
                 <span class="tag">
                     
                     
-                        <a href="/tags/Tools/"># Tools</a>
+                        <a href="/tags/Linux/"># Linux</a>
                     
-                        <a href="/tags/Cypress/"># Cypress</a>
+                        <a href="/tags/Jenkins/"># Jenkins</a>
                     
-                        <a href="/tags/Node-js/"># Node.js</a>
+                        <a href="/tags/CI-CD/"># CI/CD</a>
+                    
+                        <a href="/tags/shell/"># shell</a>
                     
                         
                 </span>
@@ -296,10 +352,8 @@ dash.check()  // function check() is defined in dash.utils.js
         </section>
         <section class="post-nav">
             
-                <a class="prev" rel="prev" href="/2022/03/07/How-to-Review-A-Test-Plan/">How to Review A Test Plan</a>
             
-            
-            <a class="next" rel="next" href="/2022/01/03/Cypress-momentjs/">Cypress-moment.js</a>
+            <a class="next" rel="next" href="/2022/07/29/Pipeline-Groovy/">Pipeline-Groovy</a>
             
         </section>
 
