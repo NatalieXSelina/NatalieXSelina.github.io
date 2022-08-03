@@ -223,30 +223,42 @@
         </header>
 
         <div class="post-content">
-            <h1 id="Linux-File-Hierarchy-Structure"><a href="#Linux-File-Hierarchy-Structure" class="headerlink" title="Linux File Hierarchy Structure"></a>Linux File Hierarchy Structure</h1><p>Linux file system has a hierarchal file structure as it contains a root directory and its subdirectories. All other directories can be accessed from the root directory. </p>
+            <h1 id="Linux-File-Hierarchy-Structure"><a href="#Linux-File-Hierarchy-Structure" class="headerlink" title="Linux File Hierarchy Structure"></a>Linux File Hierarchy Structure</h1><p>Linux file system has a hierarchal file structure as it contains <strong>a root directory</strong> and <strong>its subdirectories</strong>.<br>All other directories can be accessed from the root directory. </p>
 <p><img src="https://pic.jitudisk.com/public/2022/06/29/9971034e56301.jpg" alt="FileStructure.jpg"></p>
+<p>&nbsp;<br>&nbsp;</p>
 <p>Use <strong>ls</strong> to see the directory structure after connection established.</p>
 <p><img src="https://pic.jitudisk.com/public/2022/06/29/c7ae09b8fafd0.png" alt="mine.png"></p>
-<p>Introducation: <a target="_blank" rel="noopener" href="https://www.w3schools.blog/linux-file-hierarchy-structure">https://www.w3schools.blog/linux-file-hierarchy-structure</a></p>
+<p>&nbsp;</p>
+<p>Here are documents about Linux: <a target="_blank" rel="noopener" href="https://www.w3schools.blog/linux-file-hierarchy-structure">https://www.w3schools.blog/linux-file-hierarchy-structure</a><br>&nbsp;<br>&nbsp;</p>
 <h1 id="Commonly-Used-Directories"><a href="#Commonly-Used-Directories" class="headerlink" title="Commonly Used Directories"></a>Commonly Used Directories</h1><h2 id="root"><a href="#root" class="headerlink" title="/root"></a>/root</h2><p>Everything on your Linux system is located under the / directory, known as the root directory. You can think of the / directory as being similar to the C:\ directory on Windows – but this isn’t strictly true, as Linux doesn’t have drive letters. While another partition would be located at D:\ on Windows, this other partition would appear in another folder under / on Linux.</p>
 <h2 id="opt-–-Optional-Packages"><a href="#opt-–-Optional-Packages" class="headerlink" title="/opt – Optional Packages"></a>/opt – Optional Packages</h2><p>The /opt directory contains subdirectories for optional software packages. It’s commonly used by proprietary software that doesn’t obey the standard file system hierarchy – for example, a proprietary program might dump its files in /opt/application when you install it.</p>
+<blockquote>
 <p><strong>JMeter is installed here.</strong></p>
+</blockquote>
 <h2 id="var-–-Variable-Data-Files"><a href="#var-–-Variable-Data-Files" class="headerlink" title="/var – Variable Data Files"></a>/var – Variable Data Files</h2><p>The /var directory is the writable counterpart to the /usr directory, which must be read-only in normal operation. Log files and everything else that would normally be written to /usr during normal operation are written to the /var directory. For example, you’ll find log files in /var/log.</p>
 <h2 id="usr-–-User-Binaries-amp-Read-Only-Data"><a href="#usr-–-User-Binaries-amp-Read-Only-Data" class="headerlink" title="/usr – User Binaries &amp; Read-Only Data"></a>/usr – User Binaries &amp; Read-Only Data</h2><p>The /usr directory contains applications and files used by users, as opposed to applications and files used by the system. For example, non-essential applications are located inside the /usr/bin directory instead of the /bin directory and non-essential system administration binaries are located in the /usr/sbin directory instead of the /sbin directory. Libraries for each are located inside the /usr/lib directory. The /usr directory also contains other directories – for example, architecture-independent files like graphics are located in /usr/share.</p>
-<p>The /usr/local directory is where locally compiled applications install to by default – this prevents them from mucking up the rest of the system.</p>
-<h2 id="etc-–-Configuration-Files"><a href="#etc-–-Configuration-Files" class="headerlink" title="/etc – Configuration Files"></a>/etc – Configuration Files</h2><p>The /etc directory contains configuration files, which can generally be edited by hand in a text editor. Note that the /etc/ directory contains system-wide configuration files – user-specific configuration files are located in each user’s home directory.</p>
-<p><strong>Service are put here.</strong></p>
-<h3 id="etc-profile"><a href="#etc-profile" class="headerlink" title="/etc/profile"></a>/etc/profile</h3><p>This file gets executed whenever a bash login shell is entered (e.g. when logging in from the console or over ssh), as well as by the DisplayManager when the desktop session loads.**<br><strong>How to Configure it</strong></p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">vim /etc/profile</span><br></pre></td></tr></table></figure>
-
-<h1 id="Remote-Connection-Tool"><a href="#Remote-Connection-Tool" class="headerlink" title="Remote Connection Tool"></a>Remote Connection Tool</h1><h2 id="Xshell"><a href="#Xshell" class="headerlink" title="Xshell"></a>Xshell</h2><blockquote>
-<p>Xshell is an SSH Client with superior session management, advanced customizations, and an intuitive UI. Xshell is Free for Home and School users.</p>
+<blockquote>
+<p><strong>The /usr/local directory is where locally compiled applications install to by default – this prevents them from mucking up the rest of the system.</strong></p>
 </blockquote>
-<p><img src="https://pic.jitudisk.com/public/2022/06/30/d9c669776fc7f.png" alt="Xshell.png"></p>
+<h2 id="etc-–-Configuration-Files"><a href="#etc-–-Configuration-Files" class="headerlink" title="/etc – Configuration Files"></a>/etc – Configuration Files</h2><p>The /etc directory contains configuration files, which can generally be edited by hand in a text editor. Note that the /etc/ directory contains system-wide configuration files – user-specific configuration files are located in each user’s home directory.</p>
+<blockquote>
+<p><strong>Service are put here.</strong></p>
+</blockquote>
+<h3 id="etc-profile"><a href="#etc-profile" class="headerlink" title="/etc/profile"></a>/etc/profile</h3><p>This file gets executed whenever a bash login shell is entered (e.g. when logging in from the console or over ssh), as well as by the DisplayManager when the desktop session loads.</p>
+<p>&nbsp;</p>
+<blockquote>
+<p><strong>How to configure /etc/profile</strong></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">vim /etc/profile</span><br></pre></td></tr></table></figure>
+</blockquote>
+<p>&nbsp;<br>&nbsp;</p>
+<h1 id="Remote-Connection-Tool"><a href="#Remote-Connection-Tool" class="headerlink" title="Remote Connection Tool"></a>Remote Connection Tool</h1><h2 id="Xshell"><a href="#Xshell" class="headerlink" title="Xshell"></a>Xshell</h2><p>Xshell is an SSH Client with superior session management, advanced customizations, and an intuitive UI. Xshell is Free for Home and School users.<br>&nbsp;</p>
+<p><img src="https://pic.jitudisk.com/public/2022/08/03/ce16975b2f314.png" alt="Xshell.png"></p>
+<p>&nbsp;</p>
 <h2 id="Xftp"><a href="#Xftp" class="headerlink" title="Xftp"></a>Xftp</h2><p>Using xftp, the installation of applications and plugins can be done.</p>
-<p><img src="https://pic.jitudisk.com/public/2022/06/30/7c4735beb3aa2.png" alt="xftp.png"></p>
-<h1 id="Linux-Commands"><a href="#Linux-Commands" class="headerlink" title="Linux Commands"></a>Linux Commands</h1><p>Here is commands list in linux, so you can always look them up if you forget when using them.</p>
+<p><img src="https://pic.jitudisk.com/public/2022/08/03/5a2bdd32b04fc.png" alt="xftp.png"><br>&nbsp;<br>&nbsp;</p>
+<h1 id="Linux-Commands"><a href="#Linux-Commands" class="headerlink" title="Linux Commands"></a>Linux Commands</h1><p>Here is <strong>commands list in linux</strong>, so you can always <strong>look them up</strong> if you forget when using them.</p>
 <p><a target="_blank" rel="noopener" href="https://kinsta.com/blog/linux-commands/">https://kinsta.com/blog/linux-commands/</a></p>
+<p>&nbsp;</p>
 <table>
 <thead>
 <tr>
@@ -415,6 +427,7 @@
 <td>Retrieves files from the internet</td>
 </tr>
 </tbody></table>
+<p>&nbsp;<br>&nbsp;<br>&nbsp;<br>&nbsp;<br>&nbsp;<br>&nbsp;<br>&nbsp;<br>&nbsp;<br>&nbsp;</p>
 
         </div>
 

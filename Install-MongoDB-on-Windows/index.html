@@ -224,8 +224,10 @@
 
         <div class="post-content">
             <h1 id="Step"><a href="#Step" class="headerlink" title="Step"></a>Step</h1><h2 id="Download-the-MongoDB-MSI-Installer-Package"><a href="#Download-the-MongoDB-MSI-Installer-Package" class="headerlink" title="Download the MongoDB MSI Installer Package"></a>Download the MongoDB MSI Installer Package</h2><p><a target="_blank" rel="noopener" href="https://www.mongodb.com/docs/manual/installation/">https://www.mongodb.com/docs/manual/installation/</a></p>
-<p>Choose the package you want.</p>
+<p>&nbsp;</p>
+<p><em>Choose the package you want.</em></p>
 <p><img src="https://pic.jitudisk.com/public/2022/06/27/74ad6d90f26bf.png" alt="install.png"></p>
+<p>&nbsp;<br>&nbsp;</p>
 <h2 id="Set-up-Folders"><a href="#Set-up-Folders" class="headerlink" title="Set up Folders"></a>Set up Folders</h2><h3 id="Planning-cluster-nodes"><a href="#Planning-cluster-nodes" class="headerlink" title="Planning cluster nodes"></a>Planning cluster nodes</h3><ul>
 <li><p>A config replica set ( 3 replica nodes, without arbitration node )</p>
 </li>
@@ -234,13 +236,24 @@
 <li><p>A mongos node</p>
 </li>
 </ul>
+<p>&nbsp;</p>
 <h4 id="datas-folder"><a href="#datas-folder" class="headerlink" title="datas folder"></a>datas folder</h4><p><img src="https://pic.jitudisk.com/public/2022/06/27/d6042caf9a1a4.png" alt="datas1.png"></p>
 <p><img src="https://pic.jitudisk.com/public/2022/06/27/0614718fd0533.png" alt="datas2.png"></p>
+<p>&nbsp;</p>
 <h4 id="config-folder-config1-config2-config3"><a href="#config-folder-config1-config2-config3" class="headerlink" title="config folder ( config1, config2, config3 )"></a>config folder ( config1, config2, config3 )</h4><p><img src="https://pic.jitudisk.com/public/2022/06/27/1e72786a66bba.png" alt="config1.png"></p>
 <p><img src="https://pic.jitudisk.com/public/2022/06/27/adc20c58fcd37.png" alt="config2.png"></p>
-<h4 id="shard-folder-the-same-as-config"><a href="#shard-folder-the-same-as-config" class="headerlink" title="shard folder - the same as config"></a>shard folder - the same as config</h4><h4 id="mongos-folder"><a href="#mongos-folder" class="headerlink" title="mongos folder"></a>mongos folder</h4><p><img src="https://pic.jitudisk.com/public/2022/06/27/d76143bbc836c.png" alt="mongos1.png"></p>
+<p>&nbsp;</p>
+<h4 id="shard-folder-the-same-as-config"><a href="#shard-folder-the-same-as-config" class="headerlink" title="shard folder - the same as config"></a>shard folder - the same as config</h4><p>&nbsp;</p>
+<h4 id="mongos-folder"><a href="#mongos-folder" class="headerlink" title="mongos folder"></a>mongos folder</h4><p><img src="https://pic.jitudisk.com/public/2022/06/27/d76143bbc836c.png" alt="mongos1.png"></p>
 <p><img src="https://pic.jitudisk.com/public/2022/06/27/593ab50591e0b.png" alt="mongos2.png"></p>
-<p><em>Pay attention to the difference between <strong>mongos</strong> and <strong>mongod</strong></em></p>
+<p>&nbsp;<br>&nbsp;</p>
+<blockquote>
+<p>Tips:</p>
+<ul>
+<li>Pay attention to the difference between <strong>mongos</strong> and <strong>mongod</strong></li>
+</ul>
+</blockquote>
+<p>&nbsp;<br>&nbsp;</p>
 <h2 id="Configure-nodes"><a href="#Configure-nodes" class="headerlink" title="Configure nodes"></a>Configure nodes</h2><h3 id="Port-plan"><a href="#Port-plan" class="headerlink" title="Port plan"></a>Port plan</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">shard-a:               shard-b:               config-a:               mongos:6000</span><br><span class="line">    shard-a1:3001          shard-b1:4001           config1:5001</span><br><span class="line">    shard-a2:3002          shard-b2:4002           config2:5002</span><br><span class="line">    shard-a3:3003          shard-b3:4003           config3:5003</span><br></pre></td></tr></table></figure>
 
 <h3 id="Configure-shard-nodes"><a href="#Configure-shard-nodes" class="headerlink" title="Configure shard nodes"></a>Configure shard nodes</h3><p>Edit <strong>mongod.cfg</strong> in each shard directory and change <strong>dbpath, logpath, port and replSet</strong> to the corresponding values</p>
@@ -252,13 +265,13 @@
 <h3 id="Configure-mongos-node"><a href="#Configure-mongos-node" class="headerlink" title="Configure mongos node"></a>Configure mongos node</h3><p>Edit <strong>mongos.cfg</strong> in mongos directory</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">configdb=config-a/hostname:5001,hostname:5002,hostname:5003</span><br><span class="line">logpath=E:\mongodb\datas\mongos\log\mongos.log</span><br><span class="line">logappend=true</span><br><span class="line">port=6000</span><br></pre></td></tr></table></figure>
 
-<h2 id="Host-all-nodes-on-Windows-Service"><a href="#Host-all-nodes-on-Windows-Service" class="headerlink" title="Host all nodes on Windows Service"></a>Host all nodes on Windows Service</h2><h3 id="Open-the-Command-Prompt-with-Administrative-Privileges"><a href="#Open-the-Command-Prompt-with-Administrative-Privileges" class="headerlink" title="Open the Command Prompt with Administrative Privileges"></a>Open the Command Prompt with Administrative Privileges</h3><p>All shard and config nodes ( modify the service name and .cfg file path )</p>
+<p>&nbsp;</p>
+<h2 id="Host-all-nodes-on-Windows-Service"><a href="#Host-all-nodes-on-Windows-Service" class="headerlink" title="Host all nodes on Windows Service"></a>Host all nodes on Windows Service</h2><h3 id="Open-the-Command-Prompt-with-Administrative-Privileges"><a href="#Open-the-Command-Prompt-with-Administrative-Privileges" class="headerlink" title="Open the Command Prompt with Administrative Privileges"></a>Open the Command Prompt with Administrative Privileges</h3><p><strong>All shard and config nodes</strong> ( modify the service name and .cfg file path )</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sc create MongoShardA1 binPath= &quot;E:\mongodb\bin\mongod.exe --config=E:\mongodb\datas\shard-a1\mongod.cfg --service&quot;</span><br><span class="line">net start MongoShardA1</span><br></pre></td></tr></table></figure>
-
-<p>mongos node</p>
+<p>&nbsp;<br><strong>mongos node</strong></p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sc create MongoRouter binPath= &quot;E:\mongodb\bin\mongos.exe --config=E:\mongodb\datas\mongos\mongos.cfg --service&quot;</span><br><span class="line">net start MongoRouter</span><br></pre></td></tr></table></figure>
-
-<p>You can use <strong>netstat -nao</strong> command to check</p>
+<p>&nbsp;<br>You can use <strong>netstat -nao</strong> command to check</p>
+<p>&nbsp;<br>&nbsp;</p>
 <h2 id="Configure-shard-and-config-replica-set"><a href="#Configure-shard-and-config-replica-set" class="headerlink" title="Configure shard and config replica set"></a>Configure shard and config replica set</h2><ul>
 <li>Switch to bin path location of the MongoDB files installed</li>
 <li>Connect to any node in the shard-a</li>
@@ -268,7 +281,8 @@
 </ul>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">mongo --port 3001</span><br><span class="line">rs.initiate()</span><br><span class="line">rs.add(&quot;hostname:3002&quot;)</span><br><span class="line">rs.add(&quot;hostname:3003&quot;,&#123;arbiterOnly:true&#125;)  # config: rs.add(&quot;hostname:5003&quot;)</span><br><span class="line">rs.status()</span><br></pre></td></tr></table></figure>
 
-<p>shard-b and config-a are same to configure the replica set, the difference is that the config replica set does not need to specify an arbitrator node.</p>
+<p>&nbsp;<br><strong>shard-b and config-a</strong> are same to configure the replica set, <strong>the difference is that the config replica set does not need to specify an arbitrator node</strong>.</p>
+<p>&nbsp;<br>&nbsp;</p>
 <h2 id="Add-shard"><a href="#Add-shard" class="headerlink" title="Add shard"></a>Add shard</h2><ul>
 <li>Switch to bin path location of the MongoDB files installed</li>
 <li>Connect to mongos node</li>
@@ -277,22 +291,22 @@
 </ul>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">mongo --port 6000                                </span><br><span class="line">sh.addShard(&quot;shard-a/hostname:3001,hostname:3002,hostname:3003&quot;)</span><br><span class="line">sh.addShard(&quot;shard-b/hostname:4001,hostname:4002,hostname:4003&quot;)</span><br><span class="line">db.getSiblingDB(&quot;config&quot;).shards.find()</span><br></pre></td></tr></table></figure>
 
+<p>&nbsp;</p>
 <h2 id="Enable-shard-on-database"><a href="#Enable-shard-on-database" class="headerlink" title="Enable shard on database"></a>Enable shard on database</h2><ul>
 <li>Use <strong>sh.enableSharding(“dbName”)</strong> to enable shard on database</li>
 <li>Use <strong>db.getSiblingDB(“config”).databases.find()</strong> to check</li>
 </ul>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sh.enableSharding(&quot;testdb&quot;)            </span><br><span class="line">db.getSiblingDB(&quot;config&quot;).databases.find() </span><br></pre></td></tr></table></figure>
-
-
+<p>&nbsp;</p>
 <h2 id="Slice-Collection"><a href="#Slice-Collection" class="headerlink" title="Slice Collection"></a>Slice Collection</h2><ul>
 <li>Define a slice key ( you can use only one field as the slice key, or use a combination of slice key: <strong>sh.shardCollection(“dbName.collectionName”,{key1:1,key2:1})</strong></li>
 <li>Use <strong>db. getSiblingDB(“config”).collections.find()</strong> to check</li>
 </ul>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sh.shardCollection(&quot;testdb.testform&quot;,&#123;_id:1&#125;)  # use _id to slice</span><br><span class="line">db.getSiblingDB(&quot;config&quot;).collections.find()</span><br></pre></td></tr></table></figure>
+<p>&nbsp;</p>
+<h2 id="Verify-Insert-a-large-amount-of-data"><a href="#Verify-Insert-a-large-amount-of-data" class="headerlink" title="Verify: Insert a large amount of data"></a>Verify: Insert a large amount of data</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">use testdb                              </span><br><span class="line">for(i=0;i&lt;1000000;i++)&#123;db.testform.insert(&#123;Uid:i,Desc:&quot;This is a test data&quot;,Data:new Date()&#125;)&#125;</span><br><span class="line">mongo --port 6000   </span><br><span class="line">sh.status()                               </span><br></pre></td></tr></table></figure>
 
-<h2 id="Insert-a-large-amount-of-data-to-verify"><a href="#Insert-a-large-amount-of-data-to-verify" class="headerlink" title="Insert a large amount of data to verify"></a>Insert a large amount of data to verify</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">use testdb                              </span><br><span class="line">for(i=0;i&lt;1000000;i++)&#123;db.testform.insert(&#123;Uid:i,Desc:&quot;This is a test data&quot;,Data:new Date()&#125;)&#125;</span><br><span class="line">mongo --port 6000   </span><br><span class="line">sh.status()                               </span><br></pre></td></tr></table></figure>
-
-<p>You can see that the data is allocated to two slices for storage.</p>
+<p>&nbsp;<br>You can see that the data is allocated to two slices for storage.<br>&nbsp;<br>&nbsp;<br>&nbsp;<br>&nbsp;<br>&nbsp;<br>&nbsp;<br>&nbsp;<br>&nbsp;<br>&nbsp;</p>
 
         </div>
 
