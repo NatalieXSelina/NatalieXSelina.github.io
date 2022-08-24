@@ -15,7 +15,7 @@
 
 
 
-<title>Cypress-Advanced | L i f e L i n e</title>
+<title>Cypress-geolocation | L i f e L i n e</title>
 
 
 
@@ -198,7 +198,7 @@
     
     <article class="post-wrap">
         <header class="post-header">
-            <h1 class="post-title">Cypress-Advanced</h1>
+            <h1 class="post-title">Cypress-geolocation</h1>
             
                 <div class="post-meta">
                     
@@ -207,14 +207,14 @@
 
                     
                         <span class="post-time">
-                        Date: <a href="#">January 27, 2022&nbsp;&nbsp;17:30:04</a>
+                        Date: <a href="#">August 24, 2022&nbsp;&nbsp;14:37:54</a>
                         </span>
                     
                     
                         <span class="post-category">
                     Category:
                             
-                                <a href="/categories/Tech/">Tech</a>
+                                <a href="/categories/Solutions/">Solutions</a>
                             
                         </span>
                     
@@ -223,28 +223,31 @@
         </header>
 
         <div class="post-content">
-            <h2 id="Directory-Structure-of-Cypress"><a href="#Directory-Structure-of-Cypress" class="headerlink" title="Directory Structure of Cypress"></a>Directory Structure of Cypress</h2><p><img src="https://pic.jitudisk.com/public/2022/07/16/126bb7729ba94.png" alt="Cypress.png"></p>
+            <h1 id="Background"><a href="#Background" class="headerlink" title="Background"></a>Background</h1><p><strong>cypress-browser-permissions</strong> plugin has not been updated for 9 months, and the implementation is no longer recognized by Cypress (it is not recognized by version 9.5.0 either, so it does not seem to be a problem caused by migration, so consider re-implementing it).</p>
+<p>&nbsp;<br><img src="https://pic.jitudisk.com/public/2022/08/24/0ffce4cbb3b86.png" alt="geo_fail_1.png"><br>&nbsp;<br>It shows that Cypress <strong>runs with a count of 0, which means no testcases are identified by Cypress</strong>.<br>&nbsp;<br><img src="https://pic.jitudisk.com/public/2022/08/24/5b64c8e67cbf3.png" alt="geo_fail_2.png"><br>&nbsp;</p>
+<p>Also my application is calling <strong>googleAPIs for location</strong>, and the network in China causes location to fail (even if browser permissions are allowed).<br>&nbsp;<br>So I started looking for alternatives.</p>
 <p>&nbsp;</p>
-<h2 id="Define-Methods-in-Your-Project"><a href="#Define-Methods-in-Your-Project" class="headerlink" title="Define Methods in Your Project"></a>Define Methods in Your Project</h2><ol>
-<li><p><strong>Its own API</strong></p>
-<p> <strong>Cypress comes with its own API:</strong> you can call it directly without additional processing.</p>
-<p> For details on how to use it, please refer to the documentation: <a target="_blank" rel="noopener" href="https://docs.cypress.io/api">https://docs.cypress.io/api</a><br>&nbsp;</p>
-</li>
-<li><p><strong>Custom global methods</strong></p>
-<p> <strong>Custom global methods:</strong> there are many scenarios in the test cases are the same, the code of these scenarios can be encapsulated to facilitate a unified call, which can not only reduce duplicate code, but also to unify the code specification.</p>
-<p> In this case, you can use <strong>Cypress.Commands.add</strong> in <strong>/support/command.js</strong>.<br>&nbsp;</p>
-</li>
-<li><p><strong>cy.task() and cy.exec()</strong></p>
-<p> As Cypress is executed in the browser, some operations may need to be executed <strong>using nodejs or command</strong>.</p>
-<p> In this case, you need to use <strong>cy.task()</strong> or <strong>cy.exec()</strong>.<br> Of course you need to define your own methods, where the <strong>task</strong> method needs to be defined in <strong>/plugins</strong> directory and the <strong>exec</strong> method needs to be defined in <strong>root(/)</strong> directory.<br>&nbsp;</p>
-</li>
-<li><p><strong>A single function or class</strong></p>
-<p> When <strong>a function needs to be called just in a number of other files</strong>, but does not need to be defined globally, you can use this way.<br>&nbsp;</p>
-</li>
-</ol>
-<h2 id="Examples-for-call-methods"><a href="#Examples-for-call-methods" class="headerlink" title="Examples for call methods"></a>Examples for call methods</h2><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">cy.<span class="title function_">login</span>() <span class="comment">// login() is defined in command.js</span></span><br><span class="line">cy.<span class="title function_">task</span>(<span class="string">&#x27;A&#x27;</span>) <span class="comment">// task A is defined in plugins/index.js</span></span><br><span class="line">cy.<span class="title function_">exec</span>(<span class="string">&#x27;node test.js&#x27;</span>) <span class="comment">// test.js is defined in root directory</span></span><br><span class="line">dash.<span class="title function_">check</span>()  <span class="comment">// function check() is defined in dash.utils.js</span></span><br></pre></td></tr></table></figure>
+<h2 id="Something-About-cypress-browser-permissions-Plugin"><a href="#Something-About-cypress-browser-permissions-Plugin" class="headerlink" title="Something About cypress-browser-permissions Plugin"></a>Something About cypress-browser-permissions Plugin</h2><p>For browser permissions, Cypress provides <strong>before:browser:launch</strong> configuration:<br><a target="_blank" rel="noopener" href="https://docs.cypress.io/api/plugins/browser-launch-api#Modify-browser-launch-arguments-preferences-and-extensions">https://docs.cypress.io/api/plugins/browser-launch-api#Modify-browser-launch-arguments-preferences-and-extensions</a></p>
+<p>&nbsp;</p>
+<blockquote>
+<p>The original author also used this to control browser permissions:<br><img src="https://pic.jitudisk.com/public/2022/08/24/a71ab9472445d.png" alt="permissions.png"><br>&nbsp;</p>
+</blockquote>
+<p>&nbsp;<br>&nbsp;</p>
+<h1 id="Successful-Alternative"><a href="#Successful-Alternative" class="headerlink" title="Successful Alternative"></a>Successful Alternative</h1><h2 id="Simulation-of-location-failure"><a href="#Simulation-of-location-failure" class="headerlink" title="Simulation of location failure"></a>Simulation of location failure</h2><p>&nbsp;<br>Use the method below to <strong>throw an error, which can make location to fail</strong>.</p>
+<p>PS: Since <strong>onBeforeLoad</strong> will report an error, I cannot successfully locate using this method, although it seems to support mock location from the code.</p>
+<p><img src="https://pic.jitudisk.com/public/2022/08/24/7be08abedb341.png" alt="location_failure.png"></p>
+<p>&nbsp;<br>&nbsp;</p>
+<p>Here is part of my script:</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="title function_">describe</span>(<span class="string">&#x27;geolocation&#x27;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">function</span> <span class="title function_">fakeLocation</span> () &#123;</span><br><span class="line">        <span class="keyword">return</span> &#123;</span><br><span class="line">            onBeforeLoad (win) &#123;</span><br><span class="line">                cy.<span class="title function_">stub</span>(win.<span class="property">navigator</span>.<span class="property">geolocation</span>, <span class="string">&#x27;getCurrentPosition&#x27;</span>, <span class="function">(<span class="params">err</span>) =&gt;</span> &#123;</span><br><span class="line">                    <span class="keyword">throw</span> <span class="title function_">err</span>(&#123; <span class="attr">code</span>: <span class="number">1</span> &#125;); <span class="comment">// 1: rejected, 2: unable, 3: timeout</span></span><br><span class="line">                &#125;);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> url = <span class="string">&#x27;xxx&#x27;</span></span><br><span class="line"></span><br><span class="line">    <span class="title function_">it</span>(<span class="string">&#x27;location_failure&#x27;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">        cy.<span class="title function_">visit</span>(url, <span class="title function_">fakeLocation</span>())</span><br><span class="line">        ...</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
-<p>&nbsp;<br>&nbsp;<br>&nbsp;<br>&nbsp;<br>&nbsp;<br>&nbsp;<br>&nbsp;<br>&nbsp;<br>&nbsp;</p>
+<p>&nbsp;<br>&nbsp;</p>
+<h2 id="Simulation-of-location-success"><a href="#Simulation-of-location-success" class="headerlink" title="Simulation of location success"></a>Simulation of location success</h2><p>Use this plugin to configure fixed latitude and longitude for location:<br><a target="_blank" rel="noopener" href="https://www.npmjs.com/package/cypress-visit-with-custom-geolocation">https://www.npmjs.com/package/cypress-visit-with-custom-geolocation</a></p>
+<p>&nbsp;<br>&nbsp;</p>
+<p>Here is part of my script:</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="title function_">it</span>(<span class="string">&#x27;location_success&#x27;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    cy.<span class="title function_">window</span>().<span class="title function_">then</span>(<span class="function"><span class="params">win</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">var</span> url = <span class="string">&#x27;xxx&#x27;</span></span><br><span class="line">        cy.<span class="title function_">visitWithCustomGeoLoc</span>(win, url, <span class="number">32.061707</span>, <span class="number">118.763232</span>);</span><br><span class="line">        <span class="title function_">location</span>(url) <span class="comment">// 填写</span></span><br><span class="line">    &#125;)</span><br><span class="line">    ...</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;<br>&nbsp;<br>This is my execution and it achieved what I needed:<br><img src="https://pic.jitudisk.com/public/2022/08/24/6642495cb0e7f.png" alt="location_success.png"></p>
+<p>&nbsp;<br>&nbsp;<br>&nbsp;<br>&nbsp;</p>
 
         </div>
 
@@ -259,7 +262,7 @@
                 
                     <p class="copyright-item">
                         <span>Permalink:</span>
-                        <span><a href="https://nataliexselina.github.io/Cypress-Advanced/">https://nataliexselina.github.io/Cypress-Advanced/</a></span>
+                        <span><a href="https://nataliexselina.github.io/Cypress-geolocation/">https://nataliexselina.github.io/Cypress-geolocation/</a></span>
                     </p>
                 
                 
@@ -278,10 +281,6 @@
                 <span class="tag">
                     
                     
-                        <a href="/tags/Node-js/"># Node.js</a>
-                    
-                        <a href="/tags/Tools/"># Tools</a>
-                    
                         <a href="/tags/Cypress/"># Cypress</a>
                     
                         
@@ -295,10 +294,10 @@
         </section>
         <section class="post-nav">
             
-                <a class="prev" rel="prev" href="/How-to-Review-A-Test-Plan/">How to Review A Test Plan</a>
+                <a class="prev" rel="prev" href="/Git-Sourcetree/">Git-Sourcetree</a>
             
             
-            <a class="next" rel="next" href="/Cypress-momentjs/">Cypress-moment.js</a>
+            <a class="next" rel="next" href="/Cypress-Migration-To-Version-10/">Cypress-Migration To Version 10</a>
             
         </section>
 

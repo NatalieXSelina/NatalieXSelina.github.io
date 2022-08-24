@@ -15,7 +15,7 @@
 
 
 
-<title>Pipeline-Groovy | L i f e L i n e</title>
+<title>Cypress-allure plugin | L i f e L i n e</title>
 
 
 
@@ -129,11 +129,76 @@
                 <div class="container">
     
     
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    var tocbot_timer;
+    var DEPTH_MAX = 6; // 为 6 时展开所有
+    var tocbot_default_config = {
+        tocSelector: '.tocbot-list',
+        contentSelector: '.post-content',
+        headingSelector: 'h1, h2, h3, h4, h5',
+        orderedList: false,
+        scrollSmooth: true,
+        onClick: extend_click,
+    };
+
+    function extend_click() {
+        clearTimeout(tocbot_timer);
+        tocbot_timer = setTimeout(function() {
+            tocbot.refresh(obj_merge(tocbot_default_config, {
+                hasInnerContainers: true
+            }));
+        }, 420); // 这个值是由 tocbot 源码里定义的 scrollSmoothDuration 得来的
+    }
+
+    document.ready(function() {
+        tocbot.init(obj_merge(tocbot_default_config, {
+            collapseDepth: 1
+        }));
+    });
+
+    function expand_toc() {
+        var b = document.querySelector('.tocbot-toc-expand');
+        var expanded = b.getAttribute('data-expanded');
+        expanded ? b.removeAttribute('data-expanded') : b.setAttribute('data-expanded', true);
+        tocbot.refresh(obj_merge(tocbot_default_config, {
+            collapseDepth: expanded ? 1 : DEPTH_MAX
+        }));
+        b.innerText = expanded ? 'Expand all' : 'Collapse all';
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+    function obj_merge(target, source) {
+        for (var item in source) {
+            if (source.hasOwnProperty(item)) {
+                target[item] = source[item];
+            }
+        }
+        return target;
+    }
+</script>
+    
 
     
     <article class="post-wrap">
         <header class="post-header">
-            <h1 class="post-title">Pipeline-Groovy</h1>
+            <h1 class="post-title">Cypress-allure plugin</h1>
             
                 <div class="post-meta">
                     
@@ -142,14 +207,14 @@
 
                     
                         <span class="post-time">
-                        Date: <a href="#">July 30, 2022&nbsp;&nbsp;11:59:06</a>
+                        Date: <a href="#">August 24, 2022&nbsp;&nbsp;15:09:06</a>
                         </span>
                     
                     
                         <span class="post-category">
                     Category:
                             
-                                <a href="/categories/Tech/">Tech</a>
+                                <a href="/categories/Solutions/">Solutions</a>
                             
                         </span>
                     
@@ -158,7 +223,27 @@
         </header>
 
         <div class="post-content">
-            <p>&nbsp;<br>&nbsp;<br>&nbsp;<br>&nbsp;<br>&nbsp;<br>&nbsp;<br>&nbsp;<br>&nbsp;<br>&nbsp;</p>
+            <h1 id="How-to-get-the-allure-test-report"><a href="#How-to-get-the-allure-test-report" class="headerlink" title="How to get the allure test report"></a>How to get the allure test report</h1><p>You can use this plugin: <a target="_blank" rel="noopener" href="https://www.npmjs.com/package/@shelex/cypress-allure-plugin">https://www.npmjs.com/package/@shelex/cypress-allure-plugin</a></p>
+<p>npm install it, and setup the config as its tutorial.</p>
+<p>&nbsp;<br>&nbsp;</p>
+<h1 id="Execution"><a href="#Execution" class="headerlink" title="Execution"></a>Execution</h1><p>To enable Allure results writing just pass environment variable allure=true, example:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npx cypress run --<span class="built_in">env</span> allure=<span class="literal">true</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;<br>&nbsp;</p>
+<h1 id="Generate-Report"><a href="#Generate-Report" class="headerlink" title="Generate Report"></a>Generate Report</h1><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npx allure generate allure-results --clean -o allure-report</span><br></pre></td></tr></table></figure>
+<p>&nbsp;</p>
+<p>Seeing this prompt means that report has been generated:<br><img src="https://pic.jitudisk.com/public/2022/08/24/cd3875767d5ae.png" alt="generate.png"></p>
+<p>&nbsp;<br>&nbsp;</p>
+<h1 id="View-Report"><a href="#View-Report" class="headerlink" title="View Report"></a>View Report</h1><p>allure-report requires browser <strong>http://</strong> access instead of <strong>file://</strong> access.</p>
+<p>Here is a easy way to setup one http server by use <strong>py3</strong>.<br>&nbsp;</p>
+<h2 id="Use-py3-to-view"><a href="#Use-py3-to-view" class="headerlink" title="Use py3 to view"></a>Use <strong>py3</strong> to view</h2><h3 id="Setup-a-http-server"><a href="#Setup-a-http-server" class="headerlink" title="Setup a http server"></a>Setup a http server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">python3 -m http.server</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;</p>
+<h3 id="Visit-localhost-8000"><a href="#Visit-localhost-8000" class="headerlink" title="Visit localhost:8000"></a>Visit localhost:8000</h3><p>Visit localhost:8000<br>(Or maybe 127.0.0.1:8000, it is up to your hosts file)</p>
+<p>&nbsp;</p>
+<h3 id="Open-the-file"><a href="#Open-the-file" class="headerlink" title="Open the file"></a>Open the file</h3><p>Find the file <strong>allure-report</strong> and open it</p>
+<p><img src="https://pic.jitudisk.com/public/2022/08/24/405b3e048a064.png" alt="allure.png"></p>
+<p>&nbsp;<br>&nbsp;<br>&nbsp;<br>&nbsp;</p>
 
         </div>
 
@@ -173,7 +258,7 @@
                 
                     <p class="copyright-item">
                         <span>Permalink:</span>
-                        <span><a href="https://nataliexselina.github.io/Pipeline-Groovy/">https://nataliexselina.github.io/Pipeline-Groovy/</a></span>
+                        <span><a href="https://nataliexselina.github.io/Cypress-allure-plugin/">https://nataliexselina.github.io/Cypress-allure-plugin/</a></span>
                     </p>
                 
                 
@@ -192,13 +277,9 @@
                 <span class="tag">
                     
                     
-                        <a href="/tags/Jenkins/"># Jenkins</a>
+                        <a href="/tags/Cypress/"># Cypress</a>
                     
-                        <a href="/tags/CI-CD/"># CI/CD</a>
-                    
-                        <a href="/tags/Pipeline/"># Pipeline</a>
-                    
-                        <a href="/tags/Groovy/"># Groovy</a>
+                        <a href="/tags/allure/"># allure</a>
                     
                         
                 </span>
@@ -211,10 +292,8 @@
         </section>
         <section class="post-nav">
             
-                <a class="prev" rel="prev" href="/Cypress-Migration-To-Version-10/">Cypress-Migration To Version 10</a>
             
-            
-            <a class="next" rel="next" href="/Jenkins-Autostart-in-Linux/">Jenkins Autostart in Linux</a>
+            <a class="next" rel="next" href="/Git-Sourcetree/">Git-Sourcetree</a>
             
         </section>
 
