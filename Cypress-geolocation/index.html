@@ -233,7 +233,10 @@
 <p>The original author also used this to control browser permissions:<br><img src="https://pic.jitudisk.com/public/2022/08/24/a71ab9472445d.png" alt="permissions.png"><br>&nbsp;</p>
 </blockquote>
 <p>&nbsp;<br>&nbsp;</p>
-<h1 id="Successful-Alternative"><a href="#Successful-Alternative" class="headerlink" title="Successful Alternative"></a>Successful Alternative</h1><h2 id="Simulation-of-location-failure"><a href="#Simulation-of-location-failure" class="headerlink" title="Simulation of location failure"></a>Simulation of location failure</h2><p>&nbsp;<br>Use the method below to <strong>throw an error, which can make location to fail</strong>.</p>
+<h1 id="Successful-Alternative"><a href="#Successful-Alternative" class="headerlink" title="Successful Alternative"></a>Successful Alternative</h1><p>Using <strong>cypress-browser-permissions</strong> requires the browser to be running in <strong>headed</strong> mode.<br>So it is intended to be used in conjunction with <strong>xvfb</strong> on <strong>CI</strong>.</p>
+<p>&nbsp;</p>
+<p>And after replacing it with my new method, it can <strong>run successfully in CI</strong> in <strong>headless</strong> mode.<br>&nbsp;<br>&nbsp;</p>
+<h2 id="Simulation-of-location-failure"><a href="#Simulation-of-location-failure" class="headerlink" title="Simulation of location failure"></a>Simulation of location failure</h2><p>&nbsp;<br>Use the method below to <strong>throw an error, which can make location to fail</strong>.</p>
 <p>PS: Since <strong>onBeforeLoad</strong> will report an error, I cannot successfully locate using this method, although it seems to support mock location from the code.</p>
 <p><img src="https://pic.jitudisk.com/public/2022/08/24/7be08abedb341.png" alt="location_failure.png"></p>
 <p>&nbsp;<br>&nbsp;</p>
