@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="NatalieXSelina">
+
+
+    <meta name="subtitle" content=" b l o g">
+
+
+
+
+<title>JMeter-file upload | L i f e L i n e</title>
+
+
+
+    <link rel="icon" href="/favicon.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+<body>
+    <script>
+        // this function is used to check current theme before page loaded.
+        (() => {
+            const currentTheme = window.localStorage && window.localStorage.getItem('theme') || '';
+            const isDark = currentTheme === 'dark';
+            const pagebody = document.getElementsByTagName('body')[0]
+            if (isDark) {
+                pagebody.classList.add('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Dark"
+            } else {
+                pagebody.classList.remove('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Light"
+            }
+        })();
+    </script>
+
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">L i f e L i n e</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">L i f e L i n e</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+            <div class="main">
+                <div class="container">
+    
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">JMeter-file upload</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">NatalieXSelina</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">November 21, 2021&nbsp;&nbsp;19:22:04</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/Tech/">Tech</a>
+                            
+                        </span>
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <p>You can do it with HTTP Request sampler, just make sure:</p>
+<ul>
+<li><p>You use <strong>POST</strong> (in some cases it can be PUT) method</p>
+</li>
+<li><p><strong>Use multipart&#x2F;form-data for POST</strong> box is checked</p>
+<p>  <img src="https://s2.loli.net/2023/03/06/tq1fTDQFxywBv38.png" alt="fileupload1.png"></p>
+</li>
+<li><p>In Files Upload section the following values are provided:<br>  <img src="https://s2.loli.net/2023/03/06/1CYnwzj52V7upqb.png" alt="fileupload2.png"></p>
+<ol>
+<li><p>File Path (either absolute or relative to JMeter’s “bin” folder)</p>
+</li>
+<li><p>Parameter Name (form name which contains &lt;input type&#x3D;”file” …&gt; tag, you can figure that out from upload page source code)</p>
+</li>
+<li><p>File MIME Type (Pictured is xlsx file)</p>
+<table>
+<thead>
+<tr>
+<th>file</th>
+<th>MIME</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>html</td>
+<td>text&#x2F;html</td>
+</tr>
+<tr>
+<td>txt</td>
+<td>text&#x2F;plain</td>
+</tr>
+<tr>
+<td>rtf</td>
+<td>application&#x2F;rtf</td>
+</tr>
+<tr>
+<td>gif</td>
+<td>image&#x2F;gif</td>
+</tr>
+<tr>
+<td>jpeg,jpg</td>
+<td>image&#x2F;jpeg</td>
+</tr>
+<tr>
+<td>au</td>
+<td>audio&#x2F;basic</td>
+</tr>
+<tr>
+<td>mid,midi</td>
+<td>audio&#x2F;midi,audio&#x2F;x-midi</td>
+</tr>
+<tr>
+<td>mpeg</td>
+<td>video&#x2F;mpeg</td>
+</tr>
+<tr>
+<td>avi</td>
+<td>video&#x2F;x-msvideo</td>
+</tr>
+<tr>
+<td>gz</td>
+<td>application&#x2F;x-gzip</td>
+</tr>
+<tr>
+<td>tar</td>
+<td>application&#x2F;x-tar</td>
+</tr>
+</tbody></table>
+</li>
+</ol>
+</li>
+</ul>
+<p>&amp;nbsp;<br>&amp;nbsp;<br>&amp;nbsp;<br>&amp;nbsp;<br>&amp;nbsp;<br>&amp;nbsp;<br>&amp;nbsp;<br>&amp;nbsp;<br>&amp;nbsp;</p>
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>NatalieXSelina</span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="https://nataliexselina.github.io/JMeter-file-upload/">https://nataliexselina.github.io/JMeter-file-upload/</a></span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>License:</span>
+                        <span>Copyright (c) 2019 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc/4.0/">CC-BY-NC-4.0</a> LICENSE</span>
+                    </p>
+                
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/JMeter/"># JMeter</a>
+                    
+                        <a href="/tags/API/"># API</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+                <a class="prev" rel="prev" href="/BlazeMeter/">BlazeMeter for API Record</a>
+            
+            
+            <a class="next" rel="next" href="/Life%C2%B7Photography%C2%B7Food%20in%202021/">Life · Photography · Food in 2021</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+            </div>
+            <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© NatalieXSelina | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+
+</html>

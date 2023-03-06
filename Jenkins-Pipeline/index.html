@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="NatalieXSelina">
+
+
+    <meta name="subtitle" content=" b l o g">
+
+
+
+
+<title>Jenkins Pipeline | L i f e L i n e</title>
+
+
+
+    <link rel="icon" href="/favicon.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+<body>
+    <script>
+        // this function is used to check current theme before page loaded.
+        (() => {
+            const currentTheme = window.localStorage && window.localStorage.getItem('theme') || '';
+            const isDark = currentTheme === 'dark';
+            const pagebody = document.getElementsByTagName('body')[0]
+            if (isDark) {
+                pagebody.classList.add('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Dark"
+            } else {
+                pagebody.classList.remove('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Light"
+            }
+        })();
+    </script>
+
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">L i f e L i n e</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">L i f e L i n e</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+            <div class="main">
+                <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    var tocbot_timer;
+    var DEPTH_MAX = 6; // 为 6 时展开所有
+    var tocbot_default_config = {
+        tocSelector: '.tocbot-list',
+        contentSelector: '.post-content',
+        headingSelector: 'h1, h2, h3, h4, h5',
+        orderedList: false,
+        scrollSmooth: true,
+        onClick: extend_click,
+    };
+
+    function extend_click() {
+        clearTimeout(tocbot_timer);
+        tocbot_timer = setTimeout(function() {
+            tocbot.refresh(obj_merge(tocbot_default_config, {
+                hasInnerContainers: true
+            }));
+        }, 420); // 这个值是由 tocbot 源码里定义的 scrollSmoothDuration 得来的
+    }
+
+    document.ready(function() {
+        tocbot.init(obj_merge(tocbot_default_config, {
+            collapseDepth: 1
+        }));
+    });
+
+    function expand_toc() {
+        var b = document.querySelector('.tocbot-toc-expand');
+        var expanded = b.getAttribute('data-expanded');
+        expanded ? b.removeAttribute('data-expanded') : b.setAttribute('data-expanded', true);
+        tocbot.refresh(obj_merge(tocbot_default_config, {
+            collapseDepth: expanded ? 1 : DEPTH_MAX
+        }));
+        b.innerText = expanded ? 'Expand all' : 'Collapse all';
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+    function obj_merge(target, source) {
+        for (var item in source) {
+            if (source.hasOwnProperty(item)) {
+                target[item] = source[item];
+            }
+        }
+        return target;
+    }
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">Jenkins Pipeline</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">NatalieXSelina</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">June 30, 2022&nbsp;&nbsp;11:06:55</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/Tech/">Tech</a>
+                            
+                        </span>
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <h1 id="Prerequisites"><a href="#Prerequisites" class="headerlink" title="Prerequisites"></a>Prerequisites</h1><h2 id="Linux-Recommanded"><a href="#Linux-Recommanded" class="headerlink" title="Linux(Recommanded)"></a>Linux(Recommanded)</h2><p>For the presentation, I will be working on a Linux server, you may also need to install xshell and xftp.</p>
+<p><img src="https://s2.loli.net/2023/03/06/FB6J4itQ9VXaK5H.png" alt="Xshell.png"></p>
+<p>&amp;nbsp;</p>
+<blockquote><p>You can Get A Basic Understanding of Linux</p>
+<footer><strong>my artcile:</strong><cite><a href="https://nataliexselina.github.io/Linux-Get-Started/">nataliexselina.github.io/Linux-Get-Started</a></cite></footer></blockquote>
+
+<p>&amp;nbsp;</p>
+<h2 id="JDK"><a href="#JDK" class="headerlink" title="JDK"></a>JDK</h2><p>You should install <strong>JDK</strong> and <strong>add it to the environment path</strong> for preparation.</p>
+<h3 id="You-can-Install-by-Command"><a href="#You-can-Install-by-Command" class="headerlink" title="You can Install by Command"></a>You can Install by Command</h3><p>If you choose this method, no need to configure the environment path.</p>
+<ol>
+<li><p>Search for JDK version by command</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">yum search java|grep jdk</span><br></pre></td></tr></table></figure></li>
+<li><p>Select the version you need to install</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">yum install java-11-openjdk.x86_64 -y</span><br></pre></td></tr></table></figure>
+
+<p> &amp;nbsp;</p>
+<blockquote>
+<p>Tips:<br>Error: Nothing to do </p>
+<ul>
+<li>This solution may be useful to CentOS7: <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">yum -y update</span><br><span class="line">yum clean all</span><br><span class="line">yum makecache</span><br></pre></td></tr></table></figure></li>
+</ul>
+</blockquote>
+</li>
+<li><p>Check your installation</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">java -version</span><br></pre></td></tr></table></figure></li>
+</ol>
+<p>&amp;nbsp;</p>
+<h3 id="You-also-can-Install-by-Xftp"><a href="#You-also-can-Install-by-Xftp" class="headerlink" title="You also can Install by Xftp"></a>You also can Install by Xftp</h3><ol>
+<li><p>Choose and Download file<br><a target="_blank" rel="noopener" href="https://www.oracle.com/java/technologies/downloads/#java8">https://www.oracle.com/java/technologies/downloads/#java8</a></p>
+</li>
+<li><p>mkdir java folder</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> /usr</span><br><span class="line"><span class="built_in">mkdir</span> java</span><br></pre></td></tr></table></figure></li>
+<li><p>Upload through Xftp and tar</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">tar -zxvf jdk-17_linux-x64_bin.tar.gz</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Configure the environment path</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">vim /etc/profile</span><br></pre></td></tr></table></figure>
+<p>Type <strong>i</strong> to switch into insert mode.</p>
+<figure class="highlight vim"><table><tr><td class="code"><pre><span class="line">export JAVA_HOME=/usr/java/jdk17.<span class="number">0.1</span>.<span class="number">1</span></span><br><span class="line">export JRE_HOME=$&#123;JAVA_HOME&#125;/jre</span><br><span class="line">export CLASSPATH=.:$&#123;JAVA_HOME&#125;/lib:$&#123;JRE_HOME&#125;/lib:$CLASSPATH</span><br><span class="line">export JAVA_PATH=$&#123;JAVA_HOME&#125;/bin:$&#123;JRE_HOME&#125;/bin</span><br><span class="line">export PATH=$PATH:$&#123;JAVA_PATH&#125;</span><br></pre></td></tr></table></figure>
+<p>enter <strong>esc</strong> and <strong>:wq!</strong> to quit.</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">source</span> /etc/profile</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>Tips:</p>
+<ul>
+<li>If you forgot <strong>sudo</strong> before, you can save file as following:<figure class="highlight vim"><table><tr><td class="code"><pre><span class="line">:<span class="keyword">w</span> !sudo tee %</span><br></pre></td></tr></table></figure></li>
+</ul>
+</blockquote>
+</li>
+<li><p>Check your installation and configuration</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">javac</span><br><span class="line">java --version</span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$PATH</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<p>&amp;nbsp;</p>
+<h1 id="Download-Jenkins"><a href="#Download-Jenkins" class="headerlink" title="Download Jenkins"></a>Download Jenkins</h1><p><a target="_blank" rel="noopener" href="https://www.jenkins.io/download/">https://www.jenkins.io/download/</a></p>
+<p><img src="https://s2.loli.net/2023/03/06/gkC5h6zsImNaOK7.png" alt="jenkinswar.png"></p>
+<p>You can use <strong>Xftp</strong> or <strong>yum</strong> or <strong>weget</strong> to install Jenkins.</p>
+<p>No further demonstration here.</p>
+<p>&amp;nbsp;</p>
+<h1 id="Execute-as-Java-Binary"><a href="#Execute-as-Java-Binary" class="headerlink" title="Execute as Java Binary"></a>Execute as Java Binary</h1><p>After Jenkins Downloading, execute it by command:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> &lt;your Jenkins downloaded path&gt;</span><br><span class="line">java -jar jenkins.war</span><br></pre></td></tr></table></figure>
+<p>&amp;nbsp;</p>
+<blockquote>
+<p>Tips:</p>
+<ul>
+<li>You can set port by <strong>–httpPort&#x3D;2022</strong></li>
+<li>You can use <strong>netstat -tunlp</strong> to check the port situation.</li>
+</ul>
+</blockquote>
+<p>&amp;nbsp;</p>
+<h1 id="Web-Browser"><a href="#Web-Browser" class="headerlink" title="Web Browser"></a>Web Browser</h1><p>If things go right, you can visit jenkinsUrl by web browser.</p>
+<ol>
+<li><p>Open your web browser and visit <a target="_blank" rel="noopener" href="http://ip:8080/">http://ip:8080</a></p>
+</li>
+<li><p>Now, you can get the access to Jenkins: </p>
+<p> <img src="https://s2.loli.net/2023/03/06/MDyhOALP6etR7a5.png" alt="unlock.png"></p>
+</li>
+<li><p>Enter the password to start.</p>
+<p> <img src="https://s2.loli.net/2023/03/06/gle84VZGNIAO53F.png" alt="password.png"></p>
+</li>
+<li><p>You can choose the plugins which you like or need to install.</p>
+<p> <img src="https://s2.loli.net/2023/03/06/KEhwH8PfLx24Xdv.png" alt="plugins.png"></p>
+</li>
+<li><p>After create your own account, you will go straight to Jenkins dashboard like this: </p>
+<p> <img src="https://s2.loli.net/2023/03/06/rIgnuCm9Dqz2Syt.png" alt="dashboard.png"></p>
+<p> &amp;nbsp;</p>
+<blockquote>
+<p>Tips: jenkinsUrl is ip:httpPort</p>
+<ul>
+<li>jenkinsUrl&#x2F;safeRestart - Let you to wait for running JOBS to get complete and do a RESTART.</li>
+<li>jenkinsUrl&#x2F;restart - Do a restart immediately without waiting for the jobs which are running currently.</li>
+<li>jenkinsUrl&#x2F;exit - It stops&#x2F;shutdown the JENKINS services</li>
+<li>jenkinsUrl&#x2F;reload - To reload the configuration changes.</li>
+</ul>
+</blockquote>
+<p> &amp;nbsp;</p>
+</li>
+</ol>
+<h1 id="Create-A-Job-Pipeline"><a href="#Create-A-Job-Pipeline" class="headerlink" title="Create A Job(Pipeline)"></a>Create A Job(Pipeline)</h1><p><a target="_blank" rel="noopener" href="https://www.jenkins.io/doc/book/pipeline/syntax/">https://www.jenkins.io/doc/book/pipeline/syntax/</a></p>
+<p>Enter your pipeline name and choose pipeline to create a job.</p>
+<p>Then it comes to pipeline configuration.</p>
+<p><img src="https://s2.loli.net/2023/03/06/CmzOPYAd8iUlLMW.png" alt="select.png"></p>
+<p>&amp;nbsp;</p>
+<h2 id="Pipeline-script"><a href="#Pipeline-script" class="headerlink" title="Pipeline script"></a>Pipeline script</h2><figure class="highlight groovy"><table><tr><td class="code"><pre><span class="line"><span class="comment">// Declarative </span></span><br><span class="line">pipeline &#123;</span><br><span class="line">    agent any</span><br><span class="line">    stages &#123;</span><br><span class="line">        stage(<span class="string">&#x27;Build&#x27;</span>) &#123; </span><br><span class="line">            steps &#123;</span><br><span class="line">                println <span class="string">&quot;Build&quot;</span> </span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        stage(<span class="string">&#x27;Test&#x27;</span>) &#123; </span><br><span class="line">            steps &#123;</span><br><span class="line">                sh <span class="string">&quot;echo `pwd`&quot;</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        stage(<span class="string">&#x27;Deploy&#x27;</span>) &#123; </span><br><span class="line">            steps &#123;</span><br><span class="line">                println <span class="string">&quot;Deploy&quot;</span> </span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&amp;nbsp;<br>Build the pipeline by clicking <strong>Build Now</strong>. Because it is a very small script, so it will not take a lot of time.</p>
+<p>If everything goes right, you can see the output of each stages by click <strong>logs</strong>.<br>&amp;nbsp;</p>
+<p>And then you will see the stage logs message like this.<br>This is how you do it with a direct script.</p>
+<p><img src="https://s2.loli.net/2023/03/06/H9UNPxQ2YWrcdZ6.png" alt="log.png"></p>
+<p><img src="https://s2.loli.net/2023/03/06/gliQKpJk2er7DB3.png" alt="console1.png"></p>
+<p>&amp;nbsp;</p>
+<h2 id="Pipeline-script-from-SCM"><a href="#Pipeline-script-from-SCM" class="headerlink" title="Pipeline script from SCM"></a>Pipeline script from SCM</h2><p>Here, I will use Github as my repositories.</p>
+<h3 id="Github-Settings-Webhooks"><a href="#Github-Settings-Webhooks" class="headerlink" title="Github Settings - Webhooks"></a>Github Settings - Webhooks</h3><p><img src="https://s2.loli.net/2023/03/06/DiBXZ7JUqCr5LxH.png" alt="webhook_github.png"></p>
+<h3 id="Jenkins-Settings"><a href="#Jenkins-Settings" class="headerlink" title="Jenkins Settings"></a>Jenkins Settings</h3><ul>
+<li>Create your own Credentials. ( Same username and password as your Github account )</li>
+<li>Set your Repositories. ( Repository URL and Credentials )</li>
+<li>(Optional) Set Repository browser as <strong>githubweb</strong> and enter url</li>
+<li>Set Relative location. ( Where your Jenkinsfile located )</li>
+<li>Save</li>
+</ul>
+<p>&amp;nbsp;</p>
+<p>If everything goes right, you can see the output of each stages by click <strong>logs</strong>.</p>
+<p>&amp;nbsp;<br>And then you will see the stage logs message like this.<br>It has one additional stage called <strong>Declarative: Checkout SCM</strong>.</p>
+<p><img src="https://s2.loli.net/2023/03/06/hsWvbmHFCgyzYEu.png" alt="SCM.png"></p>
+<p>&amp;nbsp;<br>You can check how the source control cloning process went as well.</p>
+<p><img src="https://s2.loli.net/2023/03/06/dtZwerhS8n6YT3E.png" alt="SCMlogs.png"></p>
+<p>&amp;nbsp;<br>&amp;nbsp;</p>
+<h1 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h1><ul>
+<li><p>Firstly, congratulations on actually building your Jenkins Pipeline.</p>
+</li>
+<li><p>This tutorial has just provided to you a glimpse of what Jenkins Pipeline can do.</p>
+</li>
+<li><p>You can extend its capabilities by integrating it with other tools.<br>&amp;nbsp;</p>
+<p>  Here are some examples for pipeline:</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/bryantson/CICDPractice">https://github.com/bryantson/CICDPractice</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/jenkinsci/pipeline-examples">https://github.com/jenkinsci/pipeline-examples</a></li>
+</ul>
+</li>
+</ul>
+<p>&amp;nbsp;<br>&amp;nbsp;<br>&amp;nbsp;<br>&amp;nbsp;<br>&amp;nbsp;<br>&amp;nbsp;<br>&amp;nbsp;<br>&amp;nbsp;<br>&amp;nbsp;</p>
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>NatalieXSelina</span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="https://nataliexselina.github.io/Jenkins-Pipeline/">https://nataliexselina.github.io/Jenkins-Pipeline/</a></span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>License:</span>
+                        <span>Copyright (c) 2019 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc/4.0/">CC-BY-NC-4.0</a> LICENSE</span>
+                    </p>
+                
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/Git/"># Git</a>
+                    
+                        <a href="/tags/Linux/"># Linux</a>
+                    
+                        <a href="/tags/Jenkins/"># Jenkins</a>
+                    
+                        <a href="/tags/CI-CD/"># CI/CD</a>
+                    
+                        <a href="/tags/JDK/"># JDK</a>
+                    
+                        <a href="/tags/Pipeline/"># Pipeline</a>
+                    
+                        <a href="/tags/DevOps/"># DevOps</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+                <a class="prev" rel="prev" href="/Life%C2%B7Photography%C2%B7Food%20in%202022/">Life · Photography · Food in 2022</a>
+            
+            
+            <a class="next" rel="next" href="/JavaScript-Modularization/">JavaScript Modularization</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+            </div>
+            <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© NatalieXSelina | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+
+</html>

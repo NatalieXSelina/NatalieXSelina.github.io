@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="NatalieXSelina">
+
+
+    <meta name="subtitle" content=" b l o g">
+
+
+
+
+<title>Build your Personal Blog | L i f e L i n e</title>
+
+
+
+    <link rel="icon" href="/favicon.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+<body>
+    <script>
+        // this function is used to check current theme before page loaded.
+        (() => {
+            const currentTheme = window.localStorage && window.localStorage.getItem('theme') || '';
+            const isDark = currentTheme === 'dark';
+            const pagebody = document.getElementsByTagName('body')[0]
+            if (isDark) {
+                pagebody.classList.add('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Dark"
+            } else {
+                pagebody.classList.remove('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Light"
+            }
+        })();
+    </script>
+
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">L i f e L i n e</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">L i f e L i n e</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+            <div class="main">
+                <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    var tocbot_timer;
+    var DEPTH_MAX = 6; // 为 6 时展开所有
+    var tocbot_default_config = {
+        tocSelector: '.tocbot-list',
+        contentSelector: '.post-content',
+        headingSelector: 'h1, h2, h3, h4, h5',
+        orderedList: false,
+        scrollSmooth: true,
+        onClick: extend_click,
+    };
+
+    function extend_click() {
+        clearTimeout(tocbot_timer);
+        tocbot_timer = setTimeout(function() {
+            tocbot.refresh(obj_merge(tocbot_default_config, {
+                hasInnerContainers: true
+            }));
+        }, 420); // 这个值是由 tocbot 源码里定义的 scrollSmoothDuration 得来的
+    }
+
+    document.ready(function() {
+        tocbot.init(obj_merge(tocbot_default_config, {
+            collapseDepth: 1
+        }));
+    });
+
+    function expand_toc() {
+        var b = document.querySelector('.tocbot-toc-expand');
+        var expanded = b.getAttribute('data-expanded');
+        expanded ? b.removeAttribute('data-expanded') : b.setAttribute('data-expanded', true);
+        tocbot.refresh(obj_merge(tocbot_default_config, {
+            collapseDepth: expanded ? 1 : DEPTH_MAX
+        }));
+        b.innerText = expanded ? 'Expand all' : 'Collapse all';
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+    function obj_merge(target, source) {
+        for (var item in source) {
+            if (source.hasOwnProperty(item)) {
+                target[item] = source[item];
+            }
+        }
+        return target;
+    }
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">Build your Personal Blog</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">NatalieXSelina</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">March 26, 2021&nbsp;&nbsp;10:14:55</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/Tech/">Tech</a>
+                            
+                        </span>
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <h1 id="Why-build-a-personal-blog"><a href="#Why-build-a-personal-blog" class="headerlink" title="Why build a personal blog"></a>Why build a personal blog</h1><ul>
+<li>Organize my Thoughts and Summarize the knowledge.</li>
+<li>Share experience and Exchange information.</li>
+<li>Meet and Communicate with different people.</li>
+</ul>
+<p>&amp;nbsp;</p>
+<h1 id="Introducation"><a href="#Introducation" class="headerlink" title="Introducation"></a>Introducation</h1><p><strong>Tool : Hexo + GitHub</strong><br>&amp;nbsp;<br>Hexo is a tool for generating and uploading static pages. It uses markdown to parse articles.<br>GitHub is a code hosting platform for open source and personal software projects.</p>
+<p><img src="https://s2.loli.net/2023/03/06/eC2V8hHaIUxAPcM.png" alt="hexo.png"></p>
+<p>&amp;nbsp;<br>&amp;nbsp;</p>
+<h1 id="Step"><a href="#Step" class="headerlink" title="Step"></a>Step</h1><h2 id="Prerequisites"><a href="#Prerequisites" class="headerlink" title="Prerequisites"></a>Prerequisites</h2><h3 id="install-Node-js"><a href="#install-Node-js" class="headerlink" title="install Node.js"></a>install Node.js</h3><p><a target="_blank" rel="noopener" href="http://nodejs.org/">http://nodejs.org/</a></p>
+<h3 id="install-Git"><a href="#install-Git" class="headerlink" title="install Git"></a>install Git</h3><p><a target="_blank" rel="noopener" href="http://git-scm.com/">http://git-scm.com/</a></p>
+<p>&amp;nbsp;</p>
+<h2 id="Set-up-github-io-Repository"><a href="#Set-up-github-io-Repository" class="headerlink" title="Set up github.io Repository"></a>Set up github.io Repository</h2><ol>
+<li><p>Set your ssh key.</p>
+</li>
+<li><p>Name the repository as YourGithubName.github.io<br>  <img src="https://s2.loli.net/2023/03/06/oueP34bfKY9QyWX.png" alt="SetupRepository.png"></p>
+</li>
+</ol>
+<p>&amp;nbsp;<br>&amp;nbsp;</p>
+<h2 id="Install-and-initialize-hexo"><a href="#Install-and-initialize-hexo" class="headerlink" title="Install and initialize hexo"></a>Install and initialize hexo</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ npm install -g hexo-cli</span><br></pre></td></tr></table></figure>
+
+<p>you can use <strong>hexo -v</strong> to check whether hexo is successfully installed.</p>
+<p>&amp;nbsp;</p>
+<blockquote>
+<p><strong>Some common commands of hexo:</strong></p>
+<ul>
+<li><strong>Hexo init</strong>: used to initialize the local folder as the root of the web site  </li>
+<li><strong>Hexo new &#x2F; hexo n</strong>: used to create a new article  </li>
+<li><strong>Hexo generate &#x2F; hexo G</strong>: used to generate static files  </li>
+<li><strong>Hexo server &#x2F; hexo s</strong>: used to start the local server  </li>
+<li><strong>Hexo deploy &#x2F; hero D</strong>: for deploying websites  </li>
+<li><strong>Hexo clean</strong>: used to clean cache files</li>
+</ul>
+</blockquote>
+<p>&amp;nbsp;</p>
+<p>Then you can create a folder in favorite location, such as blog. </p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo init blog</span><br></pre></td></tr></table></figure>
+
+<p>&amp;nbsp;</p>
+<blockquote>
+<p><strong>brief introducation of the main files:</strong></p>
+<ul>
+<li><strong>_config.yml</strong>: global configuration file, which configures many information of the website, such as website name, subtitle, description, author, language, theme, deployment, etc.  </li>
+<li><strong>package.json</strong>: configure the parameters and dependent plug-ins of the hexo framework  </li>
+<li><strong>scaffolds</strong>: When a new article is created, hexo is built according to the files in this directory.  </li>
+<li><strong>source</strong>: All new articles are saved in this directory* Posts is where we write* MD files in the posts directory will be compiled into HTML files and put into the public folder.  </li>
+<li><strong>themes</strong>: website subject directory, the default is landscape  </li>
+<li><strong>node_modules</strong>: it is mainly used to store some functional files of hexo, such as renderers and various plug-ins  </li>
+<li><strong>public</strong>: store the generated static file and generate it after the hexo g command</li>
+</ul>
+</blockquote>
+<p>&amp;nbsp;<br>&amp;nbsp;</p>
+<h2 id="Edit-config-yml"><a href="#Edit-config-yml" class="headerlink" title="Edit _config.yml"></a>Edit _config.yml</h2><figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">deploy:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">&#x27;git&#x27;</span></span><br><span class="line">  <span class="attr">branch:</span> <span class="string">main</span></span><br><span class="line">  <span class="attr">repo:</span> <span class="string">&#x27;https://github.com/NatalieXSelina/NatalieXSelina.github.io.git&#x27;</span>  <span class="comment"># put your Github name here</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://s2.loli.net/2023/03/06/4wNWr3jJOHUKDgG.png" alt="ymlEdit.png"></p>
+<p>&amp;nbsp;</p>
+<blockquote>
+<p>You can see Other Configuration from: <a target="_blank" rel="noopener" href="https://hexo.io/docs/configuration">https://hexo.io/docs/configuration</a></p>
+</blockquote>
+<p>&amp;nbsp;<br>&amp;nbsp;</p>
+<h2 id="Install-deployer"><a href="#Install-deployer" class="headerlink" title="Install deployer"></a>Install deployer</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
+<p>&amp;nbsp;</p>
+<h2 id="Build-Up"><a href="#Build-Up" class="headerlink" title="Build Up"></a>Build Up</h2><h3 id="build-local-blog"><a href="#build-local-blog" class="headerlink" title="build local blog"></a>build local blog</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo cl &amp;&amp; hexo g &amp;&amp; hexo s  <span class="comment"># visit http://localhost:4000</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="build-remote-websites"><a href="#build-remote-websites" class="headerlink" title="build remote websites"></a>build remote websites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo cl &amp;&amp; hexo g &amp;&amp; hexo d  <span class="comment"># vist https://nataliexselina.github.io/   here should be your githubname </span></span><br></pre></td></tr></table></figure>
+
+<p>&amp;nbsp;<br>&amp;nbsp;</p>
+<h2 id="Write-MD-File"><a href="#Write-MD-File" class="headerlink" title="Write MD File"></a>Write MD File</h2><p>You can create a new MD file with the following command:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo new <span class="string">&quot;articleTitle&quot;</span></span><br></pre></td></tr></table></figure>
+<p>&amp;nbsp;<br>Then write your own MD file.</p>
+<p><img src="https://s2.loli.net/2023/03/06/6X13UCaTDcqGJyv.png" alt="mdEditor.png"></p>
+<p>&amp;nbsp;<br>&amp;nbsp;</p>
+<h2 id="Choose-the-theme-you-like"><a href="#Choose-the-theme-you-like" class="headerlink" title="Choose the theme you like"></a>Choose the theme you like</h2><p>You can choose other themes to build blog with your style. <a target="_blank" rel="noopener" href="https://hexo.io/themes/">https://hexo.io/themes/</a></p>
+<p><img src="https://s2.loli.net/2023/03/06/bvq2ITMZgudlSiJ.png" alt="themes.png"><br>&amp;nbsp;</p>
+<h3 id="Edit-config-yml-1"><a href="#Edit-config-yml-1" class="headerlink" title="Edit _config.yml"></a>Edit _config.yml</h3><figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">theme:</span> <span class="string">hexo-theme-Chic</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://s2.loli.net/2023/03/06/cDHkt8O5JGe1hLY.png" alt="theme.png"><br>&amp;nbsp;<br>&amp;nbsp;</p>
+<h2 id="How-to-Build-Categories-and-Tags"><a href="#How-to-Build-Categories-and-Tags" class="headerlink" title="How to Build Categories and Tags"></a>How to Build Categories and Tags</h2><p><a target="_blank" rel="noopener" href="https://hexo.io/docs/front-matter">https://hexo.io/docs/front-matter</a></p>
+<p>&amp;nbsp;<br>&amp;nbsp;</p>
+<h1 id="The-End"><a href="#The-End" class="headerlink" title="The End"></a>The End</h1><p>The above is the tutorial of building a personal blog with <strong>hexo + GitHub</strong>. If you like, you can follow my personal blog.</p>
+<p>&amp;nbsp;<br>&amp;nbsp;<br>&amp;nbsp;<br>&amp;nbsp;<br>&amp;nbsp;<br>&amp;nbsp;<br>&amp;nbsp;<br>&amp;nbsp;<br>&amp;nbsp;</p>
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>NatalieXSelina</span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="https://nataliexselina.github.io/Build-your-Personal-Blog/">https://nataliexselina.github.io/Build-your-Personal-Blog/</a></span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>License:</span>
+                        <span>Copyright (c) 2019 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc/4.0/">CC-BY-NC-4.0</a> LICENSE</span>
+                    </p>
+                
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/Hexo/"># Hexo</a>
+                    
+                        <a href="/tags/Github/"># Github</a>
+                    
+                        <a href="/tags/Node-js/"># Node.js</a>
+                    
+                        <a href="/tags/Git/"># Git</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+                <a class="prev" rel="prev" href="/Create-files-of-specific-size-in-Windows/">Create files of specific size in Windows</a>
+            
+            
+            <a class="next" rel="next" href="/Life%C2%B7Photography%C2%B7Food%20in%202020/">Life · Photography · Food in 2020</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+            </div>
+            <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© NatalieXSelina | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+
+</html>
