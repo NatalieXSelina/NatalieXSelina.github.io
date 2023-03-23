@@ -234,9 +234,8 @@
 
 <p>From the output, we can see a strange phenomenon that <strong>during one single assignment, the whole ‘id’ column of data is assigned</strong>.</p>
 <br>
-## Why it happens
 
-<blockquote>
+<h2 id="Why-it-happens"><a href="#Why-it-happens" class="headerlink" title="Why it happens"></a>Why it happens</h2><blockquote>
 <p><strong>Shallow Copy</strong>: </p>
 <ul>
 <li>When a reference variable is copied into a new reference variable using the assignment operator, a shallow copy of the referenced object is created. In simple words, a reference variable mainly stores the address of the object it refers to. When a new reference variable is assigned the value of the old reference variable, the address stored in the old reference variable is copied into the new one. </li>
@@ -256,8 +255,8 @@
 </ul>
 </blockquote>
 <br>
-**To overcome this problem, deep copy should be used.**
 
+<p><strong>To overcome this problem, deep copy should be used.</strong></p>
 <br>
 
 <h3 id="script-fixed"><a href="#script-fixed" class="headerlink" title="script fixed"></a>script fixed</h3><p>So I fixed my script like that:</p>

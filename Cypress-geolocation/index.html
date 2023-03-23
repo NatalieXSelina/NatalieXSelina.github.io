@@ -225,11 +225,14 @@
         <div class="post-content">
             <h1 id="Background"><a href="#Background" class="headerlink" title="Background"></a>Background</h1><p><strong>cypress-browser-permissions</strong> plugin has not been updated for 9 months, and the implementation is no longer recognized by Cypress (it is not recognized by version 9.5.0 either, so it does not seem to be a problem caused by migration, so consider re-implementing it).</p>
 <br>
-![geo_fail_1.png](https://s2.loli.net/2023/03/06/Trhq4oCy6EUg7ZW.png)
+
+<p><img src="https://s2.loli.net/2023/03/06/Trhq4oCy6EUg7ZW.png" alt="geo_fail_1.png"></p>
 <br>
-It shows that Cypress **runs with a count of 0, which means no testcases are identified by Cypress**.
+
+<p>It shows that Cypress <strong>runs with a count of 0, which means no testcases are identified by Cypress</strong>.</p>
 <br>
-![geo_fail_2.png](https://s2.loli.net/2023/03/06/TpgehUJuzoIXv1c.png)
+
+<p><img src="https://s2.loli.net/2023/03/06/TpgehUJuzoIXv1c.png" alt="geo_fail_2.png"></p>
 <br>
 
 
@@ -239,10 +242,10 @@ It shows that Cypress **runs with a count of 0, which means no testcases are ide
 
 <h2 id="Something-About-cypress-browser-permissions-Plugin"><a href="#Something-About-cypress-browser-permissions-Plugin" class="headerlink" title="Something About cypress-browser-permissions Plugin"></a>Something About cypress-browser-permissions Plugin</h2><p>For browser permissions, Cypress provides <strong>before:browser:launch</strong> configuration:<br><a target="_blank" rel="noopener" href="https://docs.cypress.io/api/plugins/browser-launch-api#Modify-browser-launch-arguments-preferences-and-extensions">https://docs.cypress.io/api/plugins/browser-launch-api#Modify-browser-launch-arguments-preferences-and-extensions</a></p>
 <br>
-> The original author also used this to control browser permissions: 
-> ![permissions.png](https://s2.loli.net/2023/03/06/xlLPp1QKti6wOmj.png)
-> <br>
 
+<blockquote>
+<p>The original author also used this to control browser permissions:<br><img src="https://s2.loli.net/2023/03/06/xlLPp1QKti6wOmj.png" alt="permissions.png"><br><br></p>
+</blockquote>
 <br>
 <br>
 
@@ -253,8 +256,8 @@ It shows that Cypress **runs with a count of 0, which means no testcases are ide
 
 <p>And after replacing it with my new method, it can <strong>run successfully in CI</strong> in <strong>headless</strong> mode.<br><br><br><br></p>
 <h2 id="Simulation-of-location-failure"><a href="#Simulation-of-location-failure" class="headerlink" title="Simulation of location failure"></a>Simulation of location failure</h2><br>
-Use the method below to **throw an error, which can make location to fail**.
 
+<p>Use the method below to <strong>throw an error, which can make location to fail</strong>.</p>
 <p>PS: Since <strong>onBeforeLoad</strong> will report an error, I cannot successfully locate using this method, although it seems to support mock location from the code.</p>
 <p><img src="https://s2.loli.net/2023/03/06/ZUqR36SrjoEplJV.png" alt="location_failure.png"></p>
 <br>
@@ -275,9 +278,8 @@ Use the method below to **throw an error, which can make location to fail**.
 
 <br>
 <br>
-This is my execution and it achieved what I needed:
-![location_success.png](https://s2.loli.net/2023/03/06/CQTFlB9iHMjwhSu.png)
 
+<p>This is my execution and it achieved what I needed:<br><img src="https://s2.loli.net/2023/03/06/CQTFlB9iHMjwhSu.png" alt="location_success.png"></p>
 <br>
 <br>
 <br>

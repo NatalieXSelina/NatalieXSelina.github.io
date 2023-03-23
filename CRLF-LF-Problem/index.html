@@ -223,87 +223,54 @@
         </header>
 
         <div class="post-content">
-            <h1 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a>Problem</h1><br>
-
-<p>VSCode uses <strong>CRLF for windows by default</strong>, while <strong>mac is LF</strong>.</p>
+            <h1 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a>Problem</h1><p>VSCode uses <code>CRLF</code> for windows by default, while mac is <code>LF</code>.</p>
 <p><strong>When collaborating across platforms</strong>, even if save and submit the same file, we will find that <strong>it diffs the entire file</strong>.</p>
-<br>
-
 <blockquote>
-<p>What is CR and LF?<br><br></p>
+<p>What is CR and LF?</p>
 <ul>
-<li>LF (Line Feed) stands for \n. On Linux and Mac, this corresponds to the beginning of a new line of text. This distinction is important, because <strong>Windows does not follow this convention</strong>.<br></li>
-<li>CR（Carriage Return） stands for \r. Moves the cursor to the beginning of the current line. The download progress bar on your terminal is achieved through CR. By using the carriage return character, your terminal can animate the text by returning the cursor to the beginning of the current line and overwriting any previously rendered text.</li>
+<li>LF (Line Feed) stands for <code>\n</code>. On Linux and Mac, this corresponds to the beginning of a new line of text. This distinction is important, because <strong>Windows does not follow this convention</strong>.</li>
+<li>CR（Carriage Return） stands for <code>\r</code>. Moves the cursor to the beginning of the current line. The download progress bar on your terminal is achieved through CR. By using the carriage return character, your terminal can animate the text by returning the cursor to the beginning of the current line and overwriting any previously rendered text.</li>
 </ul>
 </blockquote>
 <br>
-<br>
-<br>
 
-
-<h1 id="Solutions"><a href="#Solutions" class="headerlink" title="Solutions"></a>Solutions</h1><br>
-
-<h2 id="Convert-files-Configuration-set-by-Git"><a href="#Convert-files-Configuration-set-by-Git" class="headerlink" title="Convert files Configuration set by Git"></a>Convert files Configuration set by Git</h2><br>
-
-<blockquote>
+<h1 id="Solutions"><a href="#Solutions" class="headerlink" title="Solutions"></a>Solutions</h1><h2 id="Convert-files-Configuration-set-by-Git"><a href="#Convert-files-Configuration-set-by-Git" class="headerlink" title="Convert files Configuration set by Git"></a>Convert files Configuration set by Git</h2><blockquote>
 <p>Referance: <a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/1967370/git-replacing-lf-with-crlf">https://stackoverflow.com/questions/1967370/git-replacing-lf-with-crlf</a></p>
 </blockquote>
-<br>
-
 <p>The value of <strong>core.autocrlf</strong> needs to be configured manually, due to the default is <strong>false</strong> on Windows.</p>
 <p>The problem can be partially solved by configuring it as <strong>true&#x2F;input</strong>.<br><strong>input</strong> is better.<br><br></p>
 <p>It <strong>only works for new files</strong>, the existing CRLF files in the repository are still CRLF.</p>
 <br>
-<br>
-<br>
 
 
-<h2 id="Use-VSCode-plugin-EditorConfig-for-VS-Code"><a href="#Use-VSCode-plugin-EditorConfig-for-VS-Code" class="headerlink" title="Use VSCode plugin EditorConfig for VS Code"></a>Use VSCode plugin <em>EditorConfig for VS Code</em></h2><br>
-
-<p>Install VSCode plugin <em>EditorConfig for VS Code</em> and create configuration file <em>.editorconfig</em>.<br><br><br>It can ensure that manually re-save&#x2F;create files are LF by default, but <strong>old ones need to be all re-saved for them to take effect</strong>.</p>
+<h2 id="Use-VSCode-plugin-EditorConfig-for-VS-Code"><a href="#Use-VSCode-plugin-EditorConfig-for-VS-Code" class="headerlink" title="Use VSCode plugin EditorConfig for VS Code"></a>Use VSCode plugin <em>EditorConfig for VS Code</em></h2><p>Install VSCode plugin <em>EditorConfig for VS Code</em> and create configuration file <em>.editorconfig</em>.<br>It can ensure that manually re-save&#x2F;create files are LF by default, but <strong>old ones need to be all re-saved for them to take effect</strong>.</p>
 <ul>
 <li>VSCode plugin <em>EditorConfig for VS Code</em>:<br></li>
 </ul>
 <p><img src="https://s2.loli.net/2023/03/06/oWqQhzeBLCwb2ig.png" alt="editorconfig-plugin.png"></p>
 <ul>
 <li><p>Create configuration file <em>.editorconfig</em>:</p>
-  <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">root = true</span><br><span class="line"></span><br><span class="line">[*]</span><br><span class="line">end_of_line = lf</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<br></li>
-<li><p>Commit the configuration file <em>.editorconfig</em> to the repository.</p>
-  <br>
-  The configuration used in my project is like: 
-
+  <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">root = true</span><br><span class="line"></span><br><span class="line">[*]</span><br><span class="line">end_of_line = lf</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+<li><p>Commit the configuration file <em>.editorconfig</em> to the repository.<br>  The configuration used in my project is like: </p>
   <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">root = true</span><br><span class="line"></span><br><span class="line">[*]</span><br><span class="line"></span><br><span class="line">charset = utf-8</span><br><span class="line"></span><br><span class="line">indent_style = space</span><br><span class="line"></span><br><span class="line">indent_size = 4</span><br><span class="line"></span><br><span class="line">end_of_line = lf</span><br><span class="line"></span><br><span class="line">insert_final_newline = true</span><br><span class="line"></span><br><span class="line">trim_trailing_whitespace = true</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[*.md]</span><br><span class="line"></span><br><span class="line">insert_final_newline = false</span><br><span class="line"></span><br><span class="line">trim_trailing_whitespace = false</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
 </ul>
 <br>
-<br>
-<br>
 
 
-
-
-<h2 id="Batch-conversion-of-existing-CRLF-files-to-LF"><a href="#Batch-conversion-of-existing-CRLF-files-to-LF" class="headerlink" title="Batch conversion of existing CRLF files to LF"></a>Batch conversion of existing <em>CRLF</em> files to <em>LF</em></h2><br>
-
-<p>VSCode does not provide a method for batch conversion, only individual file conversion.</p>
+<h2 id="Batch-conversion-of-existing-CRLF-files-to-LF"><a href="#Batch-conversion-of-existing-CRLF-files-to-LF" class="headerlink" title="Batch conversion of existing CRLF files to LF"></a>Batch conversion of existing <code>CRLF</code> files to <code>LF</code></h2><p>VSCode does not provide a method for batch conversion, only individual file conversion.</p>
 <br>
 
 <p>We can use <strong>Dos2Unix</strong> for batch conversion.<br><br></p>
 <ol>
-<li>Installation package: <a target="_blank" rel="noopener" href="https://waterlan.home.xs4all.nl/dos2unix/dos2unix-7.4.3-win64.zip">https://waterlan.home.xs4all.nl/dos2unix/dos2unix-7.4.3-win64.zip</a></li>
-</ol>
-<br>
-
-<ol start="2">
+<li><p>Installation package: <a target="_blank" rel="noopener" href="https://waterlan.home.xs4all.nl/dos2unix/dos2unix-7.4.3-win64.zip">https://waterlan.home.xs4all.nl/dos2unix/dos2unix-7.4.3-win64.zip</a></p>
+</li>
 <li><p>After installation, add it to the environment variable <strong>Path</strong></p>
-<br>
 </li>
 <li><p>Start <strong>cmd</strong>, switch to the project directory and execute this command:</p>
  <figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> /R %G <span class="keyword">in</span> (*.js *.json *.<span class="built_in">md</span>) <span class="keyword">do</span> dos2unix &quot;%G&quot;</span><br></pre></td></tr></table></figure>
 <p> <em>*.js *.json *.md</em> used to decide which types of file you need to Convert.</p>
 </li>
 </ol>
-<br>
-<br>
 <br>
 
 <h1 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h1><h2 id="To-All"><a href="#To-All" class="headerlink" title="To All"></a>To All</h2><ul>
@@ -315,7 +282,7 @@
 </li>
 </ul>
 <h2 id="To-Me"><a href="#To-Me" class="headerlink" title="To Me"></a>To Me</h2><ul>
-<li>Use <strong>Dos2Unix</strong> to batch convert all existing files from CRLF to LF.</li>
+<li>Use <strong>Dos2Unix</strong> to batch convert all existing files from <code>CRLF</code> to <code>LF</code>.</li>
 <li>Commit all modified files to the repository</li>
 </ul>
 <br>

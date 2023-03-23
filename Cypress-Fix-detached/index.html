@@ -224,7 +224,9 @@
 
         <div class="post-content">
             <h2 id="Error-Message"><a href="#Error-Message" class="headerlink" title="Error Message"></a>Error Message</h2><p>error: cy… () failed because the element you are chaining off of has become detached or removed from the dom</p>
-<p><img src="https://s2.loli.net/2023/03/06/8eO2XwdnRIyoNmQ.png" alt="error.png"><br><br></p>
+<p><img src="https://s2.loli.net/2023/03/06/8eO2XwdnRIyoNmQ.png" alt="error.png"></p>
+<br>
+
 <h2 id="Reason"><a href="#Reason" class="headerlink" title="Reason"></a>Reason</h2><p>If there is <strong>a re-rendering in the process</strong>, the previous element may be found by Cypress. Such problems are particularly likely to occur on pages using <strong>React</strong>. </p>
 <p><strong>The actual problem</strong> is that an element has been <strong>re-rendered</strong> during the process, but the keyword for position is the same (assumed to be <strong>Element A</strong>). <strong>Element A</strong> already existed before <strong>Command L2</strong> was executed, <strong>Command L1</strong> caused <strong>Element A</strong> to be re-rendered, but <strong>Command L1</strong> was delayed for some reasons, and when <strong>Command L2</strong> was being executed, <strong>Element A</strong> was re-rendered and was judged to be detached.<br><br></p>
 <h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><p>Many Cypress users have given feedback about this problem: <a target="_blank" rel="noopener" href="https://github.com/cypress-io/cypress/issues/7306">https://github.com/cypress-io/cypress/issues/7306</a></p>
@@ -234,9 +236,8 @@
 
 <p>Also, you can fix it by <strong>anther way</strong> ( I will show you below ).</p>
 <br>
-### When You Need to Assert The Element
 
-<p>The solution to the problem is to make sure that <strong>Element A</strong> has been already re-rendered when <strong>Command L2</strong> is being executed:</p>
+<h3 id="When-You-Need-to-Assert-The-Element"><a href="#When-You-Need-to-Assert-The-Element" class="headerlink" title="When You Need to Assert The Element"></a>When You Need to Assert The Element</h3><p>The solution to the problem is to make sure that <strong>Element A</strong> has been already re-rendered when <strong>Command L2</strong> is being executed:</p>
 <ul>
 <li><p>Compare whether the value of <strong>Element A</strong> attributes have changed.</p>
 </li>
