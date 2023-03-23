@@ -15,7 +15,7 @@
 
 
 
-<title>Jenkins Pipeline | L i f e L i n e</title>
+<title>Jenkins Get Started | L i f e L i n e</title>
 
 
 
@@ -198,7 +198,7 @@
     
     <article class="post-wrap">
         <header class="post-header">
-            <h1 class="post-title">Jenkins Pipeline</h1>
+            <h1 class="post-title">Jenkins Get Started</h1>
             
                 <div class="post-meta">
                     
@@ -223,147 +223,151 @@
         </header>
 
         <div class="post-content">
-            <h1 id="Prerequisites"><a href="#Prerequisites" class="headerlink" title="Prerequisites"></a>Prerequisites</h1><h2 id="Linux-Recommanded"><a href="#Linux-Recommanded" class="headerlink" title="Linux(Recommanded)"></a>Linux(Recommanded)</h2><p>For the presentation, I will be working on a Linux server, you may also need to install xshell and xftp.</p>
+            <h1 id="Setting-up-a-Jenkins-Pipeline-on-Linux"><a href="#Setting-up-a-Jenkins-Pipeline-on-Linux" class="headerlink" title="Setting up a Jenkins Pipeline on Linux"></a>Setting up a Jenkins Pipeline on Linux</h1><h2 id="Prerequisites"><a href="#Prerequisites" class="headerlink" title="Prerequisites"></a>Prerequisites</h2><h3 id="Linux-Recommanded"><a href="#Linux-Recommanded" class="headerlink" title="Linux(Recommanded)"></a>Linux(Recommanded)</h3><p>For this tutorial, it is recommended to use a Linux server. You will also need to install Xshell and Xftp.</p>
 <p><img src="https://s2.loli.net/2023/03/06/FB6J4itQ9VXaK5H.png" alt="Xshell.png"></p>
-<p>&amp;nbsp;</p>
-<blockquote><p>You can Get A Basic Understanding of Linux</p>
-<footer><strong>my artcile:</strong><cite><a href="https://nataliexselina.github.io/Linux-Get-Started/">nataliexselina.github.io/Linux-Get-Started</a></cite></footer></blockquote>
+<br>
+<blockquote><footer><strong>If you want to get a basic understanding of Linux, please visit:</strong><cite><a href="https://nataliexselina.github.io/Linux-Get-Started/">nataliexselina.github.io/Linux-Get-Started</a></cite></footer></blockquote>
 
-<p>&amp;nbsp;</p>
-<h2 id="JDK"><a href="#JDK" class="headerlink" title="JDK"></a>JDK</h2><p>You should install <strong>JDK</strong> and <strong>add it to the environment path</strong> for preparation.</p>
-<h3 id="You-can-Install-by-Command"><a href="#You-can-Install-by-Command" class="headerlink" title="You can Install by Command"></a>You can Install by Command</h3><p>If you choose this method, no need to configure the environment path.</p>
+<br>
+
+<h3 id="JDK"><a href="#JDK" class="headerlink" title="JDK"></a>JDK</h3><p>To get started, you need to install JDK and add it to the environment path.</p>
+<h4 id="Installation-using-Command-Line"><a href="#Installation-using-Command-Line" class="headerlink" title="Installation using Command Line"></a>Installation using Command Line</h4><p>If you choose this method, there is no need to configure the environment path.</p>
 <ol>
-<li><p>Search for JDK version by command</p>
+<li><p>Search for the JDK version by running the following command:</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">yum search java|grep jdk</span><br></pre></td></tr></table></figure></li>
-<li><p>Select the version you need to install</p>
+<li><p>Select the version you need to install:</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">yum install java-11-openjdk.x86_64 -y</span><br></pre></td></tr></table></figure>
-
-<p> &amp;nbsp;</p>
 <blockquote>
-<p>Tips:<br>Error: Nothing to do </p>
-<ul>
-<li>This solution may be useful to CentOS7: <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">yum -y update</span><br><span class="line">yum clean all</span><br><span class="line">yum makecache</span><br></pre></td></tr></table></figure></li>
-</ul>
+<p>If you get an error saying “Nothing to do”, you can try the following solution:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">yum -y update</span><br><span class="line">yum clean all</span><br><span class="line">yum makecache</span><br></pre></td></tr></table></figure>
 </blockquote>
 </li>
-<li><p>Check your installation</p>
+<li><p>Verify your installation:</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">java -version</span><br></pre></td></tr></table></figure></li>
 </ol>
-<p>&amp;nbsp;</p>
-<h3 id="You-also-can-Install-by-Xftp"><a href="#You-also-can-Install-by-Xftp" class="headerlink" title="You also can Install by Xftp"></a>You also can Install by Xftp</h3><ol>
-<li><p>Choose and Download file<br><a target="_blank" rel="noopener" href="https://www.oracle.com/java/technologies/downloads/#java8">https://www.oracle.com/java/technologies/downloads/#java8</a></p>
+<br>
+
+<h4 id="Installation-using-Xftp"><a href="#Installation-using-Xftp" class="headerlink" title="Installation using Xftp"></a>Installation using Xftp</h4><ol>
+<li><p>Choose and download the JDK file<br><a target="_blank" rel="noopener" href="https://www.oracle.com/java/technologies/downloads/##java8">https://www.oracle.com/java/technologies/downloads/##java8</a></p>
 </li>
-<li><p>mkdir java folder</p>
+<li><p>Create a <code>java</code> folder:</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> /usr</span><br><span class="line"><span class="built_in">mkdir</span> java</span><br></pre></td></tr></table></figure></li>
-<li><p>Upload through Xftp and tar</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">tar -zxvf jdk-17_linux-x64_bin.tar.gz</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Configure the environment path</p>
+<li><p>Upload the JDK file using Xftp and then extract it:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">tar -zxvf jdk-17_linux-x64_bin.tar.gz</span><br></pre></td></tr></table></figure></li>
+<li><p>Configure the environment path:</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">vim /etc/profile</span><br></pre></td></tr></table></figure>
-<p>Type <strong>i</strong> to switch into insert mode.</p>
+<p>Type <code>i</code> to switch into insert mode.<br>And then insert the following content:</p>
 <figure class="highlight vim"><table><tr><td class="code"><pre><span class="line">export JAVA_HOME=/usr/java/jdk17.<span class="number">0.1</span>.<span class="number">1</span></span><br><span class="line">export JRE_HOME=$&#123;JAVA_HOME&#125;/jre</span><br><span class="line">export CLASSPATH=.:$&#123;JAVA_HOME&#125;/lib:$&#123;JRE_HOME&#125;/lib:$CLASSPATH</span><br><span class="line">export JAVA_PATH=$&#123;JAVA_HOME&#125;/bin:$&#123;JRE_HOME&#125;/bin</span><br><span class="line">export PATH=$PATH:$&#123;JAVA_PATH&#125;</span><br></pre></td></tr></table></figure>
-<p>enter <strong>esc</strong> and <strong>:wq!</strong> to quit.</p>
+<p>Then press <code>esc</code> and type <code>:wq!</code> to quit.</p>
+</li>
+<li><p>Ensure the configuration changes take effect by sourcing the profile file with the command:</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">source</span> /etc/profile</span><br></pre></td></tr></table></figure>
 
 <blockquote>
 <p>Tips:</p>
 <ul>
-<li>If you forgot <strong>sudo</strong> before, you can save file as following:<figure class="highlight vim"><table><tr><td class="code"><pre><span class="line">:<span class="keyword">w</span> !sudo tee %</span><br></pre></td></tr></table></figure></li>
+<li>If you forgot <code>sudo</code> before, you can save file as following:<figure class="highlight vim"><table><tr><td class="code"><pre><span class="line">:<span class="keyword">w</span> !sudo tee %</span><br></pre></td></tr></table></figure></li>
 </ul>
 </blockquote>
 </li>
-<li><p>Check your installation and configuration</p>
+<li><p>Check your installation and configuration:</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">javac</span><br><span class="line">java --version</span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$PATH</span></span><br></pre></td></tr></table></figure></li>
 </ol>
-<p>&amp;nbsp;</p>
-<h1 id="Download-Jenkins"><a href="#Download-Jenkins" class="headerlink" title="Download Jenkins"></a>Download Jenkins</h1><p><a target="_blank" rel="noopener" href="https://www.jenkins.io/download/">https://www.jenkins.io/download/</a></p>
+<br>
+
+<h2 id="Download-Jenkins"><a href="#Download-Jenkins" class="headerlink" title="Download Jenkins"></a>Download Jenkins</h2><p>Download Jenkins from the official website: <a target="_blank" rel="noopener" href="https://www.jenkins.io/download/">https://www.jenkins.io/download/</a></p>
 <p><img src="https://s2.loli.net/2023/03/06/gkC5h6zsImNaOK7.png" alt="jenkinswar.png"></p>
-<p>You can use <strong>Xftp</strong> or <strong>yum</strong> or <strong>weget</strong> to install Jenkins.</p>
-<p>No further demonstration here.</p>
-<p>&amp;nbsp;</p>
-<h1 id="Execute-as-Java-Binary"><a href="#Execute-as-Java-Binary" class="headerlink" title="Execute as Java Binary"></a>Execute as Java Binary</h1><p>After Jenkins Downloading, execute it by command:</p>
+<p>You can use Xftp, yum, or wget to install Jenkins.</p>
+<p>No further demonstration is provided here.</p>
+<br>
+
+<h2 id="Execute-as-Java-Binary"><a href="#Execute-as-Java-Binary" class="headerlink" title="Execute as Java Binary"></a>Execute as Java Binary</h2><p>After downloading Jenkins, execute it by running the following command:</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> &lt;your Jenkins downloaded path&gt;</span><br><span class="line">java -jar jenkins.war</span><br></pre></td></tr></table></figure>
-<p>&amp;nbsp;</p>
-<blockquote>
-<p>Tips:</p>
-<ul>
-<li>You can set port by <strong>–httpPort&#x3D;2022</strong></li>
-<li>You can use <strong>netstat -tunlp</strong> to check the port situation.</li>
-</ul>
-</blockquote>
-<p>&amp;nbsp;</p>
-<h1 id="Web-Browser"><a href="#Web-Browser" class="headerlink" title="Web Browser"></a>Web Browser</h1><p>If things go right, you can visit jenkinsUrl by web browser.</p>
+<p>You can also set the port by <code>--httpPort=2022</code>. Use <code>netstat -tunlp</code> to check the port situation.</p>
+<br>
+
+<h2 id="Access-Jenkins-via-Web-Browser"><a href="#Access-Jenkins-via-Web-Browser" class="headerlink" title="Access Jenkins via Web Browser"></a>Access Jenkins via Web Browser</h2><p>Assuming everything is set up correctly, you can access Jenkins via your web browser. Follow these steps:</p>
 <ol>
-<li><p>Open your web browser and visit <a target="_blank" rel="noopener" href="http://ip:8080/">http://ip:8080</a></p>
+<li><p>Open your web browser and enter the URL <a target="_blank" rel="noopener" href="http://ip:8080/">http://ip:8080</a></p>
 </li>
-<li><p>Now, you can get the access to Jenkins: </p>
+<li><p>If everything is set up correctly, you will see the following screen:</p>
 <p> <img src="https://s2.loli.net/2023/03/06/MDyhOALP6etR7a5.png" alt="unlock.png"></p>
 </li>
-<li><p>Enter the password to start.</p>
+<li><p>Enter the password provided during the initial setup to proceed.</p>
 <p> <img src="https://s2.loli.net/2023/03/06/gle84VZGNIAO53F.png" alt="password.png"></p>
 </li>
-<li><p>You can choose the plugins which you like or need to install.</p>
+<li><p>You can now choose the plugins you want or need to install.</p>
 <p> <img src="https://s2.loli.net/2023/03/06/KEhwH8PfLx24Xdv.png" alt="plugins.png"></p>
 </li>
-<li><p>After create your own account, you will go straight to Jenkins dashboard like this: </p>
+<li><p>After creating your own account, you will be taken to the Jenkins dashboard:</p>
 <p> <img src="https://s2.loli.net/2023/03/06/rIgnuCm9Dqz2Syt.png" alt="dashboard.png"></p>
-<p> &amp;nbsp;</p>
+ <br>
+
 <blockquote>
 <p>Tips: jenkinsUrl is ip:httpPort</p>
 <ul>
-<li>jenkinsUrl&#x2F;safeRestart - Let you to wait for running JOBS to get complete and do a RESTART.</li>
-<li>jenkinsUrl&#x2F;restart - Do a restart immediately without waiting for the jobs which are running currently.</li>
-<li>jenkinsUrl&#x2F;exit - It stops&#x2F;shutdown the JENKINS services</li>
-<li>jenkinsUrl&#x2F;reload - To reload the configuration changes.</li>
+<li>jenkinsUrl&#x2F;safeRestart - Allows you to wait for running jobs to complete before restarting.</li>
+<li>jenkinsUrl&#x2F;restart - Restarts Jenkins immediately without waiting for currently running jobs.</li>
+<li>jenkinsUrl&#x2F;exit - Stops or shuts down the Jenkins service.</li>
+<li>jenkinsUrl&#x2F;reload - Reloads configuration changes.</li>
 </ul>
 </blockquote>
-<p> &amp;nbsp;</p>
-</li>
+ <br></li>
 </ol>
-<h1 id="Create-A-Job-Pipeline"><a href="#Create-A-Job-Pipeline" class="headerlink" title="Create A Job(Pipeline)"></a>Create A Job(Pipeline)</h1><p><a target="_blank" rel="noopener" href="https://www.jenkins.io/doc/book/pipeline/syntax/">https://www.jenkins.io/doc/book/pipeline/syntax/</a></p>
-<p>Enter your pipeline name and choose pipeline to create a job.</p>
-<p>Then it comes to pipeline configuration.</p>
+<h2 id="Create-A-Job-Pipeline"><a href="#Create-A-Job-Pipeline" class="headerlink" title="Create A Job(Pipeline)"></a>Create A Job(Pipeline)</h2><p>Visit <a target="_blank" rel="noopener" href="https://www.jenkins.io/doc/book/pipeline/syntax/">https://www.jenkins.io/doc/book/pipeline/syntax/</a> and enter your pipeline name to create a job. Then, configure the pipeline as follows:</p>
 <p><img src="https://s2.loli.net/2023/03/06/CmzOPYAd8iUlLMW.png" alt="select.png"></p>
-<p>&amp;nbsp;</p>
-<h2 id="Pipeline-script"><a href="#Pipeline-script" class="headerlink" title="Pipeline script"></a>Pipeline script</h2><figure class="highlight groovy"><table><tr><td class="code"><pre><span class="line"><span class="comment">// Declarative </span></span><br><span class="line">pipeline &#123;</span><br><span class="line">    agent any</span><br><span class="line">    stages &#123;</span><br><span class="line">        stage(<span class="string">&#x27;Build&#x27;</span>) &#123; </span><br><span class="line">            steps &#123;</span><br><span class="line">                println <span class="string">&quot;Build&quot;</span> </span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        stage(<span class="string">&#x27;Test&#x27;</span>) &#123; </span><br><span class="line">            steps &#123;</span><br><span class="line">                sh <span class="string">&quot;echo `pwd`&quot;</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        stage(<span class="string">&#x27;Deploy&#x27;</span>) &#123; </span><br><span class="line">            steps &#123;</span><br><span class="line">                println <span class="string">&quot;Deploy&quot;</span> </span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<br>
 
-<p>&amp;nbsp;<br>Build the pipeline by clicking <strong>Build Now</strong>. Because it is a very small script, so it will not take a lot of time.</p>
-<p>If everything goes right, you can see the output of each stages by click <strong>logs</strong>.<br>&amp;nbsp;</p>
-<p>And then you will see the stage logs message like this.<br>This is how you do it with a direct script.</p>
+<h4 id="Pipeline-script"><a href="#Pipeline-script" class="headerlink" title="Pipeline script"></a>Pipeline script</h4><figure class="highlight groovy"><table><tr><td class="code"><pre><span class="line"><span class="comment">// Declarative </span></span><br><span class="line">pipeline &#123;</span><br><span class="line">    agent any</span><br><span class="line">    stages &#123;</span><br><span class="line">        stage(<span class="string">&#x27;Build&#x27;</span>) &#123; </span><br><span class="line">            steps &#123;</span><br><span class="line">                println <span class="string">&quot;Build&quot;</span> </span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        stage(<span class="string">&#x27;Test&#x27;</span>) &#123; </span><br><span class="line">            steps &#123;</span><br><span class="line">                sh <span class="string">&quot;echo `pwd`&quot;</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        stage(<span class="string">&#x27;Deploy&#x27;</span>) &#123; </span><br><span class="line">            steps &#123;</span><br><span class="line">                println <span class="string">&quot;Deploy&quot;</span> </span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<br>
+
+<p>Click “Build Now” to build the pipeline. Since it is a small script, it should not take long to build. Once the build is complete, you can view the output of each stage by clicking “logs.”</p>
+<p>Here’s an example of the stage logs message:</p>
 <p><img src="https://s2.loli.net/2023/03/06/H9UNPxQ2YWrcdZ6.png" alt="log.png"></p>
 <p><img src="https://s2.loli.net/2023/03/06/gliQKpJk2er7DB3.png" alt="console1.png"></p>
-<p>&amp;nbsp;</p>
-<h2 id="Pipeline-script-from-SCM"><a href="#Pipeline-script-from-SCM" class="headerlink" title="Pipeline script from SCM"></a>Pipeline script from SCM</h2><p>Here, I will use Github as my repositories.</p>
-<h3 id="Github-Settings-Webhooks"><a href="#Github-Settings-Webhooks" class="headerlink" title="Github Settings - Webhooks"></a>Github Settings - Webhooks</h3><p><img src="https://s2.loli.net/2023/03/06/DiBXZ7JUqCr5LxH.png" alt="webhook_github.png"></p>
-<h3 id="Jenkins-Settings"><a href="#Jenkins-Settings" class="headerlink" title="Jenkins Settings"></a>Jenkins Settings</h3><ul>
+<br>
+
+<h4 id="Pipeline-script-from-SCM"><a href="#Pipeline-script-from-SCM" class="headerlink" title="Pipeline script from SCM"></a>Pipeline script from SCM</h4><p>For this example, we will use Github as our repository.</p>
+<h5 id="Github-Settings-Webhooks"><a href="#Github-Settings-Webhooks" class="headerlink" title="Github Settings - Webhooks"></a>Github Settings - Webhooks</h5><p><img src="https://s2.loli.net/2023/03/06/DiBXZ7JUqCr5LxH.png" alt="webhook_github.png"></p>
+<h5 id="Jenkins-Settings"><a href="#Jenkins-Settings" class="headerlink" title="Jenkins Settings"></a>Jenkins Settings</h5><ul>
 <li>Create your own Credentials. ( Same username and password as your Github account )</li>
 <li>Set your Repositories. ( Repository URL and Credentials )</li>
 <li>(Optional) Set Repository browser as <strong>githubweb</strong> and enter url</li>
 <li>Set Relative location. ( Where your Jenkinsfile located )</li>
 <li>Save</li>
 </ul>
-<p>&amp;nbsp;</p>
-<p>If everything goes right, you can see the output of each stages by click <strong>logs</strong>.</p>
-<p>&amp;nbsp;<br>And then you will see the stage logs message like this.<br>It has one additional stage called <strong>Declarative: Checkout SCM</strong>.</p>
+<br>
+
+<p>If everything goes right, you can see the output of each stages by click <strong>logs</strong>.<br>Here’s an example of the stage logs message. It has one additional stage called <strong>Declarative: Checkout SCM</strong>.</p>
 <p><img src="https://s2.loli.net/2023/03/06/hsWvbmHFCgyzYEu.png" alt="SCM.png"></p>
-<p>&amp;nbsp;<br>You can check how the source control cloning process went as well.</p>
+<br>
+You can check how the source control cloning process went as well.
+
 <p><img src="https://s2.loli.net/2023/03/06/dtZwerhS8n6YT3E.png" alt="SCMlogs.png"></p>
-<p>&amp;nbsp;<br>&amp;nbsp;</p>
-<h1 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h1><ul>
-<li><p>Firstly, congratulations on actually building your Jenkins Pipeline.</p>
-</li>
-<li><p>This tutorial has just provided to you a glimpse of what Jenkins Pipeline can do.</p>
-</li>
-<li><p>You can extend its capabilities by integrating it with other tools.<br>&amp;nbsp;</p>
-<p>  Here are some examples for pipeline:</p>
-<ul>
+<br>
+<br>
+
+<h2 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h2><ul>
+<li>Firstly, congratulations on actually building your Jenkins Pipeline.</li>
+<li>This tutorial has just provided to you a glimpse of what Jenkins Pipeline can do.</li>
+<li>You can extend its capabilities by integrating it with other tools.<br>
+
+  Here are some examples for pipeline:<ul>
 <li><a target="_blank" rel="noopener" href="https://github.com/bryantson/CICDPractice">https://github.com/bryantson/CICDPractice</a></li>
 <li><a target="_blank" rel="noopener" href="https://github.com/jenkinsci/pipeline-examples">https://github.com/jenkinsci/pipeline-examples</a></li>
 </ul>
 </li>
 </ul>
-<p>&amp;nbsp;<br>&amp;nbsp;<br>&amp;nbsp;<br>&amp;nbsp;<br>&amp;nbsp;<br>&amp;nbsp;<br>&amp;nbsp;<br>&amp;nbsp;<br>&amp;nbsp;</p>
-
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
         </div>
 
         
@@ -377,7 +381,7 @@
                 
                     <p class="copyright-item">
                         <span>Permalink:</span>
-                        <span><a href="https://nataliexselina.github.io/Jenkins-Pipeline/">https://nataliexselina.github.io/Jenkins-Pipeline/</a></span>
+                        <span><a href="https://nataliexselina.github.io/Jenkins-Get-Started/">https://nataliexselina.github.io/Jenkins-Get-Started/</a></span>
                     </p>
                 
                 
@@ -402,9 +406,9 @@
                     
                         <a href="/tags/Jenkins/"># Jenkins</a>
                     
-                        <a href="/tags/JDK/"># JDK</a>
-                    
                         <a href="/tags/CI-CD/"># CI/CD</a>
+                    
+                        <a href="/tags/JDK/"># JDK</a>
                     
                         <a href="/tags/Pipeline/"># Pipeline</a>
                     

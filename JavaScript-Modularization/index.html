@@ -223,27 +223,37 @@
         </header>
 
         <div class="post-content">
-            <h2 id="What-is-Modularization"><a href="#What-is-Modularization" class="headerlink" title="What is Modularization"></a>What is Modularization</h2><blockquote><p>Let’s take a bicycle for an illustration. A bicycle is made up of several parts, each of these parts is made up of various components. All of these parts are put together to form a bicycle.<br>&amp;nbsp;<br>In software development, this concept is termed REUSABILITY.<br>&amp;nbsp;<br>Since a bicycle is composed of small parts, each of those parts can be built or repaired by engineers while not hindering one another.Also, if some of its parts get damaged, instead of replacing the whole bicycle, just the damaged parts have to be replaced. In software development, this concept is termed ISOLATION.<br>&amp;nbsp;<br>The benefit of these concepts holds the same in software development.<br>&amp;nbsp;</p>
+            <h2 id="What-is-Modularization"><a href="#What-is-Modularization" class="headerlink" title="What is Modularization"></a>What is Modularization</h2><blockquote><p>Let’s take a bicycle for an illustration. A bicycle is made up of several parts, each of these parts is made up of various components. All of these parts are put together to form a bicycle.<br><br><br>In software development, this concept is termed REUSABILITY.<br><br><br>Since a bicycle is composed of small parts, each of those parts can be built or repaired by engineers while not hindering one another.Also, if some of its parts get damaged, instead of replacing the whole bicycle, just the damaged parts have to be replaced. In software development, this concept is termed ISOLATION.<br><br><br>The benefit of these concepts holds the same in software development.<br><br></p>
 <footer><strong>From</strong><cite><a target="_blank" rel="noopener" href="https://codesource.io/how-to-modularize-javascript-code/">codesource.io/how-to-modularize-javascript-code</a></cite></footer></blockquote>
 
-<p>&amp;nbsp;</p>
-<h2 id="Why-Modules-in-JavaScript"><a href="#Why-Modules-in-JavaScript" class="headerlink" title="Why Modules in JavaScript?"></a>Why Modules in JavaScript?</h2><blockquote><p>A typical real program grows gradually. New pieces of functionality are added as new needs come up.This will make the parts of the program to become deeply entangled.<br>&amp;nbsp;<br>If you want to use any of the functionality from such a program in another situation, rewriting it may be easier than trying to disentangle it from its context (i.e issues with the reusability of code).</p>
+<br>
+## Why Modules in JavaScript?
+
+<blockquote><p>A typical real program grows gradually. New pieces of functionality are added as new needs come up.This will make the parts of the program to become deeply entangled.<br><br><br>If you want to use any of the functionality from such a program in another situation, rewriting it may be easier than trying to disentangle it from its context (i.e issues with the reusability of code).</p>
 </blockquote>
 
-<p>&amp;nbsp;</p>
-<h2 id="JavaScript-Module-Formats"><a href="#JavaScript-Module-Formats" class="headerlink" title="JavaScript Module Formats"></a>JavaScript Module Formats</h2><p>When it comes to <strong>Cypress</strong>, there are two module formats in JavaScript, CommonJS and ES6 Modules format.</p>
+<br>
+## JavaScript Module Formats
+When it comes to **Cypress**, there are two module formats in JavaScript, CommonJS and ES6 Modules format.
+
 <h3 id="CommonJS"><a href="#CommonJS" class="headerlink" title="CommonJS"></a>CommonJS</h3><p>Loading a CommonJS module is a synchronous operation. That means that when the require (module-name) function call returns, the module has been located and completely read into memory and is ready for use.</p>
 <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> <span class="title class_">Math</span>=<span class="built_in">require</span>(<span class="string">&#x27;math&#x27;</span>);</span><br><span class="line"><span class="keyword">var</span> add=<span class="built_in">require</span>(<span class="string">&#x27;./add.js&#x27;</span>);</span><br></pre></td></tr></table></figure>
-<p>&amp;nbsp;<br>The module is cached in memory so that subsequent require (module-name) calls return immediately, and all return the exact same object. Objects and functions can be exposed from a CommonJS module using module and exports.</p>
+<br>
+The module is cached in memory so that subsequent require (module-name) calls return immediately, and all return the exact same object. Objects and functions can be exposed from a CommonJS module using module and exports.
+
 <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">exports</span>.<span class="property">add</span> = <span class="keyword">function</span>(<span class="params"></span>) &#123; </span><br><span class="line">    <span class="comment">// your function</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">// module.exports.add = function() &#123; .. &#125;;  </span></span><br></pre></td></tr></table></figure>
 
-<p>&amp;nbsp;</p>
-<h3 id="ES6"><a href="#ES6" class="headerlink" title="ES6"></a>ES6</h3><p>Loading a ES6 module is an asynchronous operation. ES6 module format makes use of the <strong>import</strong> and <strong>export</strong> keyword and its import happens before a module’s script starts running.</p>
+<br>
+### ES6
+
+<p>Loading a ES6 module is an asynchronous operation. ES6 module format makes use of the <strong>import</strong> and <strong>export</strong> keyword and its import happens before a module’s script starts running.</p>
 <p>The <strong>export</strong> keyword is used to export function, class, or binding definition. It may appear in front of a function, class, or binding definition ( let, const, or var ). </p>
 <p>Also, the <strong>import</strong> keyword is used to import function, class, or binding definition. It is possible to rename imported bindings using the word as:</p>
 <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123;months <span class="keyword">as</span> monthNames&#125; <span class="keyword">from</span> <span class="string">&quot;date-names&quot;</span>;</span><br></pre></td></tr></table></figure>
-<p>&amp;nbsp;</p>
-<h3 id="Example-Given"><a href="#Example-Given" class="headerlink" title="Example Given"></a>Example Given</h3><p>Open your favourite code editor and create a folder “modular code”. Create a file module_1.js with the following code.</p>
+<br>
+### Example Given
+
+<p>Open your favourite code editor and create a folder “modular code”. Create a file module_1.js with the following code.</p>
 <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> count = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">function</span> <span class="title function_">increment</span> () &#123; <span class="keyword">return</span> ++count; &#125;</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">decrement</span> () &#123; <span class="keyword">return</span> --count; &#125;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">function</span> <span class="title function_">hello</span> () &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;Hello, world!&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">function</span>(<span class="params"></span>) &#123; <span class="keyword">return</span> count; &#125;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> meaning = <span class="number">42</span>;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">let</span> numberOfCount = -<span class="number">1</span>;</span><br><span class="line"><span class="keyword">export</span> &#123; decrement &#125;;</span><br></pre></td></tr></table></figure>
 
 <p>The export keyword is used to make items available outside a module while the import keyword is used to import items into another module. The statement in line 2, 4, 8 and 9 are named export, meaning the exported thing has a name, and that code outside the module uses that name to access the object.</p>
@@ -252,8 +262,10 @@
 <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> * <span class="keyword">as</span> sample_1 <span class="keyword">from</span> <span class="string">&#x27;./module_1.js&#x27;</span>;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(sample_1.<span class="title function_">hello</span>());</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`<span class="subst">$&#123;sample_1.increment()&#125;</span> <span class="subst">$&#123;sample_1.hello()&#125;</span>`</span>);</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">function</span> <span class="title function_">firstName</span> () &#123;</span><br><span class="line">   <span class="keyword">return</span> <span class="string">&quot;Natalie&quot;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">function</span> <span class="title function_">lastName</span> () &#123;</span><br><span class="line">   <span class="keyword">return</span> <span class="string">&quot;Selina&quot;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">function</span> <span class="title function_">count</span> () &#123; <span class="keyword">return</span> count; &#125;</span><br></pre></td></tr></table></figure>
 
 <p>The asterisk symbol in line one means all the exported items. Notice the difference between the console.log statement in line 2 and line 3 the later is using javascript template literals for interpolation. When you use a named default export, that changes how you import that module. Instead of using the *  or using named imports, you just use import name from .&#x2F;path. Let’s import the count function from module_2.js file.</p>
-<p>&amp;nbsp;</p>
-<h2 id="Module-Formats-in-Cypress"><a href="#Module-Formats-in-Cypress" class="headerlink" title="Module Formats in Cypress"></a>Module Formats in Cypress</h2><h3 id="ES6-in-Cypress-brower"><a href="#ES6-in-Cypress-brower" class="headerlink" title="ES6 in Cypress ( brower )"></a>ES6 in Cypress ( brower )</h3><p>Cypress will loading all the functions in your <strong>***.util.js</strong>,if you use <strong>import months from “date-names”</strong> to import function, which may cause loading too much time before starting. </p>
+<br>
+## Module Formats in Cypress
+
+<h3 id="ES6-in-Cypress-brower"><a href="#ES6-in-Cypress-brower" class="headerlink" title="ES6 in Cypress ( brower )"></a>ES6 in Cypress ( brower )</h3><p>Cypress will loading all the functions in your <strong>***.util.js</strong>,if you use <strong>import months from “date-names”</strong> to import function, which may cause loading too much time before starting. </p>
 <blockquote>
 <p>We establish <strong>several rules</strong> to avoid this situation:</p>
 <ol>
@@ -274,7 +286,8 @@
 </li>
 </ol>
 </blockquote>
-<p>&amp;nbsp;</p>
+<br>
+
 <h3 id="CommonJS-in-Cypress-server"><a href="#CommonJS-in-Cypress-server" class="headerlink" title="CommonJS in Cypress ( server )"></a>CommonJS in Cypress ( server )</h3><p>This article can tell the difference: <a target="_blank" rel="noopener" href="https://blog.logrocket.com/commonjs-vs-es-modules-node-js/">https://blog.logrocket.com/commonjs-vs-es-modules-node-js/</a></p>
 <blockquote>
 <p>We establish this rule:</p>
@@ -287,8 +300,15 @@
 </ol>
 </blockquote>
 </blockquote>
-<p>&amp;nbsp;<br>&amp;nbsp;<br>&amp;nbsp;<br>&amp;nbsp;<br>&amp;nbsp;<br>&amp;nbsp;<br>&amp;nbsp;<br>&amp;nbsp;<br>&amp;nbsp;</p>
-
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
         </div>
 
         
@@ -336,7 +356,7 @@
         </section>
         <section class="post-nav">
             
-                <a class="prev" rel="prev" href="/Jenkins-Pipeline/">Jenkins Pipeline</a>
+                <a class="prev" rel="prev" href="/Jenkins-Get-Started/">Jenkins Get Started</a>
             
             
             <a class="next" rel="next" href="/Cypress-CURD-in-MongoDB/">Cypress-CURD in MongoDB</a>

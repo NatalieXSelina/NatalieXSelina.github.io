@@ -224,41 +224,58 @@
 
         <div class="post-content">
             <h2 id="Difference-Between-Functional-and-Exploratory-Testing"><a href="#Difference-Between-Functional-and-Exploratory-Testing" class="headerlink" title="Difference Between Functional and Exploratory Testing"></a>Difference Between Functional and Exploratory Testing</h2><h3 id="Functional-Testing"><a href="#Functional-Testing" class="headerlink" title="Functional Testing"></a>Functional Testing</h3><ul>
-<li>Based on functional testcases</li>
-<li>Mainly cover interaction, requirements and functional scenarios</li>
-<li>Focus on whether the system is functionally perfect and whether the implementation is accurate</li>
+<li>Based on functional test cases.</li>
+<li>Mainly covers interactions, requirements, and functional scenarios.</li>
+<li>Focuses on verifying whether the system is functionally perfect and whether the implementation is accurate.</li>
 </ul>
-<p>&amp;nbsp;</p>
+<br>
+
 <h3 id="Exploratory-Testing"><a href="#Exploratory-Testing" class="headerlink" title="Exploratory Testing"></a>Exploratory Testing</h3><ul>
-<li>Rely on the experience of QA</li>
-<li>A simultaneous process of test design and test execution all done at the same time</li>
-<li>Focus on discovery missing edge cases that are not easily covered in the scope of other tests</li>
+<li>Relies on the experience of QA testers.</li>
+<li>Involves simultaneous test design and execution.</li>
+<li>Focuses on discovering missing edge cases that are not easily covered in the scope of other tests.</li>
 </ul>
-<p>&amp;nbsp;</p>
-<h2 id="Common-Methods"><a href="#Common-Methods" class="headerlink" title="Common Methods"></a>Common Methods</h2><h3 id="UAT"><a href="#UAT" class="headerlink" title="UAT"></a>UAT</h3><ul>
-<li>Focus on business scenarios of online active users</li>
-<li>Filter historical customer bugs in the module you are going to test</li>
-<li>Expand by combining the two scenarios above to find out some complex cases</li>
+<br>
+
+<h2 id="Common-Methods"><a href="#Common-Methods" class="headerlink" title="Common Methods"></a>Common Methods</h2><h3 id="UAT-User-Acceptance-Testing"><a href="#UAT-User-Acceptance-Testing" class="headerlink" title="UAT(User Acceptance Testing)"></a>UAT(User Acceptance Testing)</h3><ul>
+<li>Focuses on business scenarios of online active users.</li>
+<li>Filters historical customer bugs in the module you are going to test.</li>
+<li>Expands by combining the two scenarios above to find out some complex cases.</li>
 </ul>
 <h3 id="Interaction-Testing"><a href="#Interaction-Testing" class="headerlink" title="Interaction Testing"></a>Interaction Testing</h3><ul>
-<li>Multiple operations</li>
-<li>Components rendering </li>
-<li>Specific interactions among data points in implementation ( As value depending on earlier ones )</li>
-<li>Concerned with unexpected interactions</li>
+<li>Tests multiple operations.</li>
+<li>Tests components rendering.</li>
+<li>Tests specific interactions among data points in the implementation (e.g., where a value depends on earlier values).</li>
+<li>Focuses on discovering unexpected interactions.</li>
 </ul>
-<h3 id="Exception-Scenarios"><a href="#Exception-Scenarios" class="headerlink" title="Exception Scenarios"></a>Exception Scenarios</h3><h3 id="Performance-testing"><a href="#Performance-testing" class="headerlink" title="Performance testing"></a>Performance testing</h3><ul>
-<li>Large amount of data</li>
-<li>QPS</li>
-<li>Semaphore</li>
+<h3 id="Exception-Scenarios"><a href="#Exception-Scenarios" class="headerlink" title="Exception Scenarios"></a>Exception Scenarios</h3><ul>
+<li>Tests how the system behaves under exceptional circumstances (e.g., when there is an unexpected input or an error).</li>
 </ul>
-<h3 id="Data-Compatibility"><a href="#Data-Compatibility" class="headerlink" title="Data Compatibility"></a>Data Compatibility</h3><h3 id="Expansion-testing"><a href="#Expansion-testing" class="headerlink" title="Expansion testing."></a>Expansion testing.</h3><ul>
-<li>Concerned with Database: mongodb, redis</li>
-<li>Concerned with cache: localstorage, cookies</li>
-<li>Order of the completion of API requests</li>
+<h3 id="Performance-testing"><a href="#Performance-testing" class="headerlink" title="Performance testing"></a>Performance testing</h3><ul>
+<li>Tests the system’s performance under heavy load (e.g., large amounts of data or high QPS).</li>
+<li>Tests the system’s ability to handle concurrent requests (e.g., using semaphores).</li>
 </ul>
-<h3 id="Focus-on-the-impact-on-other-modules"><a href="#Focus-on-the-impact-on-other-modules" class="headerlink" title="Focus on the impact on other modules"></a>Focus on the impact on other modules</h3><h3 id="Blind-Spot"><a href="#Blind-Spot" class="headerlink" title="Blind Spot"></a>Blind Spot</h3><p>Up to your project. You should list them by yourself.</p>
-<p>&amp;nbsp;<br>&amp;nbsp;<br>&amp;nbsp;<br>&amp;nbsp;<br>&amp;nbsp;<br>&amp;nbsp;<br>&amp;nbsp;<br>&amp;nbsp;<br>&amp;nbsp;</p>
-
+<h3 id="Data-Compatibility"><a href="#Data-Compatibility" class="headerlink" title="Data Compatibility"></a>Data Compatibility</h3><ul>
+<li>Tests whether the system can handle different types of data inputs (e.g., different formats, encodings, or character sets).</li>
+</ul>
+<h3 id="Expansion-testing"><a href="#Expansion-testing" class="headerlink" title="Expansion testing"></a>Expansion testing</h3><ul>
+<li>Tests the system’s ability to handle expansions in the database (e.g., MongoDB, Redis).</li>
+<li>Tests the system’s ability to handle expansions in caching mechanisms (e.g., local storage, cookies).</li>
+<li>Tests the order of completion of API requests.</li>
+</ul>
+<h3 id="Focus-on-the-impact-on-other-modules"><a href="#Focus-on-the-impact-on-other-modules" class="headerlink" title="Focus on the impact on other modules"></a>Focus on the impact on other modules</h3><ul>
+<li>Tests how changes in one module can affect other modules in the system.</li>
+</ul>
+<h3 id="Blind-Spot"><a href="#Blind-Spot" class="headerlink" title="Blind Spot"></a>Blind Spot</h3><p>Up to your project. You should list them by yourself.</p>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
         </div>
 
         

@@ -224,16 +224,19 @@
 
         <div class="post-content">
             <h2 id="Error-Message"><a href="#Error-Message" class="headerlink" title="Error Message"></a>Error Message</h2><p>error: cy… () failed because the element you are chaining off of has become detached or removed from the dom</p>
-<p><img src="https://s2.loli.net/2023/03/06/8eO2XwdnRIyoNmQ.png" alt="error.png"><br>&amp;nbsp;</p>
+<p><img src="https://s2.loli.net/2023/03/06/8eO2XwdnRIyoNmQ.png" alt="error.png"><br><br></p>
 <h2 id="Reason"><a href="#Reason" class="headerlink" title="Reason"></a>Reason</h2><p>If there is <strong>a re-rendering in the process</strong>, the previous element may be found by Cypress. Such problems are particularly likely to occur on pages using <strong>React</strong>. </p>
-<p><strong>The actual problem</strong> is that an element has been <strong>re-rendered</strong> during the process, but the keyword for position is the same (assumed to be <strong>Element A</strong>). <strong>Element A</strong> already existed before <strong>Command L2</strong> was executed, <strong>Command L1</strong> caused <strong>Element A</strong> to be re-rendered, but <strong>Command L1</strong> was delayed for some reasons, and when <strong>Command L2</strong> was being executed, <strong>Element A</strong> was re-rendered and was judged to be detached.<br>&amp;nbsp;</p>
+<p><strong>The actual problem</strong> is that an element has been <strong>re-rendered</strong> during the process, but the keyword for position is the same (assumed to be <strong>Element A</strong>). <strong>Element A</strong> already existed before <strong>Command L2</strong> was executed, <strong>Command L1</strong> caused <strong>Element A</strong> to be re-rendered, but <strong>Command L1</strong> was delayed for some reasons, and when <strong>Command L2</strong> was being executed, <strong>Element A</strong> was re-rendered and was judged to be detached.<br><br></p>
 <h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><p>Many Cypress users have given feedback about this problem: <a target="_blank" rel="noopener" href="https://github.com/cypress-io/cypress/issues/7306">https://github.com/cypress-io/cypress/issues/7306</a></p>
 <h3 id="When-You-Need-to-Interact-With-The-Element"><a href="#When-You-Need-to-Interact-With-The-Element" class="headerlink" title="When You Need to Interact With The Element"></a>When You Need to Interact With The Element</h3><p><strong>The easiest way</strong> is use <strong>{force:true}</strong>:</p>
 <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">cy.<span class="title function_">get</span>(<span class="string">&#x27;element&#x27;</span>).<span class="title function_">click</span>(&#123;<span class="attr">force</span>:<span class="literal">true</span>&#125;)</span><br></pre></td></tr></table></figure>
-<p>&amp;nbsp;</p>
+<br>
+
 <p>Also, you can fix it by <strong>anther way</strong> ( I will show you below ).</p>
-<p>&amp;nbsp;</p>
-<h3 id="When-You-Need-to-Assert-The-Element"><a href="#When-You-Need-to-Assert-The-Element" class="headerlink" title="When You Need to Assert The Element"></a>When You Need to Assert The Element</h3><p>The solution to the problem is to make sure that <strong>Element A</strong> has been already re-rendered when <strong>Command L2</strong> is being executed:</p>
+<br>
+### When You Need to Assert The Element
+
+<p>The solution to the problem is to make sure that <strong>Element A</strong> has been already re-rendered when <strong>Command L2</strong> is being executed:</p>
 <ul>
 <li><p>Compare whether the value of <strong>Element A</strong> attributes have changed.</p>
 </li>
@@ -242,20 +245,30 @@
 </ul>
 <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">ElementExist</span>(<span class="params">element, number</span>)&#123;</span><br><span class="line">    cy.<span class="title function_">waitUntil</span>(<span class="function">() =&gt;</span> cy.<span class="title function_">get</span>(element).<span class="title function_">then</span>(<span class="function">(<span class="params">$el</span>) =&gt;</span> $el.<span class="property">length</span> &gt;= number))</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// All users are loaded (assuming a total of 5) as the re-rendering is complete and the element is stable</span></span><br><span class="line"><span class="title class_">ElementExist</span>(<span class="string">&#x27;.user-item&#x27;</span>, <span class="number">5</span>) </span><br></pre></td></tr></table></figure>
 
-<p>&amp;nbsp;</p>
+<br>
+
 <blockquote>
 <p>Tips:</p>
 <ul>
 <li>You can observe the rendering of the DOM by <strong>breakpoints</strong>.<br><img src="https://s2.loli.net/2023/03/06/EM1vcOfDgRdkqIP.png" alt="breakpoint.png"></li>
 </ul>
 </blockquote>
-<p>&amp;nbsp;</p>
+<br>
+
+
 <h2 id="Good-News"><a href="#Good-News" class="headerlink" title="Good News"></a>Good News</h2><p>The development team <strong>will soon fix this issue</strong>, probably done in Cypress 10.x</p>
 <blockquote>
 <p><a target="_blank" rel="noopener" href="https://github.com/cypress-io/cypress/issues/7306">https://github.com/cypress-io/cypress/issues/7306</a><br><img src="https://s2.loli.net/2023/03/06/TUCbReIqFdltus3.png" alt="fix_detached.png"></p>
 </blockquote>
-<p>&amp;nbsp;<br>&amp;nbsp;<br>&amp;nbsp;<br>&amp;nbsp;<br>&amp;nbsp;<br>&amp;nbsp;<br>&amp;nbsp;<br>&amp;nbsp;<br>&amp;nbsp;</p>
-
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
         </div>
 
         

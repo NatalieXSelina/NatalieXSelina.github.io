@@ -225,29 +225,42 @@
         <div class="post-content">
             <h1 id="Plugin-cypress-iframe"><a href="#Plugin-cypress-iframe" class="headerlink" title="Plugin cypress-iframe"></a>Plugin cypress-iframe</h1><p><a target="_blank" rel="noopener" href="https://www.npmjs.com/package/cypress-iframe">https://www.npmjs.com/package/cypress-iframe</a></p>
 <h2 id="Install"><a href="#Install" class="headerlink" title="Install"></a>Install</h2><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">&#x27;cypress-iframe&#x27;</span></span><br></pre></td></tr></table></figure>
-<p>&amp;nbsp;</p>
+<br>
+
 <h2 id="frameLoaded"><a href="#frameLoaded" class="headerlink" title="frameLoaded"></a>frameLoaded</h2><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// This will verify that the iframe is loaded to any page other than &#x27;about:blank&#x27;</span></span><br><span class="line">cy.<span class="title function_">frameLoaded</span>()</span><br><span class="line"> </span><br><span class="line"><span class="comment">// This will verify that the iframe is loaded to any url containing the given path part</span></span><br><span class="line">cy.<span class="title function_">frameLoaded</span>(&#123; <span class="attr">url</span>: <span class="string">&#x27;https://google.com&#x27;</span> &#125;)</span><br><span class="line">cy.<span class="title function_">frameLoaded</span>(&#123; <span class="attr">url</span>: <span class="string">&#x27;/join&#x27;</span> &#125;)</span><br><span class="line">cy.<span class="title function_">frameLoaded</span>(&#123; <span class="attr">url</span>: <span class="string">&#x27;?some=query&#x27;</span> &#125;)</span><br><span class="line">cy.<span class="title function_">frameLoaded</span>(&#123; <span class="attr">url</span>: <span class="string">&#x27;#/hash/path&#x27;</span> &#125;)</span><br><span class="line"> </span><br><span class="line"><span class="comment">// You can also give it a selector to check that a specific iframe has loaded</span></span><br><span class="line">cy.<span class="title function_">frameLoaded</span>(<span class="string">&#x27;#my-frame&#x27;</span>)</span><br><span class="line">cy.<span class="title function_">frameLoaded</span>(<span class="string">&#x27;#my-frame&#x27;</span>, &#123; <span class="attr">url</span>: <span class="string">&#x27;/join&#x27;</span> &#125;)</span><br></pre></td></tr></table></figure>
-<p>&amp;nbsp;</p>
+<br>
+
 <h2 id="iframe"><a href="#iframe" class="headerlink" title="iframe"></a>iframe</h2><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// This will verify that the iframe is loaded to any page other than &#x27;about:blank&#x27;</span></span><br><span class="line">cy.<span class="title function_">iframe</span>().<span class="title function_">find</span>(<span class="string">&#x27;.some-button&#x27;</span>).<span class="title function_">should</span>(<span class="string">&#x27;be.visible&#x27;</span>).<span class="title function_">click</span>()</span><br><span class="line">cy.<span class="title function_">iframe</span>().<span class="title function_">contains</span>(<span class="string">&#x27;Some hidden element&#x27;</span>).<span class="title function_">should</span>(<span class="string">&#x27;not.be.visible&#x27;</span>)</span><br><span class="line">cy.<span class="title function_">find</span>(<span class="string">&#x27;#outside-iframe&#x27;</span>).<span class="title function_">click</span>() <span class="comment">// this will be executed outside the iframe</span></span><br><span class="line"> </span><br><span class="line"><span class="comment">// You can also give it a selector to find elements inside of a specific iframe</span></span><br><span class="line">cy.<span class="title function_">iframe</span>(<span class="string">&#x27;#my-frame&#x27;</span>).<span class="title function_">find</span>(<span class="string">&#x27;.some-button&#x27;</span>).<span class="title function_">should</span>(<span class="string">&#x27;be.visible&#x27;</span>).<span class="title function_">click</span>()</span><br><span class="line">cy.<span class="title function_">iframe</span>(<span class="string">&#x27;#my-second-frame&#x27;</span>).<span class="title function_">contains</span>(<span class="string">&#x27;Some hidden element&#x27;</span>).<span class="title function_">should</span>(<span class="string">&#x27;not.be.visible&#x27;</span>)</span><br></pre></td></tr></table></figure>
-<p>&amp;nbsp;</p>
-<h1 id="Issue-You-may-have"><a href="#Issue-You-may-have" class="headerlink" title="Issue You may have"></a>Issue You may have</h1><p>When you encounter an automation test case that <strong>requires you to open two browser tabs to execute it</strong>.</p>
+<br>
+# Issue You may have
+
+<p>When you encounter an automation test case that <strong>requires you to open two browser tabs to execute it</strong>.</p>
 <p>Then you will find that Cypress says <strong>they will never support for multiple browser tabs</strong>, after checking the official documentation. </p>
 <p><a target="_blank" rel="noopener" href="https://docs.cypress.io/guides/references/trade-offs#Permanent-trade-offs-1">https://docs.cypress.io/guides/references/trade-offs#Permanent-trade-offs-1</a></p>
 <p><img src="https://s2.loli.net/2023/03/06/IMDkFtpRud28nWf.png" alt="browsertabs.png"></p>
-<p>&amp;nbsp;</p>
-<h2 id="Here-is-My-Solution"><a href="#Here-is-My-Solution" class="headerlink" title="Here is My Solution"></a>Here is My Solution</h2><blockquote>
+<br>
+## Here is My Solution
+
+<blockquote>
 <p><strong>create an iframe</strong> by using <strong>Element.append()</strong> to complete it.</p>
 <blockquote>
 <ol>
-<li>create an iframe<br><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/8726455/creating-an-iframe-using-javascript">https://stackoverflow.com/questions/8726455/creating-an-iframe-using-javascript</a><br>&amp;nbsp;</li>
-<li>Element.append()<br><a target="_blank" rel="noopener" href="https://www.javascripttutorial.net/javascript-dom/javascript-append/">https://www.javascripttutorial.net/javascript-dom/javascript-append/</a><br>&amp;nbsp;</li>
+<li>create an iframe<br><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/8726455/creating-an-iframe-using-javascript">https://stackoverflow.com/questions/8726455/creating-an-iframe-using-javascript</a><br></li>
+<li>Element.append()<br><a target="_blank" rel="noopener" href="https://www.javascripttutorial.net/javascript-dom/javascript-append/">https://www.javascripttutorial.net/javascript-dom/javascript-append/</a><br></li>
 <li>An Example For You<br>I can not show my code directly due to commercial reasons, so I wrote a demo using elements from ‘<a target="_blank" rel="noopener" href="https://mochajs.org/">https://mochajs.org/</a>‘.<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="title function_">it</span>(<span class="string">&#x27;test&#x27;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">   cy.<span class="title function_">visit</span>(<span class="string">&#x27;https://mochajs.org/&#x27;</span>)</span><br><span class="line">   cy.<span class="title function_">get</span>(<span class="string">&#x27;main#content a&#x27;</span>).<span class="title function_">contains</span>(<span class="string">&#x27;Node.js&#x27;</span>).<span class="title function_">then</span>(<span class="function">(<span class="params">$el</span>) =&gt;</span> &#123;</span><br><span class="line">       cy.<span class="title function_">get</span>($el).<span class="title function_">click</span>()</span><br><span class="line">       <span class="keyword">var</span> iframe = <span class="variable language_">document</span>.<span class="title function_">createElement</span>(<span class="string">&#x27;iframe&#x27;</span>);</span><br><span class="line">       iframe.<span class="property">src</span> = $el.<span class="property">href</span>;</span><br><span class="line">       iframe.<span class="property">id</span> = <span class="string">&#x27;test&#x27;</span></span><br><span class="line">       iframe.<span class="property">width</span> = <span class="number">700</span></span><br><span class="line">       <span class="title class_">Cypress</span>.$($el).<span class="title function_">append</span>(iframe)</span><br><span class="line">       <span class="comment">// cy.frameLoaded(&#x27;#test&#x27;)</span></span><br><span class="line">       <span class="comment">// You can go on your automation</span></span><br><span class="line">   &#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 <img src="https://s2.loli.net/2023/03/06/uIkgPXFEnvWCtHf.png" alt="iframeExample.png"></li>
 </ol>
 </blockquote>
 </blockquote>
-<p>&amp;nbsp;<br>&amp;nbsp;<br>&amp;nbsp;<br>&amp;nbsp;<br>&amp;nbsp;<br>&amp;nbsp;<br>&amp;nbsp;<br>&amp;nbsp;<br>&amp;nbsp;</p>
-
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
         </div>
 
         

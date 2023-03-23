@@ -129,6 +129,71 @@
                 <div class="container">
     
     
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    var tocbot_timer;
+    var DEPTH_MAX = 6; // 为 6 时展开所有
+    var tocbot_default_config = {
+        tocSelector: '.tocbot-list',
+        contentSelector: '.post-content',
+        headingSelector: 'h1, h2, h3, h4, h5',
+        orderedList: false,
+        scrollSmooth: true,
+        onClick: extend_click,
+    };
+
+    function extend_click() {
+        clearTimeout(tocbot_timer);
+        tocbot_timer = setTimeout(function() {
+            tocbot.refresh(obj_merge(tocbot_default_config, {
+                hasInnerContainers: true
+            }));
+        }, 420); // 这个值是由 tocbot 源码里定义的 scrollSmoothDuration 得来的
+    }
+
+    document.ready(function() {
+        tocbot.init(obj_merge(tocbot_default_config, {
+            collapseDepth: 1
+        }));
+    });
+
+    function expand_toc() {
+        var b = document.querySelector('.tocbot-toc-expand');
+        var expanded = b.getAttribute('data-expanded');
+        expanded ? b.removeAttribute('data-expanded') : b.setAttribute('data-expanded', true);
+        tocbot.refresh(obj_merge(tocbot_default_config, {
+            collapseDepth: expanded ? 1 : DEPTH_MAX
+        }));
+        b.innerText = expanded ? 'Expand all' : 'Collapse all';
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+    function obj_merge(target, source) {
+        for (var item in source) {
+            if (source.hasOwnProperty(item)) {
+                target[item] = source[item];
+            }
+        }
+        return target;
+    }
+</script>
+    
 
     
     <article class="post-wrap">
@@ -158,20 +223,20 @@
         </header>
 
         <div class="post-content">
-            <p>You can do it with HTTP Request sampler, just make sure:</p>
+            <h1 id="Uploading-Files-with-JMeter"><a href="#Uploading-Files-with-JMeter" class="headerlink" title="Uploading Files with JMeter"></a>Uploading Files with JMeter</h1><p>JMeter’s HTTP Request sampler can be used to upload files to a web application. Follow these steps:</p>
 <ul>
-<li><p>You use <strong>POST</strong> (in some cases it can be PUT) method</p>
+<li><p>Use the POST method (in some cases, the PUT method may be required).</p>
 </li>
-<li><p><strong>Use multipart&#x2F;form-data for POST</strong> box is checked</p>
+<li><p>Check the Use multipart&#x2F;form-data for POST box:</p>
 <p>  <img src="https://s2.loli.net/2023/03/06/tq1fTDQFxywBv38.png" alt="fileupload1.png"></p>
 </li>
-<li><p>In Files Upload section the following values are provided:<br>  <img src="https://s2.loli.net/2023/03/06/1CYnwzj52V7upqb.png" alt="fileupload2.png"></p>
+<li><p>In the Files Upload section, provide the following values:<br>  <img src="https://s2.loli.net/2023/03/06/1CYnwzj52V7upqb.png" alt="fileupload2.png"></p>
 <ol>
-<li><p>File Path (either absolute or relative to JMeter’s “bin” folder)</p>
+<li><p>File Path: either an absolute or relative path to the file from JMeter’s “bin” folder.</p>
 </li>
-<li><p>Parameter Name (form name which contains &lt;input type&#x3D;”file” …&gt; tag, you can figure that out from upload page source code)</p>
+<li><p>Parameter Name: the form name that contains the <code>&lt;input type=&quot;file&quot; ...&gt;</code> tag. You can find this in the upload page’s source code.</p>
 </li>
-<li><p>File MIME Type (Pictured is xlsx file)</p>
+<li><p>File MIME Type: the MIME type of the file being uploaded. In the example below, an xlsx file is being uploaded.</p>
 <table>
 <thead>
 <tr>
@@ -228,7 +293,15 @@
 </ol>
 </li>
 </ul>
-<p>&amp;nbsp;<br>&amp;nbsp;<br>&amp;nbsp;<br>&amp;nbsp;<br>&amp;nbsp;<br>&amp;nbsp;<br>&amp;nbsp;<br>&amp;nbsp;<br>&amp;nbsp;</p>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 
         </div>
 

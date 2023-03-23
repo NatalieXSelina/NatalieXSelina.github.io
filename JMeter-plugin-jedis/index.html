@@ -223,21 +223,34 @@
         </header>
 
         <div class="post-content">
-            <h1 id="CURD-in-Redis"><a href="#CURD-in-Redis" class="headerlink" title="CURD in Redis"></a>CURD in Redis</h1><p>jedis supports <strong>all CURD operations</strong> (Create, Update, Retrieve and Delete) of redis.<br>&amp;nbsp;</p>
-<h2 id="install"><a href="#install" class="headerlink" title="install"></a>install</h2><p><a target="_blank" rel="noopener" href="https://mvnrepository.com/artifact/redis.clients/jedis">https://mvnrepository.com/artifact/redis.clients/jedis</a><br>&amp;nbsp;</p>
-<p>Download <strong>jedis-3.6.3.jar</strong></p>
-<p><img src="https://s2.loli.net/2023/03/06/dwpFetrT9Njxusi.png" alt="jar.png"><br>&amp;nbsp;</p>
-<h3 id="local"><a href="#local" class="headerlink" title="local"></a>local</h3><p>folder <strong>jedis-3.6.3.jar</strong> to &#x2F;lib</p>
+            <h1 id="Redis-CRUD-Operations-with-Jedis"><a href="#Redis-CRUD-Operations-with-Jedis" class="headerlink" title="Redis CRUD Operations with Jedis"></a>Redis CRUD Operations with Jedis</h1><p>Jedis is a powerful Java client library for Redis that supports all CRUD (Create, Read, Update, Delete) operations. In this blog post, we will focus on the Delete operation.</p>
+<br>
+
+<h2 id="Installation"><a href="#Installation" class="headerlink" title="Installation"></a>Installation</h2><p>You can download Jedis from <a target="_blank" rel="noopener" href="https://mvnrepository.com/artifact/redis.clients/jedis">https://mvnrepository.com/artifact/redis.clients/jedis</a>.<br>Once downloaded, add the <code>jedis-3.6.3.jar</code> file to your project’s classpath.</p>
+<p><img src="https://s2.loli.net/2023/03/06/dwpFetrT9Njxusi.png" alt="jar.png"><br><br></p>
+<h3 id="Local-Installation"><a href="#Local-Installation" class="headerlink" title="Local Installation"></a>Local Installation</h3><ul>
+<li>Copy the <code>jedis-3.6.3.jar</code> file to the <code>/lib</code> folder of your project.</li>
+</ul>
 <p><img src="https://s2.loli.net/2023/03/06/rWOc47FEZqvXenh.png" alt="windows.png"></p>
-<h3 id="Remote-Server"><a href="#Remote-Server" class="headerlink" title="Remote Server"></a>Remote Server</h3><p>use Xshell + Xftp to upload and folder <strong>jedis-3.6.3.jar</strong> to &#x2F;lib</p>
-<p>&amp;nbsp;</p>
-<h2 id="BeanShell-Script"><a href="#BeanShell-Script" class="headerlink" title="BeanShell Script"></a>BeanShell Script</h2><p>In this article, I will only demonstrate doing a delete operation on redis.</p>
-<p>You can see all the methods provided by jedis for details: <a target="_blank" rel="noopener" href="https://github.com/redis/jedis">https://github.com/redis/jedis</a></p>
+<h3 id="Remote-Installation"><a href="#Remote-Installation" class="headerlink" title="Remote Installation"></a>Remote Installation</h3><ul>
+<li>Use Xshell and Xftp to upload the <code>jedis-3.6.3.jar</code> file to the <code>/lib</code> folder on your remote server.</li>
+</ul>
+<br>
+
+<h2 id="BeanShell-Script"><a href="#BeanShell-Script" class="headerlink" title="BeanShell Script"></a>BeanShell Script</h2><p>In this example, we will demonstrate how to use Jedis to delete a key from Redis.<br>For more information about the methods provided by Jedis, please refer to <a target="_blank" rel="noopener" href="https://github.com/redis/jedis">https://github.com/redis/jedis</a>.</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> redis.clients.jedis.Jedis;</span><br><span class="line"><span class="keyword">import</span> org.apache.commons.lang3.StringUtils;</span><br><span class="line"></span><br><span class="line"><span class="type">String</span> <span class="variable">host</span> <span class="operator">=</span> <span class="string">&quot;$&#123;redis-host&#125;&quot;</span>;</span><br><span class="line"><span class="type">int</span> <span class="variable">port</span> <span class="operator">=</span> $&#123;redis-port&#125;;</span><br><span class="line"><span class="type">String</span> <span class="variable">password</span> <span class="operator">=</span> <span class="string">&quot;$&#123;redis-password&#125;&quot;</span>;</span><br><span class="line"><span class="type">int</span> <span class="variable">index</span> <span class="operator">=</span> $&#123;db&#125;;</span><br><span class="line"><span class="type">String</span> <span class="variable">key</span> <span class="operator">=</span> <span class="string">&quot;$&#123;key&#125;&quot;</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="type">Jedis</span> <span class="variable">jedis</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Jedis</span>(host, port);</span><br><span class="line"><span class="keyword">if</span>(StringUtils.isNotBlank(password))&#123;</span><br><span class="line">    jedis.auth(password);</span><br><span class="line">  &#125;</span><br><span class="line">jedis.select(index); </span><br><span class="line"></span><br><span class="line"> <span class="keyword">if</span> (jedis.exists(key))&#123;</span><br><span class="line"> 	jedis.del(key);</span><br><span class="line"> 	&#125;</span><br></pre></td></tr></table></figure>
 
-
-<p>&amp;nbsp;<br>&amp;nbsp;<br>&amp;nbsp;<br>&amp;nbsp;<br>&amp;nbsp;<br>&amp;nbsp;<br>&amp;nbsp;<br>&amp;nbsp;<br>&amp;nbsp;</p>
-
+<p>Make sure to replace the variables <code>$&#123;redis-host&#125;</code>, <code>$&#123;redis-port&#125;</code>, <code>$&#123;redis-password&#125;</code>, <code>$&#123;db&#125;</code>, and <code>$&#123;key&#125;</code> with the appropriate values for your Redis instance.</p>
+<p>All of it! With this script, you can easily delete a key from Redis using Jedis.</p>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
         </div>
 
         

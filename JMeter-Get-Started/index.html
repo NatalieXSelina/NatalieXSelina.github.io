@@ -223,30 +223,33 @@
         </header>
 
         <div class="post-content">
-            <h1 id="Download"><a href="#Download" class="headerlink" title="Download"></a>Download</h1><p><strong>Version:</strong> apache-jmeter-5.4.1</p>
-<p><strong>Address:</strong>  <a target="_blank" rel="noopener" href="https://jmeter.apache.org/download_jmeter.cgi">https://jmeter.apache.org/download_jmeter.cgi</a></p>
-<p>&amp;nbsp;</p>
-<h1 id="JMeter-Test-Components"><a href="#JMeter-Test-Components" class="headerlink" title="JMeter Test Components"></a>JMeter Test Components</h1><h2 id="Common-Structure-of-Test-Cases"><a href="#Common-Structure-of-Test-Cases" class="headerlink" title="Common Structure of Test Cases"></a>Common Structure of Test Cases</h2><ol>
+            <h1 id="JMeter-Test-Components-A-Comprehensive-Guide"><a href="#JMeter-Test-Components-A-Comprehensive-Guide" class="headerlink" title="JMeter Test Components: A Comprehensive Guide"></a>JMeter Test Components: A Comprehensive Guide</h1><h2 id="Download"><a href="#Download" class="headerlink" title="Download"></a>Download</h2><p><strong>Version:</strong> apache-jmeter-5.4.1</p>
+<p><strong>Download Link:</strong>  <a target="_blank" rel="noopener" href="https://jmeter.apache.org/download_jmeter.cgi">https://jmeter.apache.org/download_jmeter.cgi</a></p>
+<br>
+
+
+<h2 id="Common-Structure-of-Test-Cases"><a href="#Common-Structure-of-Test-Cases" class="headerlink" title="Common Structure of Test Cases"></a>Common Structure of Test Cases</h2><p>The following is the basic structure of a test case in JMeter. You can add different components to each node to organize the test case.</p>
+<ol>
 <li>Test Plan</li>
 <li>Thread Group</li>
 <li>Logic Controller (Optional)</li>
 <li>Sampler</li>
 </ol>
-<p><img src="https://s2.loli.net/2023/03/06/PreBqW2uwTOvaDG.png" alt="Structure.png"><br>&amp;nbsp;</p>
-<p><em>The above is the basic structure of a test case in Jmeter, where different components can be added to each node to organize the test case.</em></p>
-<p>&amp;nbsp;</p>
+<p><img src="https://s2.loli.net/2023/03/06/PreBqW2uwTOvaDG.png" alt="Structure.png"><br><br></p>
 <blockquote>
-<p><strong>Some Basic Theory:</strong></p>
+<p><strong>Basic Theory:</strong><br>Here are some basic theories that you need to keep in mind while working with JMeter test components:</p>
 <ul>
-<li>Sampler is the core of the test case, all components depend on it for validation.</li>
-<li>All components are dependent on the directory for the scope of validity management. Components at or above the level of Sampler are valid for all Samplers at the current level. Components below the level of Sampler, which only take effect for the current Sampler.</li>
+<li>Sampler is the core of the test case, and all components depend on it for validation.</li>
+<li>All components are dependent on the directory for the scope of validity management. Components at or above the level of Sampler are valid for all Samplers at the current level. Components below the level of Sampler only take effect for the current Sampler.</li>
 <li>Controller only groups Sampler, but the parameters of components at the same level remain in effect.</li>
-<li>Proximity Principle: the same components or parameters throughout the test plan, which are closer , which have the higher priority.</li>
+<li>Proximity Principle: the same components or parameters throughout the test plan, which are closer, have the higher priority.</li>
 <li>Data between Thread Groups are independent of each other, except for some special cases and global variables.</li>
 </ul>
 </blockquote>
-<p>&amp;nbsp;<br>&amp;nbsp;</p>
-<h2 id="Add-support"><a href="#Add-support" class="headerlink" title="Add-support"></a>Add-support</h2><p>The following table summarises the Add-support between all components.</p>
+<br>
+<br>
+
+<h2 id="Add-support"><a href="#Add-support" class="headerlink" title="Add-support"></a>Add-support</h2><p>The following table summarizes the Add-support between all components:</p>
 <table>
 <thead>
 <tr>
@@ -321,208 +324,119 @@
 <td>√</td>
 </tr>
 </tbody></table>
-<p>&amp;nbsp;<br>&amp;nbsp;</p>
-<h2 id="Basic-Components"><a href="#Basic-Components" class="headerlink" title="Basic Components"></a>Basic Components</h2><h3 id="Test-Plan"><a href="#Test-Plan" class="headerlink" title="Test Plan"></a>Test Plan</h3><ul>
-<li><p>Just as a simple test plan in Software Testing consists of all steps which execute the script, JMeter’s Test plan has the same purpose. </p>
-</li>
-<li><p>Everything which is included in a test plan is executed in a sequence which is top to bottom or as per the defined sequence in the test plan.</p>
-</li>
-<li><p>Test Plan can be as simple as it could be, with Just ThreadGroup, Sampler, and Listener and it starts getting more complex as soon as you start adding more elements like config elements, preprocessors or controllers.</p>
-</li>
-</ul>
-<h3 id="Thread-Group"><a href="#Thread-Group" class="headerlink" title="Thread Group"></a>Thread Group</h3><ul>
-<li><p>The Thread Group is the beginning point for all test plans. All samplers and controllers must be placed under a thread group. </p>
-</li>
-<li><p>A thread group can be regarded as a virtual user pool, in which each thread can be understood as a virtual user, and multiple virtual users perform the same batch of tasks at the same time. </p>
-</li>
-<li><p>Each thread is independent and does not affect the others. During the execution of one thread, the variable of the current thread will not affect the variable value of other threads.</p>
-</li>
-</ul>
-<p>&amp;nbsp;</p>
-<p>The interface of thread group is shown in the following figure:</p>
+<br>
+<br>
+
+<h2 id="Understanding-Basic-Components-of-JMeter"><a href="#Understanding-Basic-Components-of-JMeter" class="headerlink" title="Understanding Basic Components of JMeter"></a>Understanding Basic Components of JMeter</h2><h3 id="Test-Plan"><a href="#Test-Plan" class="headerlink" title="Test Plan"></a>Test Plan</h3><p>Test Plan is similar to a simple test plan in software testing which consists of all steps that execute the script. The purpose of the test plan is to sequence and execute everything included in it from top to bottom or as per the defined sequence. A Test Plan can be simple with just ThreadGroup, Sampler, and Listener, or it can become complex as more elements like config elements, preprocessors, or controllers are added.</p>
+<h3 id="Thread-Group"><a href="#Thread-Group" class="headerlink" title="Thread Group"></a>Thread Group</h3><p>Thread Group is the starting point for all test plans, and all samplers and controllers must be placed under it. Each thread group can be considered a virtual user pool, where each thread represents a virtual user that performs the same batch of tasks simultaneously. Each thread is independent and does not affect others. During the execution of one thread, the variables of the current thread do not affect the variable value of other threads.</p>
+<p>The Thread Group interface is shown below:</p>
 <p><img src="https://s2.loli.net/2023/03/06/EF7MeRngHqi8fDr.png" alt="threadGroup.png"></p>
-<p>&amp;nbsp;</p>
-<h4 id="Action-to-be-taken-after-a-Sampler-error"><a href="#Action-to-be-taken-after-a-Sampler-error" class="headerlink" title="Action to be taken after a Sampler error"></a>Action to be taken after a Sampler error</h4><blockquote>
-<p>The following configuration items control whether the test will continue to be executed or not when an error is encountered.</p>
-<blockquote>
+<br>
+
+<h4 id="Action-to-be-taken-after-a-Sampler-error"><a href="#Action-to-be-taken-after-a-Sampler-error" class="headerlink" title="Action to be taken after a Sampler error"></a>Action to be taken after a Sampler error</h4><p>The following configuration items control whether the test will continue to be executed or not when an error is encountered:</p>
 <ul>
-<li>Continue: ignore errors and continue execution<ol>
-<li>Start Next Thread Loop: ignore the error, terminate the current loop of the thread, and execute the next loop</li>
-<li>Stop Thread: stops executing the current thread without affecting the normal execution of other threads</li>
-<li>Stop Test: the entire test will be stopped after all currently executing threads have finished the current sampling</li>
-<li>Stop Test Now: the entire test execution will be stopped immediately, and currently executing samplers may be interrupted.<br>&amp;nbsp;</li>
+<li>Continue: ignore errors and continue execution.<ol>
+<li>Start Next Thread Loop: ignore the error, terminate the current thread loop, and execute the next loop.</li>
+<li>Stop Thread: stops executing the current thread without affecting the normal execution of other threads.</li>
+<li>Stop Test: stops the entire test after all currently executing threads have finished the current sampling.</li>
+<li>Stop Test Now: stops the entire test execution immediately, and currently executing samplers may be interrupted.</li>
 </ol>
 </li>
-<li>Number of threads<br>  The number of threads is the number of concurrent users, and each thread will run the test plan completely independently without interfering with each other. Multiple threads are used in the test to simulate concurrent access to the server.<br>&amp;nbsp;</li>
-<li>ramp-up period<br>  The ramp-up time is used to set the time required to start all threads. For example, if the number of threads is set to 10 and the ramp-up time is set to 100 seconds, JMeter will use 100 seconds to start and run 10 threads, and each thread will start 10 seconds after the previous thread was started.<br>  If the ramp-up value is set small and the number of threads is set large, it will put a lot of stress on the server at the beginning of the test.<br>&amp;nbsp;</li>
-<li>Loop count<br>  Sets the number of loops per thread in the thread group before ending<br>&amp;nbsp;</li>
-<li>Delay thread creation until needed<br>  By default, all threads are created when the test starts. If this option is checked, threads are created when they are needed.<br>&amp;nbsp;</li>
-<li>Specify thread lifetime<br>  The scheduler configuration can control the execution time of thread groups more flexibly<br>  (1) Duration: control the duration of the test, with the unit of second.<br>  (2) Startup delay: Control how long after the test be delayed before startup, with the unit of second.</li>
+<li>Number of threads<br> The number of concurrent users where each thread runs the test plan completely independently without interfering with each other. Multiple threads simulate concurrent access to the server.</li>
+<li>Ramp-up period<br> Used to set the time required to start all threads. For example, if the number of threads is set to 10 and the ramp-up time is set to 100 seconds, JMeter will use 100 seconds to start and run 10 threads, and each thread will start 10 seconds after the previous thread was started. Setting a small ramp-up value and a large number of threads puts a lot of stress on the server at the beginning of the test.</li>
+<li>Loop count<br> Sets the number of loops per thread in the thread group before ending.</li>
+<li>Delay thread creation until needed<br> By default, all threads are created when the test starts. If this option is checked, threads are created only when they are needed.</li>
+<li>Specify thread lifetime<br> The scheduler configuration can control the execution time of thread groups more flexibly:<br> (1) Duration: controls the duration of the test, with the unit of seconds.<br> (2) Startup delay: controls how long after the test will be delayed before startup, with the unit of seconds.</li>
 </ul>
-</blockquote>
-</blockquote>
-<p>&amp;nbsp;</p>
-<h3 id="Logic-Controller"><a href="#Logic-Controller" class="headerlink" title="Logic Controller"></a>Logic Controller</h3><ul>
-<li><p>The JMeter logic controller can control the execution logic of the components. </p>
-</li>
-<li><p>The JMeter website explains it like this: 「Logic Controllers determine the order in which Samplers are processed」. That is to say, the logic controller can control the execution order of the samplers. Therefore, the controller needs to be used together with the sampler. </p>
-</li>
-<li><p>Except for the once only controller, other logic controllers can be nested within each other.</p>
-</li>
-</ul>
-<p>&amp;nbsp;</p>
-<p>Logic controllers in JMeter are mainly divided into two categories:</p>
+<br>
+
+<h3 id="Logic-Controller"><a href="#Logic-Controller" class="headerlink" title="Logic Controller"></a>Logic Controller</h3><p>The JMeter logic controller controls the execution logic of the components. Logic Controllers determine the order in which Samplers are processed. Therefore, the controller needs to be used together with the sampler. Except for the once-only controller, other logic controllers can be nested within each other.</p>
+<p>The Logic Controllers in JMeter are mainly divided into two categories:</p>
 <ul>
 <li><p>Control the logical execution order of nodes during the execution of the test plan, such as loop controller, If controller, etc.</p>
 </li>
 <li><p>Group the scripts in the test plan to facilitate JMeter to count the execution results and control the runtime of the scripts, such as throughput controller, transaction controller, etc.</p>
 </li>
 </ul>
-<p>&amp;nbsp;</p>
-<h3 id="Sampler"><a href="#Sampler" class="headerlink" title="Sampler"></a>Sampler</h3><ul>
-<li><p>The sampler is used to simulate user operations, and is a running unit that sends requests to the server and receives response data from the server. </p>
-</li>
-<li><p>A sampler is a component inside a thread group, so it must be added to the thread group.</p>
-</li>
-</ul>
-<h4 id="HTTP-Request-Sampler"><a href="#HTTP-Request-Sampler" class="headerlink" title="HTTP Request Sampler"></a>HTTP Request Sampler</h4><p>The HTTP sampler sends HTTP&#x2F;HTTPS requests to the web server.</p>
+<br>
+
+<h3 id="Sampler"><a href="#Sampler" class="headerlink" title="Sampler"></a>Sampler</h3><p>A sampler is a component in a thread group that sends requests to the server and receives response data. It simulates user operations and is the running unit of a load test.</p>
+<h4 id="HTTP-Request-Sampler"><a href="#HTTP-Request-Sampler" class="headerlink" title="HTTP Request Sampler"></a>HTTP Request Sampler</h4><p>The HTTP Request sampler is used to send HTTP&#x2F;HTTPS requests to a web server.</p>
 <p><img src="https://s2.loli.net/2023/03/06/rgj8xon6DZ2fQqN.png" alt="http.png"></p>
-<p>&amp;nbsp;</p>
+<br>
+
+<p>The HTTP Request sampler includes the following components:</p>
 <ol>
-<li>Name and Comments</li>
-</ol>
-<p>&amp;nbsp;</p>
-<ol start="2">
-<li><p>Protocol</p>
-<p> The protocol used to send the request to the target server, which can be HTTP, HTTPS or FILE. The default is HTTP.</p>
-</li>
-</ol>
-<p>&amp;nbsp;</p>
-<ol start="3">
-<li><p>Server name or IP address</p>
-<p> The hostname or IP address of the target server to which the request is sent.</p>
-</li>
-</ol>
-<p>&amp;nbsp;</p>
-<ol start="4">
-<li><p>Port number</p>
-<p> The port number that the web service is listening. The default port is 80 for HTTP, and is 443 for HTTPS.</p>
-</li>
-</ol>
-<p>&amp;nbsp;</p>
-<ol start="5">
-<li><p>Request method</p>
-<p> The method of sending the request, commonly including GET, POST, DELETE, PUT, TRACE, HEAD, OPTIONS, etc.</p>
-</li>
-</ol>
-<p>&amp;nbsp;</p>
-<ol start="6">
-<li><p>Path</p>
-<p> The target URL path to request (excluding server address and port).</p>
-</li>
-</ol>
-<p>&amp;nbsp;</p>
-<ol start="7">
-<li><p>Content encoding</p>
-<p> Applicable to several request methods of POST, PUT, PATCH and FILE, which controls the way of encoding the request content</p>
-</li>
-</ol>
-<p>&amp;nbsp;</p>
-<ol start="8">
-<li><p>Advanced request options</p>
-<ul>
-<li>Redirect Automatically: redirection is not treated as separate requests and is not recorded by JMeter.</li>
+<li><strong>Name and Comments</strong>: You can provide a name and optional comments for the sampler.</li>
+<li><strong>Protocol</strong>: The protocol used to send the request to the target server, which can be HTTP, HTTPS, or FILE. The default is HTTP.</li>
+<li><strong>Server name or IP address</strong>: The hostname or IP address of the target server to which the request is sent.</li>
+<li><strong>Port number</strong>: The port number that the web service is listening to. The default port is 80 for HTTP and 443 for HTTPS.</li>
+<li><strong>Request method</strong>: The method of sending the request, commonly including GET, POST, DELETE, PUT, TRACE, HEAD, OPTIONS, etc.</li>
+<li><strong>Path</strong>: The target URL path to request (excluding server address and port).</li>
+<li><strong>Content encoding</strong>: Applicable to several request methods of POST, PUT, PATCH and FILE, which controls the way of encoding the request content.</li>
+<li><strong>Advanced request options</strong><ul>
+<li>Redirect Automatically: Redirection is not treated as separate requests and is not recorded by JMeter.</li>
 <li>Follow Redirects: Each redirection is treated as a separate request and is recorded by JMeter.</li>
 <li>Use KeepAlive: If checked, Connection: keep-alive will be added to the request header when JMeter communicates with the target server.</li>
 <li>Use multipart&#x2F;form-data for POST: If checked, requests will be sent by using multipart&#x2F;form-data or application&#x2F;x-www-form-urlencoded.</li>
 </ul>
 </li>
+<li><strong>Parameters</strong>: This component uses parameter key-value pairs to generate request parameters and sends these request parameters in different ways depending on the request method. For example, for GET and DELETE requests, parameters are appended to the request URL.</li>
+<li><strong>Message body data</strong>: If you want to pass parameters in JSON format, you need to configure the Content-Type as application&#x2F;json in the request header.</li>
+<li><strong>File upload</strong>: This component sends the file in the request. HTTP file upload behavior can be simulated using this component. For more information on file upload, refer to the article: <a href="https://nataliexselina.github.io/2021/11/21/JMeter-file-upload/">https://nataliexselina.github.io/2021/11/21/JMeter-file-upload/</a><br>
+<br></li>
 </ol>
-<p>&amp;nbsp;</p>
-<ol start="9">
-<li><p>Parameters</p>
-<p> JMeter will use parameter key-value pairs to generate request parameters and send these request parameters in different ways depending on the request method. For example, for GET, DELETE requests, parameters will be appended to the request URL.</p>
-</li>
-</ol>
-<p>&amp;nbsp;</p>
-<ol start="10">
-<li><p>Message body data</p>
-<p>If you want to pass parameters in JSON format, you need to configure the Content-Type as application&#x2F;json in the request header</p>
-</li>
-</ol>
-<p>&amp;nbsp;</p>
-<ol start="11">
-<li><p>File upload</p>
-<p>Send the file in the request. The HTTP file upload behavior can be simulated in this way usually.</p>
-<p>You can see other article of mine: <a href="https://nataliexselina.github.io/2021/11/21/JMeter-file-upload/">https://nataliexselina.github.io/2021/11/21/JMeter-file-upload/</a></p>
-</li>
-</ol>
-<p>&amp;nbsp;<br>&amp;nbsp;</p>
-<h2 id="Other-Important-Components"><a href="#Other-Important-Components" class="headerlink" title="Other Important Components"></a>Other Important Components</h2><h3 id="Assertions"><a href="#Assertions" class="headerlink" title="Assertions"></a>Assertions</h3><ul>
-<li><p>The assertion is to check whether there turn of the request is as expected. </p>
-</li>
-<li><p>Assertion is an important part of automated test scripts, so we should pay great attention to it.</p>
-</li>
-<li><p>The assertions commonly used by JMeter mainly include Response Assertion, JSON Assertion, Size Assertion, Duration Assertion, Beanshell Assertion, etc. Here we only introduce JSON assertion that is used frequently.</p>
-<blockquote>
-<p><strong>JSON Assertion</strong> - used to assert the content of the response in JSON format<br>    Configuration Items:</p>
+<h2 id="Other-Important-Components-in-JMeter"><a href="#Other-Important-Components-in-JMeter" class="headerlink" title="Other Important Components in JMeter"></a>Other Important Components in JMeter</h2><h3 id="Assertions"><a href="#Assertions" class="headerlink" title="Assertions"></a>Assertions</h3><p>JMeter offers various assertions, including Response Assertion, JSON Assertion, Size Assertion, Duration Assertion, and Beanshell Assertion. In this article, we will focus on JSON Assertion, which is commonly used.<br><strong>JSON Assertion</strong> - used to assert the content of the response in JSON format</p>
 <ul>
+<li>Configuration Items:<ul>
 <li>Assert JSON Path exists</li>
 <li>Additionally assert value: Check if you want to assert based on the value</li>
 <li>Match as regular expression: Check if you want to assert based on - regular expressions</li>
 <li>Expected Value</li>
 <li>Expect null: Check if NULL is expected</li>
-<li>Invert assertion<br><img src="https://s2.loli.net/2023/03/06/LcRGVg2Oaw1vybq.png" alt="json_assertion.png"></li>
+<li>Invert assertion<br>  <img src="https://s2.loli.net/2023/03/06/LcRGVg2Oaw1vybq.png" alt="json_assertion.png"></li>
 </ul>
-</blockquote>
-</li>
-</ul>
-<p>&amp;nbsp;</p>
-<h3 id="Listeners"><a href="#Listeners" class="headerlink" title="Listeners"></a>Listeners</h3><h4 id="View-Results-Tree"><a href="#View-Results-Tree" class="headerlink" title="View Results Tree"></a>View Results Tree</h4><ul>
-<li><p>This component displays the result, request content, response time, response code and response content of each sampler in a tree structure. Viewing the information can assist in analyzing whether there is a problem. </p>
-</li>
-<li><p>It provides a variety of viewing formats and filtering methods, and can also write the results to specified files for batch analysis and processing.</p>
 </li>
 </ul>
-<p><img src="https://s2.loli.net/2023/03/06/TmBhLJpYDHKGeVd.png" alt="resultTree.png"></p>
-<p>&amp;nbsp;</p>
-<h3 id="Configuration-Element"><a href="#Configuration-Element" class="headerlink" title="Configuration Element"></a>Configuration Element</h3><ul>
-<li><p>Configuration Element is used to provide support for static data configuration. </p>
-</li>
-<li><p>It can be defined at the test plan level, or at the thread group or sampler level, with different scopes for different levels.</p>
-</li>
-</ul>
-<h4 id="HTTPS-Requests-Default"><a href="#HTTPS-Requests-Default" class="headerlink" title="HTTPS Requests Default"></a>HTTPS Requests Default</h4><p>This config element is very useful for specifying the default values of https requests. Whatever is specified in the HTTP Request Default config element is inherited by all HTTP requests.<br>&amp;nbsp;</p>
-<h4 id="HTTPS-Cache-Manager"><a href="#HTTPS-Cache-Manager" class="headerlink" title="HTTPS Cache Manager"></a>HTTPS Cache Manager</h4><p>It can clear cache after each request.<br>&amp;nbsp;</p>
-<h4 id="HTTPS-Cookie-Manager"><a href="#HTTPS-Cookie-Manager" class="headerlink" title="HTTPS Cookie Manager"></a>HTTPS Cookie Manager</h4><p>It can manage the cookies settings.<br>&amp;nbsp;</p>
-<h4 id="User-Defined-Variables"><a href="#User-Defined-Variables" class="headerlink" title="User Defined Variables"></a>User Defined Variables</h4><p>It helps Jmeter to pick values from a pre-defined variable.<br>&amp;nbsp;</p>
-<h4 id="CSV-Data-Set-Config"><a href="#CSV-Data-Set-Config" class="headerlink" title="CSV Data Set Config"></a>CSV Data Set Config</h4><p>Often create for performance test.<br>&amp;nbsp;<br>&amp;nbsp;</p>
-<h1 id="JMeter-Parameterization"><a href="#JMeter-Parameterization" class="headerlink" title="JMeter Parameterization"></a>JMeter Parameterization</h1><p>Add parameters in:</p>
-<ul>
-<li><p>Test Plan (Usually as global variables)</p>
-</li>
-<li><p>User Defined Variables</p>
-<p>  It can be added in Test Plan, Thread Group, Logic Controller and Sampler.</p>
-</li>
-<li><p>Pre-processors -  User Variables</p>
-<p>  It also can be added in Test Plan, Thread Group, Logic Controller and Sampler.</p>
-<blockquote>
-<p>Difference between User Defined Variables and User Variables:</p>
-<ul>
-<li>User Defined Variables are global variables that can be accessed by all thread groups, whereas User Variables are local variables that can only be accessed by single thread groups.</li>
-<li>The relationship between variables and values is 1:1 in User Defined Variables, whereas the relationship between variables and values is 1:N in User Variables.</li>
-</ul>
-</blockquote>
-</li>
-</ul>
-<p>&amp;nbsp;</p>
-<ul>
-<li><p>CSV Data Set Config</p>
-<p>  The parameters are recorded in a <strong>txt</strong> file and called when the test case is executed.</p>
-</li>
-</ul>
-<p>&amp;nbsp;<br>&amp;nbsp;<br>&amp;nbsp;<br>&amp;nbsp;<br>&amp;nbsp;<br>&amp;nbsp;<br>&amp;nbsp;<br>&amp;nbsp;<br>&amp;nbsp;</p>
+<br>
 
+<h3 id="Listeners"><a href="#Listeners" class="headerlink" title="Listeners"></a>Listeners</h3><h4 id="View-Results-Tree"><a href="#View-Results-Tree" class="headerlink" title="View Results Tree"></a>View Results Tree</h4><p>This component displays the result, request content, response time, response code and response content of each sampler in a tree structure. Viewing the information can assist in analyzing whether there is a problem. It provides a variety of viewing formats and filtering methods, and can also write the results to specified files for batch analysis and processing.</p>
+<p><img src="https://s2.loli.net/2023/03/06/TmBhLJpYDHKGeVd.png" alt="resultTree.png"></p>
+<br>
+
+<h3 id="Configuration-Element"><a href="#Configuration-Element" class="headerlink" title="Configuration Element"></a>Configuration Element</h3><p>Configuration Elements are used to provide support for static data configuration. They can be defined at the test plan level or at the thread group or sampler level, with different scopes for each level.</p>
+<h4 id="HTTPS-Requests-Default"><a href="#HTTPS-Requests-Default" class="headerlink" title="HTTPS Requests Default"></a>HTTPS Requests Default</h4><p>This configuration element is useful for specifying default values for HTTPS requests. Whatever is specified in the HTTP Request Default configuration element is inherited by all HTTP requests.</p>
+<h4 id="HTTPS-Cache-Manager"><a href="#HTTPS-Cache-Manager" class="headerlink" title="HTTPS Cache Manager"></a>HTTPS Cache Manager</h4><p>This configuration element can clear the cache after each request.</p>
+<h4 id="HTTPS-Cookie-Manager"><a href="#HTTPS-Cookie-Manager" class="headerlink" title="HTTPS Cookie Manager"></a>HTTPS Cookie Manager</h4><p>This configuration element can manage the cookie settings.</p>
+<h4 id="User-Defined-Variables"><a href="#User-Defined-Variables" class="headerlink" title="User Defined Variables"></a>User Defined Variables</h4><p>This configuration element helps JMeter to pick values from pre-defined variables.</p>
+<h4 id="CSV-Data-Set-Config"><a href="#CSV-Data-Set-Config" class="headerlink" title="CSV Data Set Config"></a>CSV Data Set Config</h4><p>This configuration element is used for performance testing.<br><br><br><br></p>
+<h1 id="JMeter-Parameterization"><a href="#JMeter-Parameterization" class="headerlink" title="JMeter Parameterization"></a>JMeter Parameterization</h1><p>Parameters are added in several locations:</p>
+<ul>
+<li><p>Test Plan (usually as global variables)</p>
+</li>
+<li><p>User Defined Variables (can be added at the Test Plan, Thread Group, Logic Controller, and Sampler level)</p>
+</li>
+<li><p>Pre-processors - User Variables (can be added at the Test Plan, Thread Group, Logic Controller, and Sampler level)</p>
+<blockquote>
+<p>There is a difference between User Defined Variables and User Variables:</p>
+<ul>
+<li>User Defined Variables are global variables accessible by all thread groups, while User Variables are local variables accessed only by single thread groups.</li>
+<li>The relationship between variables and values is 1:1 in User Defined Variables, while the relationship between variables and values is 1:N in User Variables.</li>
+</ul>
+</blockquote>
+</li>
+<li><p>CSV Data Set Config: parameters are recorded in a txt file and called when the test case is executed.</p>
+</li>
+</ul>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
         </div>
 
         

@@ -223,12 +223,14 @@
         </header>
 
         <div class="post-content">
-            <h1 id="Introducation"><a href="#Introducation" class="headerlink" title="Introducation"></a>Introducation</h1><h2 id="Official-Profile"><a href="#Official-Profile" class="headerlink" title="Official Profile"></a>Official Profile</h2><p><a target="_blank" rel="noopener" href="https://docs.cypress.io/">https://docs.cypress.io/</a><br>&amp;nbsp;</p>
+            <h1 id="Introducation"><a href="#Introducation" class="headerlink" title="Introducation"></a>Introducation</h1><h2 id="Official-Profile"><a href="#Official-Profile" class="headerlink" title="Official Profile"></a>Official Profile</h2><p><a target="_blank" rel="noopener" href="https://docs.cypress.io/">https://docs.cypress.io/</a><br><br></p>
 <h2 id="Mocha-chai"><a href="#Mocha-chai" class="headerlink" title="Mocha + chai"></a>Mocha + chai</h2><p>Mocha: <a target="_blank" rel="noopener" href="https://mochajs.org/">https://mochajs.org/</a><br>chai: <a target="_blank" rel="noopener" href="https://www.chaijs.com/">https://www.chaijs.com/</a></p>
-<p>&amp;nbsp;</p>
+<br>
+
 <p>Cypress builds on these popular tools and frameworks that you hopefully already have some familiarity and knowledge of. </p>
 <p>(<em>^_^</em>) If not, that is okay too.</p>
-<p>&amp;nbsp;</p>
+<br>
+
 <blockquote>
 <p>– What are describe, it, and expect?</p>
 <ul>
@@ -237,11 +239,16 @@
 <li>expect comes from Chai</li>
 </ul>
 </blockquote>
-<p>&amp;nbsp;<br>&amp;nbsp;</p>
+<br>
+<br>
+
 <h1 id="What-You-Need-to-Know-Before-Writing-Testcases"><a href="#What-You-Need-to-Know-Before-Writing-Testcases" class="headerlink" title="What You Need to Know Before Writing Testcases"></a>What You Need to Know Before Writing Testcases</h1><h2 id="Suite-And-Hooks"><a href="#Suite-And-Hooks" class="headerlink" title="Suite And Hooks"></a>Suite And Hooks</h2><h3 id="Script"><a href="#Script" class="headerlink" title="Script"></a>Script</h3><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="title function_">describe</span>(<span class="string">&#x27;Level 1 Suite&#x27;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="title function_">before</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">        cy.<span class="title function_">log</span>(<span class="string">&#x27;before hook in Level 1 Suite&#x27;</span>)</span><br><span class="line">    &#125;)</span><br><span class="line"></span><br><span class="line">    <span class="title function_">beforeEach</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">        cy.<span class="title function_">log</span>(<span class="string">&#x27;beforeEach hook in Level 1 Suite&#x27;</span>)</span><br><span class="line">    &#125;)</span><br><span class="line"></span><br><span class="line">    <span class="title function_">after</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">        cy.<span class="title function_">log</span>(<span class="string">&#x27;after hook in Level 1 Suite&#x27;</span>)</span><br><span class="line">    &#125;)</span><br><span class="line"></span><br><span class="line">    <span class="title function_">afterEach</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">        cy.<span class="title function_">log</span>(<span class="string">&#x27;afterEach hook in Level 1 Suite&#x27;</span>)</span><br><span class="line">    &#125;)</span><br><span class="line"></span><br><span class="line">    <span class="title function_">it</span>(<span class="string">&#x27;testcaseA in Level 1 Suite&#x27;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">        cy.<span class="title function_">log</span>(<span class="string">&#x27;testcaseA in Level 1 Suite&#x27;</span>)</span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="title function_">it</span>(<span class="string">&#x27;testcaseB in Level 1 Suite&#x27;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">        cy.<span class="title function_">log</span>(<span class="string">&#x27;testcaseB in Level 1 Suite&#x27;</span>)</span><br><span class="line">    &#125;)</span><br><span class="line"></span><br><span class="line">    <span class="title function_">describe</span>(<span class="string">&#x27;Level 2 Suite&#x27;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">        <span class="title function_">before</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">            cy.<span class="title function_">log</span>(<span class="string">&#x27;before hook in Level 2 Suite&#x27;</span>)</span><br><span class="line">        &#125;)</span><br><span class="line">    </span><br><span class="line">        <span class="title function_">beforeEach</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">            cy.<span class="title function_">log</span>(<span class="string">&#x27;beforeEach hook in Level 2 Suite&#x27;</span>)</span><br><span class="line">        &#125;)</span><br><span class="line">    </span><br><span class="line">        <span class="title function_">after</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">            cy.<span class="title function_">log</span>(<span class="string">&#x27;after hook in Level 2 Suite&#x27;</span>)</span><br><span class="line">        &#125;)</span><br><span class="line">    </span><br><span class="line">        <span class="title function_">afterEach</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">            cy.<span class="title function_">log</span>(<span class="string">&#x27;afterEach hook in Level 2 Suite&#x27;</span>)</span><br><span class="line">        &#125;)</span><br><span class="line">    </span><br><span class="line">        <span class="title function_">it</span>(<span class="string">&#x27;testcaseA in Level 2 Suite&#x27;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">            cy.<span class="title function_">log</span>(<span class="string">&#x27;testcaseA in Level 2 Suite&#x27;</span>)</span><br><span class="line">        &#125;)</span><br><span class="line">        <span class="title function_">it</span>(<span class="string">&#x27;testcaseB in Level 2 Suite&#x27;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">            cy.<span class="title function_">log</span>(<span class="string">&#x27;testcaseB in Level 2 Suite&#x27;</span>)</span><br><span class="line">        &#125;)</span><br><span class="line"></span><br><span class="line">        <span class="title function_">describe</span>(<span class="string">&#x27;Level 3 Suite&#x27;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">            <span class="title function_">it</span>(<span class="string">&#x27;testcase in Level 3 Suite&#x27;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">                cy.<span class="title function_">log</span>(<span class="string">&#x27;testcase in Level 3 Suite&#x27;</span>)</span><br><span class="line">            &#125;)</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<p>&amp;nbsp;</p>
+<br>
+
 <h3 id="Run"><a href="#Run" class="headerlink" title="Run"></a>Run</h3><p><img src="https://s2.loli.net/2023/03/06/rxKXjwFQDmLntkd.jpg" alt="SuiteAndHooks.jpg"></p>
-<p>&amp;nbsp;<br>&amp;nbsp;</p>
+<br>
+<br>
+
 <h2 id="Basic-Locators"><a href="#Basic-Locators" class="headerlink" title="Basic Locators"></a>Basic Locators</h2><h3 id="Main-functions"><a href="#Main-functions" class="headerlink" title="Main functions"></a>Main functions</h3><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// cy.get(selector)</span></span><br><span class="line">cy.<span class="title function_">get</span>(<span class="string">&#x27;li.selected .user&#x27;</span>) </span><br><span class="line"><span class="comment">// cy.get(alias)</span></span><br><span class="line">cy.<span class="title function_">get</span>(<span class="string">&#x27;li.selected .user&#x27;</span>).<span class="title function_">as</span>(<span class="string">&#x27;user&#x27;</span>)</span><br><span class="line">cy.<span class="title function_">get</span>(<span class="string">&#x27;@user&#x27;</span>)</span><br><span class="line"><span class="comment">// .find(selector)</span></span><br><span class="line">cy.<span class="title function_">get</span>(<span class="string">&#x27;li.selected&#x27;</span>).<span class="title function_">find</span>(<span class="string">&#x27;user&#x27;</span>)</span><br><span class="line"><span class="comment">// .contains(content) </span></span><br><span class="line">cy.<span class="title function_">get</span>(<span class="string">&#x27;li.selected .user&#x27;</span>).<span class="title function_">contains</span>(<span class="string">&#x27;natalie&#x27;</span>) <span class="comment">// return the first element</span></span><br></pre></td></tr></table></figure>
 <h3 id="Auxiliary-functions"><a href="#Auxiliary-functions" class="headerlink" title="Auxiliary functions"></a>Auxiliary functions</h3><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">.<span class="title function_">children</span>(selector) </span><br><span class="line">.<span class="title function_">parents</span>()</span><br><span class="line">.<span class="title function_">parent</span>()</span><br><span class="line">.<span class="title function_">siblings</span>()</span><br><span class="line">.<span class="title function_">first</span>()</span><br><span class="line">.<span class="title function_">last</span>()                     </span><br><span class="line">.<span class="title function_">next</span>()</span><br><span class="line">.<span class="title function_">nextUntil</span>(selector)</span><br><span class="line">.<span class="title function_">prev</span>()</span><br><span class="line">.<span class="title function_">prevUntil</span>(selector)</span><br><span class="line">.<span class="title function_">eq</span>() <span class="comment">// nth-child(1)</span></span><br></pre></td></tr></table></figure>
 
@@ -249,29 +256,45 @@
 
 <h2 id="Interact-With-Element"><a href="#Interact-With-Element" class="headerlink" title="Interact With Element"></a>Interact With Element</h2><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">.<span class="title function_">click</span>()</span><br><span class="line">.<span class="title function_">dblclick</span>()</span><br><span class="line">.<span class="title function_">rightclick</span>()</span><br><span class="line">.<span class="title function_">clear</span>()</span><br><span class="line">.<span class="title function_">check</span>()</span><br><span class="line">.<span class="title function_">uncheck</span>()</span><br><span class="line">.<span class="title function_">select</span>()</span><br><span class="line">.<span class="title function_">trigger</span>()</span><br><span class="line">.<span class="title function_">selectFile</span>()</span><br><span class="line">.<span class="title function_">blur</span>()</span><br><span class="line">.<span class="title function_">type</span>()</span><br><span class="line"><span class="comment">/* keyboard */</span></span><br><span class="line"><span class="comment">// .type() with special character sequences</span></span><br><span class="line">.<span class="title function_">type</span>(<span class="string">&#x27;&#123;leftarrow&#125;&#123;rightarrow&#125;&#123;uparrow&#125;&#123;downarrow&#125;&#x27;</span>)</span><br><span class="line">.<span class="title function_">type</span>(<span class="string">&#x27;&#123;del&#125;&#123;selectall&#125;&#123;backspace&#125;&#x27;</span>)</span><br><span class="line"><span class="comment">// .type() with key modifiers</span></span><br><span class="line">.<span class="title function_">type</span>(<span class="string">&#x27;&#123;alt&#125;&#123;option&#125;&#x27;</span>) <span class="comment">//these are equivalent</span></span><br><span class="line">.<span class="title function_">type</span>(<span class="string">&#x27;&#123;ctrl&#125;&#123;control&#125;&#x27;</span>) <span class="comment">//these are equivalent</span></span><br><span class="line">.<span class="title function_">type</span>(<span class="string">&#x27;&#123;meta&#125;&#123;command&#125;&#123;cmd&#125;&#x27;</span>) <span class="comment">//these are equivalent</span></span><br><span class="line">.<span class="title function_">type</span>(<span class="string">&#x27;&#123;shift&#125;&#x27;</span>)</span><br></pre></td></tr></table></figure>
 
-<p>&amp;nbsp;<br>&amp;nbsp;</p>
+<br>
+<br>
+
 <h1 id="One-Example-Script-for-Automation"><a href="#One-Example-Script-for-Automation" class="headerlink" title="One Example Script for Automation"></a>One Example Script for Automation</h1><h2 id="Script-1"><a href="#Script-1" class="headerlink" title="Script"></a>Script</h2><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="title function_">describe</span>(<span class="string">&#x27;Example&#x27;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="title function_">beforeEach</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">        cy.<span class="title function_">visit</span>(<span class="string">&#x27;https://mochajs.org/&#x27;</span>)</span><br><span class="line">    &#125;)</span><br><span class="line"></span><br><span class="line">    <span class="title function_">it</span>(<span class="string">&#x27;test1&#x27;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">        cy.<span class="title function_">get</span>(<span class="string">&#x27;header&#x27;</span>).<span class="title function_">children</span>(<span class="string">&#x27;p&#x27;</span>).<span class="title function_">eq</span>(<span class="number">0</span>).<span class="title function_">should</span>(<span class="string">&#x27;have.css&#x27;</span>, <span class="string">&#x27;color&#x27;</span>, <span class="string">&#x27;rgb(194, 157, 127)&#x27;</span>)</span><br><span class="line">        cy.<span class="title function_">get</span>(<span class="string">&#x27;main#content&#x27;</span>).<span class="title function_">should</span>(<span class="string">&#x27;contain.text&#x27;</span>, <span class="string">&#x27;Node.js&#x27;</span>)</span><br><span class="line">        cy.<span class="title function_">get</span>(<span class="string">&#x27;main#content p:first a&#x27;</span>).<span class="title function_">should</span>(<span class="string">&#x27;have.length&#x27;</span>, <span class="number">2</span>)</span><br><span class="line">    &#125;)</span><br><span class="line"></span><br><span class="line">    <span class="title function_">it</span>(<span class="string">&#x27;test2&#x27;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">        cy.<span class="title function_">get</span>(<span class="string">&#x27;main#content p:first a[href=&quot;https://nodejs.org/&quot;]&#x27;</span>).<span class="title function_">click</span>()</span><br><span class="line">        cy.<span class="title function_">location</span>().<span class="title function_">should</span>(<span class="function">(<span class="params">location</span>) =&gt;</span> &#123;</span><br><span class="line">            <span class="title function_">expect</span>(location.<span class="property">origin</span>).<span class="property">to</span>.<span class="title function_">eq</span>(<span class="string">&#x27;https://nodejs.org&#x27;</span>)</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<p>&amp;nbsp;</p>
+<br>
+
 <h2 id="Run-1"><a href="#Run-1" class="headerlink" title="Run"></a>Run</h2><p><img src="https://s2.loli.net/2023/03/06/p5VdF1382vTNeuJ.png" alt="example.png"></p>
-<p>&amp;nbsp;<br>&amp;nbsp;</p>
+<br>
+<br>
+
 <blockquote>
 <p>Tips:</p>
 <ul>
-<li>You can modify <strong>numTestsKeptInMemory</strong> option in <strong>cypress.json</strong><br>   <em>The number of tests for which snapshots and command data are kept in memory. Reduce this number if you are experiencing high memory consumption in your browser during a test run.</em><br>&amp;nbsp;</li>
-<li>I configured its value to 10 for local debugging.<br>&amp;nbsp;</li>
+<li>You can modify <strong>numTestsKeptInMemory</strong> option in <strong>cypress.json</strong><br>   <em>The number of tests for which snapshots and command data are kept in memory. Reduce this number if you are experiencing high memory consumption in your browser during a test run.</em><br></li>
+<li>I configured its value to 10 for local debugging. <br></li>
 <li>Running on a server, I recommend setting it to 0.</li>
 </ul>
 </blockquote>
-<p>&amp;nbsp;<br>&amp;nbsp;</p>
+<br>
+<br>
+
+
 <h1 id="End"><a href="#End" class="headerlink" title="End"></a>End</h1><p>Now, you can start to write your own testcases!</p>
-<p>&amp;nbsp;</p>
+<br>
+
 <p>If you have problems or difficulties in writing automation testcases, you may try to find the solutions here:</p>
 <ul>
 <li><a target="_blank" rel="noopener" href="https://docs.cypress.io/faq/questions/using-cypress-faq">https://docs.cypress.io/faq/questions/using-cypress-faq</a></li>
 <li><a target="_blank" rel="noopener" href="https://github.com/cypress-io/cypress/issues">https://github.com/cypress-io/cypress/issues</a></li>
 </ul>
-<p>&amp;nbsp;<br>&amp;nbsp;<br>&amp;nbsp;<br>&amp;nbsp;<br>&amp;nbsp;<br>&amp;nbsp;<br>&amp;nbsp;<br>&amp;nbsp;<br>&amp;nbsp;</p>
-
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
         </div>
 
         

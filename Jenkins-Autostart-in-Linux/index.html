@@ -233,26 +233,31 @@
 <p><strong>This can be handled with this command line:</strong></p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sed -i <span class="string">&quot;s/\r//&quot;</span> ***.sh</span><br></pre></td></tr></table></figure>
 </blockquote>
-<p>&amp;nbsp;</p>
-<hr>
-<p>&amp;nbsp;</p>
+<br>
+***
+<br>
+
 <h2 id="Step2-Set-Permission-for-jenkins-sh"><a href="#Step2-Set-Permission-for-jenkins-sh" class="headerlink" title="Step2: Set Permission for jenkins.sh"></a>Step2: Set Permission for jenkins.sh</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">chmod</span> +x jenkins.sh   <span class="comment"># execute</span></span><br><span class="line"><span class="comment"># chmod 777 jenkins.sh   # all</span></span><br></pre></td></tr></table></figure>
-<p>&amp;nbsp;</p>
-<hr>
-<p>&amp;nbsp;</p>
+<br>
+***
+<br>
+
 <h1 id="Step-Check-Check-the-start-x2F-stop-via-jenkins-sh"><a href="#Step-Check-Check-the-start-x2F-stop-via-jenkins-sh" class="headerlink" title="Step-Check: Check the start&#x2F;stop via jenkins.sh"></a>Step-Check: Check the start&#x2F;stop via jenkins.sh</h1><h2 id="Start"><a href="#Start" class="headerlink" title="Start"></a>Start</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/jenkins.sh start</span><br></pre></td></tr></table></figure>
 <h2 id="Stop"><a href="#Stop" class="headerlink" title="Stop"></a>Stop</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/jenkins.sh stop</span><br></pre></td></tr></table></figure>
 
-<p>&amp;nbsp;</p>
-<hr>
-<p>&amp;nbsp;</p>
+<br>
+***
+<br>
+
+
 <h1 id="Step3-create-jenkins-service"><a href="#Step3-create-jenkins-service" class="headerlink" title="Step3: create jenkins.service"></a>Step3: create jenkins.service</h1><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> /lib/systemd/system</span><br><span class="line">vi jenkins.service</span><br></pre></td></tr></table></figure>
 
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=Jenkins</span><br><span class="line">After=network.target</span><br><span class="line"> </span><br><span class="line">[Service]</span><br><span class="line">Type=forking</span><br><span class="line">ExecStart=/jenkins.sh start</span><br><span class="line">ExecReload=</span><br><span class="line">ExecStop=/jenkins.sh stop</span><br><span class="line">PrivateTmp=true</span><br><span class="line"> </span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
 
-<p>&amp;nbsp;</p>
-<hr>
-<p>&amp;nbsp;</p>
+<br>
+***
+<br>
+
 <h1 id="Step-Check-Check-jenkins-service"><a href="#Step-Check-Check-jenkins-service" class="headerlink" title="Step-Check: Check jenkins.service"></a>Step-Check: Check jenkins.service</h1><h2 id="daemon-reload"><a href="#daemon-reload" class="headerlink" title="daemon-reload"></a>daemon-reload</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">systemctl daemon-reload</span><br></pre></td></tr></table></figure>
 <h2 id="start-service"><a href="#start-service" class="headerlink" title="start service"></a>start service</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">systemctl start jenkins.service</span><br></pre></td></tr></table></figure>
 
@@ -260,33 +265,38 @@
 
 
 <p><img src="https://s2.loli.net/2023/03/06/7h1oKG9OIHWrQwn.png" alt="status.png"></p>
-<p>&amp;nbsp;</p>
-<hr>
-<p>&amp;nbsp;</p>
+<br>
+***
+<br>
+
 <h1 id="Step4-Set-jenkins-service-to-boot-up"><a href="#Step4-Set-jenkins-service-to-boot-up" class="headerlink" title="Step4: Set jenkins.service to boot up"></a>Step4: Set jenkins.service to boot up</h1><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">systemctl <span class="built_in">enable</span> jenkins.service</span><br></pre></td></tr></table></figure>
 
-<p>&amp;nbsp;</p>
-<hr>
-<p>&amp;nbsp;</p>
+<br>
+***
+<br>
+
 <h1 id="Step-Check-Check-all-service"><a href="#Step-Check-Check-all-service" class="headerlink" title="Step-Check: Check all service"></a>Step-Check: Check all service</h1><p>Check if jenkins.service exists with this command line:</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">systemctl list-units --<span class="built_in">type</span>=service</span><br></pre></td></tr></table></figure>
 
-<p>&amp;nbsp;</p>
-<hr>
-<p>&amp;nbsp;</p>
+<br>
+***
+<br>
+
 <h1 id="Step5-Stop-jenkins-service"><a href="#Step5-Stop-jenkins-service" class="headerlink" title="Step5: Stop jenkins.service"></a>Step5: Stop jenkins.service</h1><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">systemctl stop jenkins.service</span><br></pre></td></tr></table></figure>
 
-<p>&amp;nbsp;</p>
-<hr>
-<p>&amp;nbsp;</p>
+<br>
+***
+<br>
+
 <h1 id="The-Ultimate-Test"><a href="#The-Ultimate-Test" class="headerlink" title="The Ultimate Test"></a>The Ultimate Test</h1><p>Restart the server to see if jenkins can autostart.</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ps -ef | grep -i jenkins</span><br></pre></td></tr></table></figure>
 
 <p>If everything goes right, you will see that jenkins is started.</p>
 <p><img src="https://s2.loli.net/2023/03/06/b5HJafLipjKY6We.png" alt="autostart.png"></p>
-<p>&amp;nbsp;</p>
-<hr>
-<p>&amp;nbsp;</p>
+<br>
+***
+<br>
+
 <h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><h2 id="Learn-about-shell-script"><a href="#Learn-about-shell-script" class="headerlink" title="Learn about shell script"></a>Learn about shell script</h2><ul>
 <li><p>Want to learn about shell, you can see my article: <a href="https://nataliexselina.github.io/shell-script/">https://nataliexselina.github.io/shell-script/</a></p>
 </li>
@@ -296,8 +306,15 @@
 <h2 id="Learn-about-service-in-Linux"><a href="#Learn-about-service-in-Linux" class="headerlink" title="Learn about service in Linux"></a>Learn about service in Linux</h2><ul>
 <li>You can see this article: <a target="_blank" rel="noopener" href="https://linuxconfig.org/how-to-create-systemd-service-unit-in-linux">https://linuxconfig.org/how-to-create-systemd-service-unit-in-linux</a></li>
 </ul>
-<p>&amp;nbsp;<br>&amp;nbsp;<br>&amp;nbsp;<br>&amp;nbsp;<br>&amp;nbsp;<br>&amp;nbsp;<br>&amp;nbsp;<br>&amp;nbsp;<br>&amp;nbsp;</p>
-
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
         </div>
 
         
@@ -334,9 +351,9 @@
                     
                         <a href="/tags/Jenkins/"># Jenkins</a>
                     
-                        <a href="/tags/CI-CD/"># CI/CD</a>
-                    
                         <a href="/tags/shell/"># shell</a>
+                    
+                        <a href="/tags/CI-CD/"># CI/CD</a>
                     
                         
                 </span>
@@ -349,7 +366,7 @@
         </section>
         <section class="post-nav">
             
-                <a class="prev" rel="prev" href="/Pipeline-Groovy/">Pipeline-Groovy</a>
+                <a class="prev" rel="prev" href="/Cypress-Migration-To-Version-10/">Cypress-Migration To Version 10</a>
             
             
             <a class="next" rel="next" href="/shell-script/">shell script</a>

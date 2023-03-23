@@ -224,23 +224,39 @@
 
         <div class="post-content">
             <h1 id="Have-to-know"><a href="#Have-to-know" class="headerlink" title="Have to know"></a>Have to know</h1><h2 id="File-Extension-and-File-Format"><a href="#File-Extension-and-File-Format" class="headerlink" title="File Extension and File Format"></a>File Extension and File Format</h2><p>Computers cannot identify the file format based on the file extension, they parse the file to confirm if its parsed result matches file signature.</p>
-<p>&amp;nbsp;</p>
+<br>
+
 <h1 id="How-to-know-the-Actual-Format"><a href="#How-to-know-the-Actual-Format" class="headerlink" title="How to know the Actual Format"></a>How to know the Actual Format</h1><h2 id="Use-file-command"><a href="#Use-file-command" class="headerlink" title="Use file command"></a>Use <strong>file</strong> command</h2><p>Under Linux, you can use the <strong>file</strong> command.</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">file binfile</span><br></pre></td></tr></table></figure>
-<p>&amp;nbsp;<br>Example Output:</p>
+<br>
+Example Output:
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">binfile: JPEG image data, JFIF standard 1.01, resolution (DPI), density 96x96, segment length 16, baseline, precision 8, 768x576, frames 3</span><br></pre></td></tr></table></figure>
-<p>&amp;nbsp;<br><em>It completely ignores the file extension, but rather relies on information in the file header.</em><br>&amp;nbsp;<br>&amp;nbsp;</p>
-<h2 id="View-Files-in-Hexadecimal"><a href="#View-Files-in-Hexadecimal" class="headerlink" title="View Files in Hexadecimal"></a>View Files in Hexadecimal</h2><ul>
+<br>
+*It completely ignores the file extension, but rather relies on information in the file header.*
+<br>
+<br>
+## View Files in Hexadecimal
+
+<ul>
 <li>windows<br>  Use hex editors, such as UltraEdit, winhex, etc.</li>
 </ul>
-<p>&amp;nbsp;</p>
+<br>
+
 <ul>
 <li>macOS<br>  use the <strong>hexdump</strong> command.  <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">hexdump -C binfile | less</span><br></pre></td></tr></table></figure></li>
 </ul>
-<p>&amp;nbsp;</p>
-<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><em>The header of different file signature: <a target="_blank" rel="noopener" href="https://filesignatures.net/">https://filesignatures.net/</a></em></p>
-<p>&amp;nbsp;<br>&amp;nbsp;<br>&amp;nbsp;<br>&amp;nbsp;<br>&amp;nbsp;<br>&amp;nbsp;<br>&amp;nbsp;<br>&amp;nbsp;<br>&amp;nbsp;</p>
+<br>
 
+<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><em>The header of different file signature: <a target="_blank" rel="noopener" href="https://filesignatures.net/">https://filesignatures.net/</a></em></p>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
         </div>
 
         
