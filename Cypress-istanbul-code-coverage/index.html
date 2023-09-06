@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="NatalieXSelina">
+
+
+    <meta name="subtitle" content=" b l o g">
+
+
+
+
+<title>Cypress-istanbul-code-coverage | L i f e L i n e</title>
+
+
+
+    <link rel="icon" href="/favicon.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+<body>
+    <script>
+        // this function is used to check current theme before page loaded.
+        (() => {
+            const currentTheme = window.localStorage && window.localStorage.getItem('theme') || '';
+            const isDark = currentTheme === 'dark';
+            const pagebody = document.getElementsByTagName('body')[0]
+            if (isDark) {
+                pagebody.classList.add('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Dark"
+            } else {
+                pagebody.classList.remove('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Light"
+            }
+        })();
+    </script>
+
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">L i f e L i n e</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">L i f e L i n e</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+            <div class="main">
+                <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    var tocbot_timer;
+    var DEPTH_MAX = 6; // 为 6 时展开所有
+    var tocbot_default_config = {
+        tocSelector: '.tocbot-list',
+        contentSelector: '.post-content',
+        headingSelector: 'h1, h2, h3, h4, h5',
+        orderedList: false,
+        scrollSmooth: true,
+        onClick: extend_click,
+    };
+
+    function extend_click() {
+        clearTimeout(tocbot_timer);
+        tocbot_timer = setTimeout(function() {
+            tocbot.refresh(obj_merge(tocbot_default_config, {
+                hasInnerContainers: true
+            }));
+        }, 420); // 这个值是由 tocbot 源码里定义的 scrollSmoothDuration 得来的
+    }
+
+    document.ready(function() {
+        tocbot.init(obj_merge(tocbot_default_config, {
+            collapseDepth: 1
+        }));
+    });
+
+    function expand_toc() {
+        var b = document.querySelector('.tocbot-toc-expand');
+        var expanded = b.getAttribute('data-expanded');
+        expanded ? b.removeAttribute('data-expanded') : b.setAttribute('data-expanded', true);
+        tocbot.refresh(obj_merge(tocbot_default_config, {
+            collapseDepth: expanded ? 1 : DEPTH_MAX
+        }));
+        b.innerText = expanded ? 'Expand all' : 'Collapse all';
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+    function obj_merge(target, source) {
+        for (var item in source) {
+            if (source.hasOwnProperty(item)) {
+                target[item] = source[item];
+            }
+        }
+        return target;
+    }
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">Cypress-istanbul-code-coverage</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">NatalieXSelina</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">April 20, 2023&nbsp;&nbsp;14:55:07</a>
+                        </span>
+                    
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <p>什么是插桩<br>在代码中插入一些特殊的标记，以记录每个代码块、行号或语句的执行情况。</p>
+<p>插桩后的代码可以在运行过程中，统计某行代码是否运行，某一段逻辑是否被覆盖。</p>
+<p>代码覆盖率工具使用这些标记来生成覆盖率报告，以确定代码中哪些部分已经被测试覆盖了，哪些部分还没有。</p>
+<p>具体如何插入标记&#x2F;计数器，可以参考cypress官方文档对插桩的介绍：<a target="_blank" rel="noopener" href="https://docs.cypress.io/guides/tooling/code-coverage#Introduction">https://docs.cypress.io/guides/tooling/code-coverage#Introduction</a></p>
+<p>————————————————————————————————</p>
+<p>简道云前端工程插桩<br>本地尝试+插桩方案选取<br>注：npm命令中</p>
+<p>dev: 本地开发<br>test: dev.jiandaoyun.com</p>
+<p>方案一：NYC	方案二：babel-plugin-istanbul<br>优势	<br>nyc在编译打包（即使用webpack）前进行插桩</p>
+<p>对使用babel进行编译的项目可以直接使用</p>
+<p>劣势	<br>生成新的目录存放插桩后代码，需要使用新目录下插桩后的代码启动工程，因此启动工程需要调整入口文件</p>
+<p>对于比较庞大的简道云前端项目来说，index入口文件不止一个</p>
+<p>在编译时插桩，对webpack打包速度造成一定影响</p>
+<p>Mobile工程打包时需要增加内存至3G，否则会报js内存不足的错。因此需要调整npm命令，修改max_old_space_size。不知道是否会占用服务器资源。</p>
+<p>&lt;— JS stacktrace —&gt;</p>
+<p>FATAL ERROR: Ineffective mark-compacts near heap limit Allocation failed - JavaScript heap out of memory</p>
+<p>“build:dev”: “cross-env NODE_ENV&#x3D;development node –max_old_space_size&#x3D;3072 …”,</p>
+<p>影响	<br>目测对前端工程的改动量较大，有点舍本逐末了</p>
+<p>需要调整build\webpack.config.common.js（虽然仅需要在测试环境插桩，但看了下build\webpack.config.dev.js是由common的配置扩展而来）<br>调整view下的各index文件<br>改动较大可能有其他报错or问题<br>对webpack打包速度造成影响：</p>
+<p>webpack有缓存的情况下，尽量调整配置后本地打包情况：<br>    [‘babel-plugin-istanbul’,{<br>        ‘extension’:[‘.js’,’.ts’,’.tsx’],<br>        ‘exclude’: [‘<strong>&#x2F;node_modules&#x2F;</strong>‘,’<strong>&#x2F;<strong>tests</strong>&#x2F;</strong>‘,’<strong>&#x2F;src&#x2F;plugins&#x2F;</strong>‘],<br>        ‘source-map’: true<br>    }]<br>    &#x2F;&#x2F; src&#x2F;plugins下是一些压缩后的库，不需要插桩</p>
+<p>PC工程：51.6s → 54.1s</p>
+<p>Mobile工程（3G内存时）：22.0s → 26.4s</p>
+<p>只上测试环境，排除本地开发环境，研发coding时本地调试不会受影响<br>尝试结果	暂无	</p>
+<p>本地尝试成功后，与random、lei.wang沟通确认并提任务部署到测试环境：</p>
+<p>—————————————————</p>
+<p>对webpack打包的影响及处理方案<br>任务对接过程中发现对dev环境打包的影响比想象中大，本地开发环境相差十几秒，但是dev环境的打包慢了一倍，由7.75min增加到了15.5min，翻了一倍( ╯□╰ )</p>
+<p>—————————————————</p>
+<p>因此决定只在需要E2E代码覆盖率报告时，对前端工程进行插桩</p>
+<p>以pc端为例：</p>
+<p>测试jenkins，以下简称uitest-pc：<a target="_blank" rel="noopener" href="http://frps.sre.jdydevelop.com:7001/job/fx-uitest/job/fx-ui-testing1/">http://frps.sre.jdydevelop.com:7001/job/fx-uitest/job/fx-ui-testing1/</a></p>
+<p>研发jenkins，以下简称fx-code-pc：<a target="_blank" rel="noopener" href="https://jenkins.jdydevelop.com/job/frontend/job/fx-code-pc/job/dev/">https://jenkins.jdydevelop.com/job/frontend/job/fx-code-pc/job/dev/</a></p>
+<p>希望实现的效果：</p>
+<p>①两个jenkins间的互通</p>
+<p>②fx-code-pc插桩后，再执行pc端的测试用例</p>
+<p>fx-code-pc为上游，构建完成后触发uitest-pc	 uitest-pc为上游，在构建过程中触发fx-code-pc<br>优势	简单，不需要在uitest-pc的工程中添加等待fx-code-pc构建完成的逻辑	测试的jenkins即可触发，测试覆盖率报告由测试的工程触发很合理，也符合使用习惯<br>劣势	<br>需要去研发的jenkins进行触发，针对插桩单独构建应该还需要传参数</p>
+<p>需要在构建过程中触发fx-code-pc，并等待其构建完成后继续执行后续脚本、命令<br>结论	如果后者不成功，只能考虑该方法	可以使用  parameterized-remote-trigger 插件，它支持等待远程项目构建等各种操作，且只需在上游工程安装</p>
+<p>—————————————————</p>
+<p>parameterized-remote-trigger 插件的引入：</p>
+<p>它通过调用远程服务器上 URL 中的&#x2F;buildWithParameters来实现（但是不需要配置URL，并且可以帮助通过csrf的验证）</p>
+<p>感谢老刘帮忙配置研发jenkins工程的凭据，这样就可以进行调试了。</p>
+<p>To 研发，太长不看版：</p>
+<p>即对于研发而言，①jenkins配置：需要将fx-code-pc&#x2F;fx-code-mobile工程配置为参数化构建，②需要代码实现：通过传入的参数（我姑且定义为name:token, value:Instrument)，来判断是否对dev进行插桩构建</p>
+<p>①首先在上游工程，即uitest工程上安装插件parameterized-remote-trigger</p>
+<p>②安装完成后，在uitest工程中配置该插件</p>
+<p>路径：Dashboard &gt; Manage Jenkins &gt; Configure System （使用了自己的ldap账号密码登录研发的jenkins）</p>
+<p>③在uitest工程新建一个用于调试的Pipeline，配置Pipeline Script来触发下游工程的构建</p>
+<p>pipeline {<br>    agent any<br>    stages {<br>      stage(‘Trigger remote job’) {<br>        steps {<br>          script {<br>            def result &#x3D; triggerRemoteJob(<br>              remoteJenkinsName: ‘fx-code-pc’, &#x2F;&#x2F; 步骤②中配置的display name<br>              job: ‘natalie_test&#x2F;test_para’, &#x2F;&#x2F; 研发工程中用于的测试pipeline<br>              blockBuildUntilComplete: true, &#x2F;&#x2F; 等待远程项目构建完成后继续执行<br>              useCrumbIssuer: true, &#x2F;&#x2F; 使用 Jenkins 的 crumb 验证<br>              parameters:’token&#x3D;Instrument’ &#x2F;&#x2F; 传入的构建参数，其中name为token，value为Instrument<br>            )<br>            if (result) {<br>              echo “Remote job build successfully”<br>            } else {<br>              error “Failed to trigger remote job”<br>            }<br>          }<br>        }<br>      }<br>    }<br>}</p>
+<pre><code>                switch(env.JOB_BASE_NAME) &#123;
+                    case &#39;trigger_fx-code-pc&#39;:
+                        retry(5) &#123;
+                            triggerRemoteJob(
+                                remoteJenkinsName: &#39;fx-code-pc&#39;,
+                                job: &#39;natalie_test/test_para&#39;, 
+                                blockBuildUntilComplete: true,
+                                useCrumbIssuer: true,
+                                parameters: &#39;token=Instrument&#39;,
+                                pollInterval: 300 // 300s查询一次
+                            )
+                        &#125;
+                        echo &quot;Remote job build successfully&quot;
+                        sh &#39;npm run cy:run -- --env modules=smoke,coverage=true&#39;
+                        break
+                    default:
+                        sh &#39;pwd&#39;
+                        break
+                &#125;
+</code></pre>
+<p>④将下游工程中需要触发的工程配置为参数化构建</p>
+<p>⑤执行结果</p>
+<p>uitest工程</p>
+<p>Started by user Natalie.Zhou-周莹 (Natalie.Zhou)<br>[Pipeline] Start of Pipeline<br>[Pipeline] node<br>Running on Jenkins in &#x2F;var&#x2F;lib&#x2F;jenkins&#x2F;workspace&#x2F;fx-uitest&#x2F;trigger_fx-code-pc<br>[Pipeline] {<br>[Pipeline] stage<br>[Pipeline] { (clone)<br>[Pipeline] git<br>The recommended git tool is: git<br>using credential f1da3612-6972-4e37-a718-2898da4f8bfc<br>Cloning the remote Git repository<br>Cloning repository <a target="_blank" rel="noopener" href="https://code.fineres.com/scm/~yaqing.chang/fx-ui-test.git">https://code.fineres.com/scm/~yaqing.chang/fx-ui-test.git</a></p>
+<blockquote>
+<p>git init &#x2F;var&#x2F;lib&#x2F;jenkins&#x2F;workspace&#x2F;fx-uitest&#x2F;trigger_fx-code-pc # timeout&#x3D;10<br>Fetching upstream changes from <a target="_blank" rel="noopener" href="https://code.fineres.com/scm/~yaqing.chang/fx-ui-test.git">https://code.fineres.com/scm/~yaqing.chang/fx-ui-test.git</a><br>git –version # timeout&#x3D;10<br>git –version # ‘git version 1.8.3.1’<br>using GIT_ASKPASS to set credentials<br>git fetch –tags –progress <a target="_blank" rel="noopener" href="https://code.fineres.com/scm/~yaqing.chang/fx-ui-test.git">https://code.fineres.com/scm/~yaqing.chang/fx-ui-test.git</a> +refs&#x2F;heads&#x2F;<em>:refs&#x2F;remotes&#x2F;origin&#x2F;</em> # timeout&#x3D;10<br>git config remote.origin.url <a target="_blank" rel="noopener" href="https://code.fineres.com/scm/~yaqing.chang/fx-ui-test.git">https://code.fineres.com/scm/~yaqing.chang/fx-ui-test.git</a> # timeout&#x3D;10<br>git config –add remote.origin.fetch +refs&#x2F;heads&#x2F;<em>:refs&#x2F;remotes&#x2F;origin&#x2F;</em> # timeout&#x3D;10<br>Avoid second fetch<br>git rev-parse refs&#x2F;remotes&#x2F;origin&#x2F;master^{commit} # timeout&#x3D;10<br>Checking out Revision 111969aaee21558ce74dfb9c1f0910836a3bc829 (refs&#x2F;remotes&#x2F;origin&#x2F;master)<br>git config core.sparsecheckout # timeout&#x3D;10<br>git checkout -f 111969aaee21558ce74dfb9c1f0910836a3bc829 # timeout&#x3D;10<br>git branch -a -v –no-abbrev # timeout&#x3D;10<br>git checkout -b master 111969aaee21558ce74dfb9c1f0910836a3bc829 # timeout&#x3D;10<br>Commit message: “fix:FXD-43057   fix”<br>First time build. Skipping changelog.<br>[Pipeline] }<br>[Pipeline] &#x2F;&#x2F; stage<br>[Pipeline] stage<br>[Pipeline] { (prepare)<br>[Pipeline] sh</p>
+</blockquote>
+<ul>
+<li>npm install<br>npm WARN npm npm does not support Node.js v12.18.1<br>npm WARN npm You should probably upgrade to a newer version of node as we<br>npm WARN npm can’t make any promises that npm will work with this version.<br>npm WARN npm Supported releases of Node.js are the latest release of 6, 8, 9, 10, 11.<br>npm WARN npm You can find the latest version at <a target="_blank" rel="noopener" href="https://nodejs.org/">https://nodejs.org/</a><br>npm WARN deprecated <a href="mailto:&#x63;&#121;&#x70;&#x72;&#x65;&#115;&#x73;&#45;&#103;&#x72;&#101;&#112;&#x40;&#x33;&#x2e;&#x30;&#46;&#52;">&#x63;&#121;&#x70;&#x72;&#x65;&#115;&#x73;&#45;&#103;&#x72;&#101;&#112;&#x40;&#x33;&#x2e;&#x30;&#46;&#52;</a>: Please use the official @cypress&#x2F;grep package<br>npm WARN deprecated <a href="mailto:&#114;&#101;&#113;&#x75;&#x65;&#115;&#116;&#64;&#x32;&#x2e;&#x31;&#52;&#46;&#x30;">&#114;&#101;&#113;&#x75;&#x65;&#115;&#116;&#64;&#x32;&#x2e;&#x31;&#52;&#46;&#x30;</a>: request has been deprecated, see <a target="_blank" rel="noopener" href="https://github.com/request/request/issues/3142">https://github.com/request/request/issues/3142</a><br>npm WARN deprecated <a href="mailto:&#104;&#x61;&#114;&#x2d;&#x76;&#x61;&#108;&#x69;&#100;&#97;&#x74;&#111;&#x72;&#64;&#x35;&#46;&#x31;&#46;&#53;">&#104;&#x61;&#114;&#x2d;&#x76;&#x61;&#108;&#x69;&#100;&#97;&#x74;&#111;&#x72;&#64;&#x35;&#46;&#x31;&#46;&#53;</a>: this library is no longer supported</li>
+</ul>
+<blockquote>
+<p><a href="mailto:&#99;&#x79;&#x70;&#114;&#101;&#x73;&#115;&#64;&#49;&#48;&#x2e;&#49;&#49;&#x2e;&#48;">&#99;&#x79;&#x70;&#114;&#101;&#x73;&#115;&#64;&#49;&#48;&#x2e;&#49;&#49;&#x2e;&#48;</a> postinstall &#x2F;var&#x2F;lib&#x2F;jenkins&#x2F;workspace&#x2F;fx-uitest&#x2F;trigger_fx-code-pc&#x2F;node_modules&#x2F;cypress<br>node index.js –exec install</p>
+</blockquote>
+<p>Cypress 10.11.0 is installed in &#x2F;var&#x2F;lib&#x2F;jenkins&#x2F;.cache&#x2F;Cypress&#x2F;10.11.0</p>
+<blockquote>
+<p><a href="mailto:&#99;&#121;&#112;&#x72;&#x65;&#x73;&#x73;&#x40;&#x31;&#x2e;&#48;&#x2e;&#x30;">&#99;&#121;&#112;&#x72;&#x65;&#x73;&#x73;&#x40;&#x31;&#x2e;&#48;&#x2e;&#x30;</a> prepare &#x2F;var&#x2F;lib&#x2F;jenkins&#x2F;workspace&#x2F;fx-uitest&#x2F;trigger_fx-code-pc<br>husky install</p>
+</blockquote>
+<p>husky - Git hooks installed<br>npm notice created a lockfile as package-lock.json. You should commit this file.<br>npm WARN <a href="mailto:&#99;&#x79;&#112;&#114;&#101;&#x73;&#x73;&#x2d;&#x69;&#102;&#x72;&#97;&#109;&#x65;&#x40;&#x31;&#46;&#x30;&#46;&#x31;">&#99;&#x79;&#112;&#114;&#101;&#x73;&#x73;&#x2d;&#x69;&#102;&#x72;&#97;&#109;&#x65;&#x40;&#x31;&#46;&#x30;&#46;&#x31;</a> requires a peer of @types&#x2F;cypress@^1.1.0 but none is installed. You must install peer dependencies yourself.<br>npm WARN @cypress&#x2F;<a href="mailto:&#x77;&#x65;&#x62;&#x70;&#x61;&#x63;&#107;&#x2d;&#112;&#x72;&#x65;&#112;&#114;&#x6f;&#x63;&#x65;&#115;&#x73;&#x6f;&#x72;&#64;&#53;&#x2e;&#x31;&#x37;&#x2e;&#x30;">&#x77;&#x65;&#x62;&#x70;&#x61;&#x63;&#107;&#x2d;&#112;&#x72;&#x65;&#112;&#114;&#x6f;&#x63;&#x65;&#115;&#x73;&#x6f;&#x72;&#64;&#53;&#x2e;&#x31;&#x37;&#x2e;&#x30;</a> requires a peer of @babel&#x2F;preset-env@^7.0.0 but none is installed. You must install peer dependencies yourself.<br>npm WARN @cypress&#x2F;<a href="mailto:&#x77;&#x65;&#98;&#112;&#97;&#99;&#x6b;&#x2d;&#112;&#114;&#x65;&#112;&#x72;&#111;&#x63;&#101;&#115;&#x73;&#x6f;&#x72;&#x40;&#53;&#46;&#x31;&#x37;&#x2e;&#x30;">&#x77;&#x65;&#98;&#112;&#97;&#99;&#x6b;&#x2d;&#112;&#114;&#x65;&#112;&#x72;&#111;&#x63;&#101;&#115;&#x73;&#x6f;&#x72;&#x40;&#53;&#46;&#x31;&#x37;&#x2e;&#x30;</a> requires a peer of babel-loader@^8.0.2 || ^9 but none is installed. You must install peer dependencies yourself.<br>npm WARN @cypress&#x2F;<a href="mailto:&#119;&#x65;&#98;&#x70;&#97;&#x63;&#107;&#x2d;&#112;&#x72;&#x65;&#112;&#114;&#x6f;&#x63;&#x65;&#x73;&#x73;&#x6f;&#114;&#64;&#53;&#46;&#x31;&#x37;&#x2e;&#x30;">&#119;&#x65;&#98;&#x70;&#97;&#x63;&#107;&#x2d;&#112;&#x72;&#x65;&#112;&#114;&#x6f;&#x63;&#x65;&#x73;&#x73;&#x6f;&#114;&#64;&#53;&#46;&#x31;&#x37;&#x2e;&#x30;</a> requires a peer of webpack@^4 || ^5 but none is installed. You must install peer dependencies yourself.<br>npm WARN <a href="mailto:&#99;&#121;&#x70;&#114;&#x65;&#x73;&#115;&#x40;&#x31;&#x2e;&#x30;&#46;&#x30;">&#99;&#121;&#x70;&#114;&#x65;&#x73;&#115;&#x40;&#x31;&#x2e;&#x30;&#46;&#x30;</a> No repository field.</p>
+<p>added 605 packages from 407 contributors and audited 606 packages in 67.497s<br>found 3 moderate severity vulnerabilities<br>  run <code>npm audit fix</code> to fix them, or <code>npm audit</code> for details<br>[Pipeline] sh</p>
+<ul>
+<li>node pretask.js<br>0 条文档被更新<br>[Pipeline] sh<br>[Pipeline] sh</li>
+<li>cp -r .&#x2F;allure-report&#x2F;history .&#x2F;allure-results&#x2F;history<br>cp: 无法获取”.&#x2F;allure-report&#x2F;history” 的文件状态(stat): 没有那个文件或目录</li>
+<li>true<br>[Pipeline] sh</li>
+<li>rm -r ‘allure-report&#x2F;<em>‘<br>rm: 无法删除”allure-report&#x2F;</em>“: 没有那个文件或目录</li>
+<li>true<br>[Pipeline] sh</li>
+<li>rm -rf coverage<br>[Pipeline] sh</li>
+<li>rm -rf .nyc_output<br>[Pipeline] }<br>[Pipeline] &#x2F;&#x2F; stage<br>[Pipeline] stage<br>[Pipeline] { (test)<br>[Pipeline] echo<br>trigger_fx-code-pc<br>[Pipeline] script<br>[Pipeline] {<br>[Pipeline] retry<br>[Pipeline] {<br>[Pipeline] triggerRemoteJob<br>WARNING: Unknown parameter(s) found for class type ‘org.jenkinsci.plugins.ParameterizedRemoteTrigger.pipeline.RemoteBuildPipelineStep’: useCrumbIssuer</li>
+</ul>
+<p>################################################################################################################<br>  Parameterized Remote Trigger Configuration:<br>    - job:                     natalie_test&#x2F;test_para<br>    - remoteJenkinsName:       fx-code-pc<br>    - parameters:              {token&#x3D;Instrument}<br>    - blockBuildUntilComplete: true<br>    - connectionRetryLimit:    5<br>    - trustAllCertificates:    true<br>################################################################################################################<br>Triggering parameterized remote job ‘<a target="_blank" rel="noopener" href="https://jenkins.jdydevelop.com/job/natalie_test/job/test_para">https://jenkins.jdydevelop.com/job/natalie_test/job/test_para</a>‘<br>  Using globally defined ‘Credentials Authentication’ as user ‘Natalie.Zhou’ (Credentials ID ‘dd3f2cde-b4ae-427f-ab74-aff345c2a608’)<br>Triggering remote job now.<br>CSRF protection is enabled on the remote server.<br>  Remote job queue number: 14250668<br>Remote build started!<br>  Remote build URL: <a target="_blank" rel="noopener" href="https://jenkins.jdydevelop.com/job/natalie_test/job/test_para/4/">https://jenkins.jdydevelop.com/job/natalie_test/job/test_para/4/</a><br>  Remote build number: 4<br>Blocking local job until remote job completes.<br>Waiting for remote build to finish …<br>  Waiting for 300 seconds until next poll.<br>Remote build finished with status SUCCESS.<br>[Pipeline] }<br>[Pipeline] &#x2F;&#x2F; retry<br>[Pipeline] echo<br>Remote job build successfully<br>[Pipeline] sh</p>
+<ul>
+<li>npm run cy:run – –env modules&#x3D;smoke,coverage&#x3D;true<br>npm WARN npm npm does not support Node.js v12.18.1<br>npm WARN npm You should probably upgrade to a newer version of node as we<br>npm WARN npm can’t make any promises that npm will work with this version.<br>npm WARN npm Supported releases of Node.js are the latest release of 6, 8, 9, 10, 11.<br>npm WARN npm You can find the latest version at <a target="_blank" rel="noopener" href="https://nodejs.org/">https://nodejs.org/</a></li>
+</ul>
+<blockquote>
+<p><a href="mailto:&#99;&#x79;&#x70;&#114;&#x65;&#x73;&#x73;&#x40;&#49;&#46;&#48;&#x2e;&#48;">&#99;&#x79;&#x70;&#114;&#x65;&#x73;&#x73;&#x40;&#49;&#46;&#48;&#x2e;&#48;</a> cy:run &#x2F;var&#x2F;lib&#x2F;jenkins&#x2F;workspace&#x2F;fx-uitest&#x2F;trigger_fx-code-pc<br>cypress run –browser chrome “–env” “modules&#x3D;smoke,coverage&#x3D;true”</p>
+</blockquote>
+<p>[8309:0218&#x2F;142253.944845:ERROR:gpu_memory_buffer_support_x11.cc(44)] dri3 extension not supported.<br>cypress-grep: will omit filtered tests<br>grep and&#x2F;or grepTags has eliminated all specs<br>Will leave all specs to run to filter at run-time</p>
+<h1 id="tput-No-value-for-TERM-and-no-T-specified"><a href="#tput-No-value-for-TERM-and-no-T-specified" class="headerlink" title="tput: No value for $TERM and no -T specified"></a>tput: No value for $TERM and no -T specified</h1><p>  (Run Starting)</p>
+<p>  ┌────────────────────────────────────────────────────────────────────────────────────────────────┐<br>  │ Cypress:        10.11.0                                                                        │<br>  │ Browser:        Chrome 110 (headless)                                                          │<br>  │ Node Version:   v12.18.1 (&#x2F;usr&#x2F;local&#x2F;nodejs&#x2F;node-v12.18.1-linux-x64&#x2F;bin&#x2F;node)                  │<br>  │ Specs:          17 found (account.spec.js, aggregate.spec.js, auth.spec.js, crmE2Epool.spec.js │<br>  │                 , dash.spec.js, dashboard.spec.js, data.spec.js, etl.spec.js, filterlink.spec. │<br>  │                 js, flow.spec.js, flowForm_view.spec.js, form_view.spec.js, login.spec.js, man │<br>  │                 ageData.spec.js, publis…)                                                    │<br>  │ Searched:       **&#x2F;ui&#x2F;smoke&#x2F;*.spec.js, <strong>&#x2F;ui&#x2F;smoke&#x2F;!(mobile)&#x2F;</strong>&#x2F;*.spec.js                      │<br>  │ Experiments:    experimentalStudio&#x3D;true                                                        │<br>  └────────────────────────────────────────────────────────────────────────────────────────────────┘</p>
+<p>────────────────────────────────────────────────────────────────────────────────────────────────────</p>
+<p>  Running:  account.spec.js                                                                (1 of 17)</p>
+<p>  冒烟-注册<br>0 条文档被更新<br>1 条文档被更新<br>    ✓ 手机号注册&amp;创建企业 (21052ms)<br>1 条文档被更新<br>0 条文档被更新<br>Sending interrupt signal to process<br>Aborted by Natalie.Zhou-周莹 (Natalie.Zhou)<br>[8309:0218&#x2F;142343.086434:ERROR:connection.cc(46)] X connection error received.<br>Click here to forcibly terminate running steps<br>[Pipeline] }<br>[Pipeline] &#x2F;&#x2F; script<br>[Pipeline] }<br>[Pipeline] &#x2F;&#x2F; stage<br>[Pipeline] stage<br>[Pipeline] { (Declarative: Post Actions)<br>[Pipeline] script<br>[Pipeline] {<br>[Pipeline] publishHTML<br>[htmlpublisher] Archiving HTML reports…<br>[htmlpublisher] Archiving at BUILD level &#x2F;var&#x2F;lib&#x2F;jenkins&#x2F;workspace&#x2F;fx-uitest&#x2F;trigger_fx-code-pc&#x2F;coverage&#x2F;lcov-report to &#x2F;var&#x2F;lib&#x2F;jenkins&#x2F;jobs&#x2F;fx-uitest&#x2F;jobs&#x2F;trigger_fx-code-pc&#x2F;builds&#x2F;9&#x2F;htmlreports&#x2F;Report<br>ERROR: Specified HTML directory ‘&#x2F;var&#x2F;lib&#x2F;jenkins&#x2F;workspace&#x2F;fx-uitest&#x2F;trigger_fx-code-pc&#x2F;coverage&#x2F;lcov-report’ does not exist.<br>[Pipeline] sh</p>
+<ul>
+<li>node sendMessage.js Natalie.Zhou trigger_fx-code-pc <a target="_blank" rel="noopener" href="http://frps.sre.jdydevelop.com:7001/job/fx-uitest/job/trigger_fx-code-pc/9/">http://frps.sre.jdydevelop.com:7001/job/fx-uitest/job/trigger_fx-code-pc/9/</a> coverage<br>Status: 200<br>Body:  {<br>errcode: 0,<br>errmsg: ‘ok’,<br>msgid: ‘Dv0oBVNA9p2BIWPODPqgkg3jmw1nZosRcAE6OBj65v32Bl88jeBRJOEsOsBkQBsBsJyVT3LkNHvoBYJK5DDRZg’<br>}<br>[Pipeline] }<br>[Pipeline] &#x2F;&#x2F; script<br>[Pipeline] }<br>[Pipeline] &#x2F;&#x2F; stage<br>[Pipeline] }<br>[Pipeline] &#x2F;&#x2F; node<br>[Pipeline] End of Pipeline<br>Finished: ABORTED</li>
+</ul>
+<p>可以看到下游工程成功构建</p>
+<p><a target="_blank" rel="noopener" href="https://jenkins.jdydevelop.com/job/natalie_test/job/test/21/console">https://jenkins.jdydevelop.com/job/natalie_test/job/test/21/console</a></p>
+<p>关于下游工程的构建需要调整的地方：</p>
+<p>提了一个运维任务，</p>
+<p>后续由于方案设计已经由我完成，且已全流程验证，该任务流转给我处理。</p>
+<p>初次处理运维任务的代码，在review过程中刘大哥提出了几点问题，我个人觉得，对于初学者而言都比较有学习和思考价值：</p>
+<p>① pipeline jenkinsfile其实可以对绝大多数的配置进行定义，一般不需要在界面上进行配置，这一点和Job不太一样</p>
+<p>②缓存加速对构建速度的意义重大</p>
+<p>③解耦的思想。运维任务的实现过程中可以有多种写法，如何规划使实现更优就显得很重要</p>
+<p>均已进行处理：</p>
+<p>首先，两个jenkins工程之间的上下游构建是可以实现的，需要 远程触发器 或者 webhook</p>
+<p>当时先找到一个解决方案：</p>
+<p>给项目B配置远程构建URL，在项目A的jenkinsfile中使用curl命令触发构建</p>
+<p>但是很不幸，报错</p>
+<title>Error 403 No valid crumb was included in the request</title>
+
+<p>原因是jenkins添加了防csrf攻击，因此需要验证</p>
+<p>尝试关闭csrf &#x2F; 获取crumb（15分钟有效期，每次构建都需要获取新的），但尝试了很多教程，均没有成功</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/q411020382/article/details/109265932">https://blog.csdn.net/q411020382/article/details/109265932</a></p>
+<p><a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000040706914">https://segmentfault.com/a/1190000040706914</a></p>
+<p>之后发现了<a target="_blank" rel="noopener" href="https://issues.jenkins.io/browse/JENKINS-61375%EF%BC%8C%E8%AF%84%E8%AE%BA%E5%BB%BA%E8%AE%AE%E4%BD%BF%E7%94%A8">https://issues.jenkins.io/browse/JENKINS-61375，评论建议使用</a> parameterized-remote-trigger 插件（这里吐槽一下..被推荐的更多的是一个叫 Parameterized Trigger plugin 的插件，但它不支持两个jenkins工程之间的远程通信）</p>
+<p>————————————————————————————————</p>
+<p>window.<strong>coverage</strong><br>window.<strong>coverage</strong> 是代码覆盖率工具 Istanbul 提供的一种 API，可以通过它获取代码在测试运行期间的覆盖率信息。</p>
+<p>图上可以看到文件路径为：&#x2F;var&#x2F;app&#x2F;src&#x2F;api&#x2F;AgentManager.ts，这是源代码文件在研发服务器上的路径</p>
+<p>我们输出测试覆盖率报告的依据其实是 .nyc_output&#x2F;out.json，它包含了测试执行期间捕获的源代码文件的行覆盖信息、分支覆盖信息、函数覆盖信息以及语句覆盖信息等等。这些覆盖信息可以用来生成 HTML 报告，以便于对测试覆盖率进行分析和优化。</p>
+<p>这里可以给出一份测试服务器上运行后生成的 out.json</p>
+<p>可以看到out.json中的路径是 &#x2F;var&#x2F;app&#x2F;**，而其实在测试服务器上没有这些资源，因此在打开测试报告的时候，就不能把out.json和源代码文件结合起来展示单个代码文件的覆盖情况</p>
+<p>针对这种情况，有两种解决方法，</p>
+<p>①基于2个服务器可以通信的情况下，将文件挂载，使测试服务器可以进行访问，优点：可以保证是同一份资源，缺点：需要在研发服务器上配置共享文件夹，直接访问处理研发服务器资源，影响不可控</p>
+<p>②将文件拷贝到测试服务器下，缺点：需要添加拷贝&#x2F;git clone步骤，优点：避免影响研发服务器</p>
+<p>这里选用第二种方法，将源代码放到&#x2F;var目录下</p>
+<p>简单test一下，可以看到成功获取到了源代码：<a target="_blank" rel="noopener" href="http://frps.sre.jdydevelop.com:7001/job/fx-uitest/job/fx-mobile-ui-testing1/255/Report/">http://frps.sre.jdydevelop.com:7001/job/fx-uitest/job/fx-mobile-ui-testing1/255/Report/</a></p>
+<p>————————————————————————————————</p>
+<p>cypress插件接入及配置项修改<br>可以看一下Readme，不再赘述：<a target="_blank" rel="noopener" href="https://github.com/cypress-io/code-coverage%EF%BC%8C%E5%9C%A8%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E6%8F%92%E6%A1%A9%E5%AE%8C%E6%88%90%E5%90%8E%EF%BC%8C%E6%8E%A5%E5%85%A5code-coverage%E6%8F%92%E4%BB%B6%E5%8D%B3%E5%8F%AF%E5%9C%A8cypress%E7%9A%84%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95%E7%94%A8%E4%BE%8B%E6%89%A7%E8%A1%8C%E6%9C%9F%E9%97%B4%E5%AF%B9%E8%A6%86%E7%9B%96%E7%8E%87%E8%BF%9B%E8%A1%8C%E8%AE%B0%E5%BD%95%E5%92%8C%E7%BB%9F%E8%AE%A1">https://github.com/cypress-io/code-coverage，在前端工程插桩完成后，接入code-coverage插件即可在cypress的自动化测试用例执行期间对覆盖率进行记录和统计</a></p>
+<p>需要注意的是，为防止其影响日常自动化构建速度，全局配置中将coverage设为false</p>
+<p>仅在pc、mobile全量执行用例时生效，因此修改jenkinsfile：<a target="_blank" rel="noopener" href="https://code.fineres.com/users/yaqing.chang/repos/fx-ui-test/pull-requests/692/diff#Jenkinsfile">https://code.fineres.com/users/yaqing.chang/repos/fx-ui-test/pull-requests/692/diff#Jenkinsfile</a></p>
+<pre><code>                switch(env.JOB_BASE_NAME) &#123;
+                    case &#39;fx-ui-testing1&#39;:
+                        sh &#39;npm run cy:run -- --env modules=all,coverage=true&#39;
+                        ...
+</code></pre>
+<p>————————————————————————————————</p>
+<p>生成的报告如何展示及进行通知<br>本地<br>开启coverage，执行用例时报告会以html形式生成于.&#x2F;coverage&#x2F;lcov-report目录下，本地查看仅需打开index.html即可</p>
+<p>服务器<br>我们的测试用例执行报告使用Jenkins自带的Allure插件进行展示，但是code-coverage在jenkins上目前还没有插件可以直接使用</p>
+<p>调查几种方案（workspace、Artifacts、HTML Publisher插件等），决定使用HTML Publisher plugin，它可以生成链接以便直接访问报告</p>
+<p>根据文档中的配置项进行脚本编写：</p>
+<p>publishHTML([allowMissing: true, alwaysLinkToLastBuild: true, keepAll: true, escapeUnderscores:true, reportDir: ‘.&#x2F;coverage&#x2F;lcov-report’, reportFiles: ‘index.html’, reportName: ‘Report’, reportTitles: ‘PCReport’])</p>
+<p>由于jenkins的安全策略，此时打开链接会发现html报告没有样式</p>
+<p>可以在控制台输入 System.setProperty(“hudson.model.DirectoryBrowserSupport.CSP”, “”) 解决</p>
+<p>注：该解决方法在jenkins关闭后会失效，建议将jenkins启动命令改为 java -Dhudson.model.DirectoryBrowserSupport.CSP&#x3D; -jar jenkins.war ，如配置了jenkins开机自启，可将该启动命令写入开机自启脚本中。</p>
+<p>企微通知<br>可复用之前的实现：sendMessage.js，增加新的E2E覆盖率报告模板并调整一下传参和原本代码的结构即可</p>
+<p>————————————————————————————————</p>
+<p>覆盖率报告简单分析（移动端）<br>以移动端为例：</p>
+<p><a target="_blank" rel="noopener" href="http://frps.sre.jdydevelop.com:7001/job/fx-uitest/job/fx-mobile-ui-testing1/258/Report/">http://frps.sre.jdydevelop.com:7001/job/fx-uitest/job/fx-mobile-ui-testing1/258/Report/</a></p>
+<p>四个指标的含义分别是：</p>
+<p>Statements：语句覆盖率，即代码中被执行过的语句数占总语句数的比例<br>Branches：分支覆盖率，即代码中被执行过的分支数占总分支数的比例，通常指 if-else 分支和 switch-case 分支<br>Functions：函数覆盖率，即代码中被执行过的函数数占总函数数的比例<br>Lines：行覆盖率，即代码中被执行过的行数占总行数的比例</p>
+<p>以 src&#x2F;components&#x2F;combo UserComboCheck.tsx 文件为例，</p>
+<p>左侧表示该行被执行的次数，红色表示语句未被覆盖</p>
+<p>可以看到下面 “if path not taken” 标记在 interface 定义后面，是由于interface语句本身不包含实际的代码块，因此 nyc 会将一些记录覆盖率的代码插入到它们后面，代表着这个接口定义中的某些分支没有被测试到</p>
+<p>根据报告可以简单判断移动端目前需要增加自动化的场景：</p>
+<p>（结合代码行数排序+源代码文件名+产品功能场景判断核心场景</p>
+<p>1、表单模块的字段筛选</p>
+<p>2、仪表盘部分组件</p>
+<p>3、成员部门中的企业互联部分</p>
+<p>4、增强字段，尤其是定位字段</p>
+<p>5、子表单+显隐结合场景，有用例但不够完善；</p>
+<p>6、CRM重构合入JDY后，需要补充用例，Business相关：① ②，线索转化</p>
+<p>还有其他一些场景，可以看出整个CRM模块都比较缺少移动端用例</p>
+<p>7、流程中心、流程筛选搜索，可以等新版迁移完再做</p>
+<p>8、移动端的一些配置页面，form-auth-set、dash-set等</p>
+<p>PS：</p>
+<p>移动端表单预览在PC端、老报表规划下架中，因此这两块代码不需要覆盖</p>
+<p>其余一些为非核心场景，优先级不高</p>
+<p>————————————————————————————————</p>
+<p>附：本地调试<br>拉取自己的仓库需要配置ssh key，虽然可以在测试服务器的jenkins上进行配置，但是没有管理权限，为了避免将私钥上交，可以在本地自己起jenkins服务。</p>
+<p>1、下载war包，本地启动jenkins，java -jar jenkins.war启动后，端口8080访问</p>
+<p>2、ssh配置，在jenkins的管理界面新建credentials，配置ssh私钥（bitbucket），配置后就可以拉取自己仓库的代码了</p>
+<p>3、创建一个pipeline，使用Pipeline Script即可（一般都是修改几行代码，使用demo验证即可），没有必要使用仓库的jenkinsfile</p>
+<p>Pipeline Script中记得改成自己的仓库地址，和credentialsId</p>
+<pre><code>    stage(&#39;clone&#39;)&#123;
+        steps&#123;
+            git branch:&#39;master&#39;, credentialsId:&#39;Natalie.Zhou&#39;, url: &#39;ssh://git@code.fineres.com:7999/~natalie.zhou/fx-ui-test.git&#39;
+        &#125;
+</code></pre>
+<p>4、本地起简道云前端工程，PC端口3009，Mobile端口3008</p>
+<p>5、自己的仓库中修改cypress的baseUrl为127.0.0.1:3008</p>
+<p>6、jenkins上可以点击build now进行构建</p>
+<p>7、如果拉取代码失败，则是需要配置下本机git.exe的路径</p>
+<p>————————————————————————————————</p>
+<p>附：jenkins生成pipeline代码<br>jenkins自带，傻瓜操作，解决痛苦，前面的地址要换成自己的服务器：<a target="_blank" rel="noopener" href="http://127.0.0.1:8080/pipeline-syntax/">http://127.0.0.1:8080/pipeline-syntax/</a></p>
+<p>————————————————————————————————</p>
+<p>参考文档<br><a target="_blank" rel="noopener" href="https://docs.cypress.io/guides/tooling/code-coverage#Introduction">https://docs.cypress.io/guides/tooling/code-coverage#Introduction</a></p>
+<p>前端手动执行用例覆盖率统计</p>
+<p><a target="_blank" rel="noopener" href="https://www.jenkins.io/doc/pipeline/steps/htmlpublisher/">https://www.jenkins.io/doc/pipeline/steps/htmlpublisher/</a></p>
+<p>parameterized-remote-trigger</p>
+<p><a target="_blank" rel="noopener" href="https://www.tothenew.com/blog/jenkins-parameterized-remote-trigger-plugin/">https://www.tothenew.com/blog/jenkins-parameterized-remote-trigger-plugin/</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/0dc97ff17501">https://www.jianshu.com/p/0dc97ff17501</a></p>
+<p><a target="_blank" rel="noopener" href="https://issues.jenkins.io/browse/JENKINS-61375">https://issues.jenkins.io/browse/JENKINS-61375</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/q411020382/article/details/109265932">https://blog.csdn.net/q411020382/article/details/109265932</a></p>
+<p><a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000040706914">https://segmentfault.com/a/1190000040706914</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.jenkins.io/doc/pipeline/steps/Parameterized-Remote-Trigger/">https://www.jenkins.io/doc/pipeline/steps/Parameterized-Remote-Trigger/</a></p>
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>NatalieXSelina</span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="https://nataliexselina.github.io/Cypress-istanbul-code-coverage/">https://nataliexselina.github.io/Cypress-istanbul-code-coverage/</a></span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>License:</span>
+                        <span>Copyright (c) 2019 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc/4.0/">CC-BY-NC-4.0</a> LICENSE</span>
+                    </p>
+                
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+                <a class="prev" rel="prev" href="/Cypress-istanbul-fix/">Cypress-istanbul-fix</a>
+            
+            
+            <a class="next" rel="next" href="/test-ops/">test-ops</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+            </div>
+            <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© NatalieXSelina | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+
+</html>

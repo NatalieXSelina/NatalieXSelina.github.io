@@ -230,7 +230,10 @@
 </ul>
 <br>
 
-<h1 id="Introducation"><a href="#Introducation" class="headerlink" title="Introducation"></a>Introducation</h1><p><strong>Tool : Hexo + GitHub</strong><br><br><br>Hexo is a tool for generating and uploading static pages. It uses markdown to parse articles.<br>GitHub is a code hosting platform for open source and personal software projects.</p>
+<h1 id="Introducation"><a href="#Introducation" class="headerlink" title="Introducation"></a>Introducation</h1><p><strong>Tool : Hexo + GitHub</strong></p>
+<br>
+
+<p>Hexo is a tool for generating and uploading static pages. It uses markdown to parse articles.<br>GitHub is a code hosting platform for open source and personal software projects.</p>
 <p><img src="https://s2.loli.net/2023/03/06/eC2V8hHaIUxAPcM.png" alt="hexo.png"></p>
 <br>
 <br>
@@ -272,15 +275,19 @@
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo init blog</span><br></pre></td></tr></table></figure>
 
 <br>
-> **brief introducation of the main files:**
-> - **\_config.yml**: global configuration file, which configures many information of the website, such as website name, subtitle, description, author, language, theme, deployment, etc.  
-> - **package.json**: configure the parameters and dependent plug-ins of the hexo framework  
-> - **scaffolds**: When a new article is created, hexo is built according to the files in this directory.  
-> - **source**: All new articles are saved in this directory* Posts is where we write* MD files in the posts directory will be compiled into HTML files and put into the public folder.  
-> - **themes**: website subject directory, the default is landscape  
-> - **node_modules**: it is mainly used to store some functional files of hexo, such as renderers and various plug-ins  
-> - **public**: store the generated static file and generate it after the hexo g command
 
+<blockquote>
+<p><strong>brief introducation of the main files:</strong></p>
+<ul>
+<li><strong>_config.yml</strong>: global configuration file, which configures many information of the website, such as website name, subtitle, description, author, language, theme, deployment, etc.  </li>
+<li><strong>package.json</strong>: configure the parameters and dependent plug-ins of the hexo framework  </li>
+<li><strong>scaffolds</strong>: When a new article is created, hexo is built according to the files in this directory.  </li>
+<li><strong>source</strong>: All new articles are saved in this directory* Posts is where we write* MD files in the posts directory will be compiled into HTML files and put into the public folder.  </li>
+<li><strong>themes</strong>: website subject directory, the default is landscape  </li>
+<li><strong>node_modules</strong>: it is mainly used to store some functional files of hexo, such as renderers and various plug-ins  </li>
+<li><strong>public</strong>: store the generated static file and generate it after the hexo g command</li>
+</ul>
+</blockquote>
 <br>
 <br>
 
@@ -297,9 +304,8 @@
 
 <h2 id="Install-deployer"><a href="#Install-deployer" class="headerlink" title="Install deployer"></a>Install deployer</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
 <br>
-## Build Up
-### build local blog
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo cl &amp;&amp; hexo g &amp;&amp; hexo s  <span class="comment"># visit http://localhost:4000</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Build-Up"><a href="#Build-Up" class="headerlink" title="Build Up"></a>Build Up</h2><h3 id="build-local-blog"><a href="#build-local-blog" class="headerlink" title="build local blog"></a>build local blog</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo cl &amp;&amp; hexo g &amp;&amp; hexo s  <span class="comment"># visit http://localhost:4000</span></span><br></pre></td></tr></table></figure>
 
 <h3 id="build-remote-websites"><a href="#build-remote-websites" class="headerlink" title="build remote websites"></a>build remote websites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo cl &amp;&amp; hexo g &amp;&amp; hexo d  <span class="comment"># vist https://nataliexselina.github.io/   here should be your githubname </span></span><br></pre></td></tr></table></figure>
 
@@ -309,18 +315,22 @@
 <h2 id="Write-MD-File"><a href="#Write-MD-File" class="headerlink" title="Write MD File"></a>Write MD File</h2><p>You can create a new MD file with the following command:</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo new <span class="string">&quot;articleTitle&quot;</span></span><br></pre></td></tr></table></figure>
 <br>
-Then write your own MD file.
 
+<p>Then write your own MD file.</p>
 <p><img src="https://s2.loli.net/2023/03/06/6X13UCaTDcqGJyv.png" alt="mdEditor.png"></p>
 <br>
 <br>
-## Choose the theme you like
 
-<p>You can choose other themes to build blog with your style. <a target="_blank" rel="noopener" href="https://hexo.io/themes/">https://hexo.io/themes/</a></p>
-<p><img src="https://s2.loli.net/2023/03/06/bvq2ITMZgudlSiJ.png" alt="themes.png"><br><br></p>
+<h2 id="Choose-the-theme-you-like"><a href="#Choose-the-theme-you-like" class="headerlink" title="Choose the theme you like"></a>Choose the theme you like</h2><p>You can choose other themes to build blog with your style. <a target="_blank" rel="noopener" href="https://hexo.io/themes/">https://hexo.io/themes/</a></p>
+<p><img src="https://s2.loli.net/2023/03/06/bvq2ITMZgudlSiJ.png" alt="themes.png"></p>
+<br>
+
 <h3 id="Edit-config-yml-1"><a href="#Edit-config-yml-1" class="headerlink" title="Edit _config.yml"></a>Edit _config.yml</h3><figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">theme:</span> <span class="string">hexo-theme-Chic</span></span><br></pre></td></tr></table></figure>
 
-<p><img src="https://s2.loli.net/2023/03/06/cDHkt8O5JGe1hLY.png" alt="theme.png"><br><br><br><br></p>
+<p><img src="https://s2.loli.net/2023/03/06/cDHkt8O5JGe1hLY.png" alt="theme.png"></p>
+<br>
+<br>
+
 <h2 id="How-to-Build-Categories-and-Tags"><a href="#How-to-Build-Categories-and-Tags" class="headerlink" title="How to Build Categories and Tags"></a>How to Build Categories and Tags</h2><p><a target="_blank" rel="noopener" href="https://hexo.io/docs/front-matter">https://hexo.io/docs/front-matter</a></p>
 <br>
 <br>
@@ -369,11 +379,11 @@ Then write your own MD file.
                 <span class="tag">
                     
                     
+                        <a href="/tags/Node-js/"># Node.js</a>
+                    
                         <a href="/tags/Hexo/"># Hexo</a>
                     
                         <a href="/tags/Github/"># Github</a>
-                    
-                        <a href="/tags/Node-js/"># Node.js</a>
                     
                         <a href="/tags/Git/"># Git</a>
                     

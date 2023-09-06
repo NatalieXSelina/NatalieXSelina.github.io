@@ -228,13 +228,20 @@
 <ol>
 <li><p>After changing the version of cypress in <strong>package.json</strong> to 10.6.0</p>
  <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install</span><br></pre></td></tr></table></figure>
- <br></li>
+
+ <br>
+</li>
 <li><p>Then, try to open cypress UI</p>
  <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm run cy:open</span><br></pre></td></tr></table></figure>
+
  <br>
 
 <ul>
-<li><strong>Question 1:</strong> Cypress throw an error: <a target="_blank" rel="noopener" href="https://github.com/cypress-io/cypress/issues/22065">https://github.com/cypress-io/cypress/issues/22065</a> <br></li>
+<li><strong>Question 1:</strong> Cypress throw an error: <a target="_blank" rel="noopener" href="https://github.com/cypress-io/cypress/issues/22065">https://github.com/cypress-io/cypress/issues/22065</a></li>
+</ul>
+ <br>
+
+<ul>
 <li><strong>Solution:</strong> delete some code in <strong>plugins&#x2F;index.js</strong> <blockquote>
 <p>Since <strong>the configuration file</strong> has been converted <strong>from json to js</strong>, some methods are no longer needed.</p>
 </blockquote>
@@ -246,11 +253,11 @@
 <ul>
 <li><strong>Question2:</strong> <a target="_blank" rel="noopener" href="https://github.com/cypress-io/cypress/issues/22573">https://github.com/cypress-io/cypress/issues/22573</a>, because the configuration of <strong>*.spec.js</strong> setup in <strong>cypress.json</strong> before, so the tool will not be automatically converted to <strong>*.cy.js</strong>. And at this time, if click on the <strong>continue button</strong>, it does not respond. (I think it is a Cypress migration tool bug)</li>
 <li><strong>Solution:</strong> temporarily delete <strong>“testFiles”: “**&#x2F;*.spec.js”</strong> in <strong>cypress.json</strong>, and then choose to <strong>modify only the folder</strong>. (Officially, <strong>*.spec.js</strong> is also quite standard, I also think there is no need to change it to <strong>*.cy.js</strong>.<blockquote>
-<p><strong>Note:</strong> After using the migration tool, add the configuration back in <strong>cypress.config.js</strong> (under the <strong>e2e</strong> configuration), and the name of the configuration item from <strong>testFiles</strong> to <strong>specPattern</strong>.<br><img src="https://s2.loli.net/2023/03/06/FK3d7EzMVnbHCwh.png" alt="specPattern.png"><br> <strong>Step2:</strong> support&#x2F;index.js &#x3D;&gt; support&#x2F;e2e.js<br> Pretty smoothly without problems (what can be wrong with changing a name (●’◡’●))<br> <strong>Step3:</strong> cypress.json &#x3D;&gt; cypress.config.js<br><strong>It is worth noting:</strong> the new version <strong>no longer uses plugins&#x2F;index.js</strong>, but import the old version of the existing plugins&#x2F;index.js in <strong>cypress.config.js</strong>.<br><img src="https://s2.loli.net/2023/03/06/G7IvCpZmsoHXMYh.png" alt="plugin_import.png"><br> <br></p>
+<p><strong>Note:</strong> After using the migration tool, add the configuration back in <strong>cypress.config.js</strong> (under the <strong>e2e</strong> configuration), and the name of the configuration item from <strong>testFiles</strong> to <strong>specPattern</strong>.<br><img src="https://s2.loli.net/2023/03/06/FK3d7EzMVnbHCwh.png" alt="specPattern.png"><br> <strong>Step2:</strong> support&#x2F;index.js &#x3D;&gt; support&#x2F;e2e.js<br> Pretty smoothly without problems (what can be wrong with changing a name (●’◡’●))<br> <strong>Step3:</strong> cypress.json &#x3D;&gt; cypress.config.js<br><strong>It is worth noting:</strong> the new version <strong>no longer uses plugins&#x2F;index.js</strong>, but import the old version of the existing plugins&#x2F;index.js in <strong>cypress.config.js</strong>.<br><img src="https://s2.loli.net/2023/03/06/G7IvCpZmsoHXMYh.png" alt="plugin_import.png"></p>
 </blockquote>
 </li>
 </ul>
-</li>
+ <br></li>
 </ol>
 <br>
 
@@ -264,13 +271,16 @@
 
 <h1 id="Initial-Migration-v1-1"><a href="#Initial-Migration-v1-1" class="headerlink" title="Initial Migration v1.1   (^_^)"></a>Initial Migration v1.1   (<em>^_^</em>)</h1><br>
 
-<p>Start running the test files and fix the errors that appear.<br><br></p>
-<ul>
-<li><p>The <strong>testFiles</strong> parameter is used in the configuration of the test module division, and is modified to <strong>specPattern</strong> simultaneously.</p>
+<p>Start running the test files and fix the errors that appear.</p>
 <br>
-</li>
-<li><p><strong>mobile.json</strong> - the original mobile configuration file needs to be modified</p>
+
 <ul>
+<li>The <strong>testFiles</strong> parameter is used in the configuration of the test module division, and is modified to <strong>specPattern</strong> simultaneously.</li>
+</ul>
+<br>
+
+<ul>
+<li><strong>mobile.json</strong> - the original mobile configuration file needs to be modified<ul>
 <li>Since cypress no longer reads configuration items from the <strong>json</strong> file, but from the <strong>js</strong> file, the original <strong>mobile.json</strong> mobile configuration file also needs to be modified, <strong>mobile.json &#x3D;&gt; cypress.mobile.config.js</strong>, and the contents need to be changed.<blockquote>
 <ul>
 <li>Old Version looks like:<figure class="highlight json"><table><tr><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;extends&quot;</span><span class="punctuation">:</span> <span class="string">&quot;./cypress.json&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;viewportHeight&quot;</span><span class="punctuation">:</span> xxx<span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;viewportWidth&quot;</span><span class="punctuation">:</span> xxx<span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;userAgent&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Mozilla/5.0...&quot;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure></li>
@@ -292,13 +302,20 @@
 <ol>
 <li><p><strong>Split the content in plugins&#x2F;index.js into 2 files</strong>, and ES modularized into <strong>cypress.config.js</strong> under <strong>e2e</strong>, which is convenient for subsequent unified management</p>
 <ul>
-<li><strong>cypress\plugins\task.js</strong> —— The <strong>task</strong> part of the file is split out and named <strong>task.js</strong> file, dedicated to achieve task tasks <br></li>
-<li><strong>plugins_config.js</strong> —— The rest of the file is named <strong>plugins_config.js</strong> for <strong>test module division, adjustment before loading the browser, test report plugins, configuration for plugin package and other configuration items</strong>.  <br>
-  - The specific modification is:
-  > Imported into **e2e** for the **plugins_config.js** file:
-  > ![split_1.png](https://s2.loli.net/2023/03/06/Am7hUlaSDbRVPt5.png)
-  > Get the return value(return form task method) in **plugins_config.js**
-  > ![split_2.png](https://s2.loli.net/2023/03/06/gKPCGkltDsvwI2O.png)
+<li><strong>cypress\plugins\task.js</strong> —— The <strong>task</strong> part of the file is split out and named <strong>task.js</strong> file, dedicated to achieve task tasks</li>
+</ul>
+ <br>
+
+<ul>
+<li><p><strong>plugins_config.js</strong> —— The rest of the file is named <strong>plugins_config.js</strong> for <strong>test module division, adjustment before loading the browser, test report plugins, configuration for plugin package and other configuration items</strong>.</p>
+  <br>
+
+<ul>
+<li>The specific modification is:<blockquote>
+<p>Imported into <strong>e2e</strong> for the <strong>plugins_config.js</strong> file:<br><img src="https://s2.loli.net/2023/03/06/Am7hUlaSDbRVPt5.png" alt="split_1.png"><br>Get the return value(return form task method) in <strong>plugins_config.js</strong><br><img src="https://s2.loli.net/2023/03/06/gKPCGkltDsvwI2O.png" alt="split_2.png"></p>
+</blockquote>
+</li>
+</ul>
   <br>
   <br></li>
 </ul>
@@ -322,17 +339,27 @@
 <h2 id="E2E-Tesing-and-Component-Tesing"><a href="#E2E-Tesing-and-Component-Tesing" class="headerlink" title="E2E Tesing and Component Tesing"></a>E2E Tesing and Component Tesing</h2><br>
 
 <p>cypress <strong>separates the E2E (end-to-end) and Component Testing files</strong>.</p>
-<p>My project belongs to E2E testing, so I just ignore the right side first, directly enter the left side of E2E.<br>The right side of the component testing may be used later. The future is bright.<br><br></p>
+<p>My project belongs to E2E testing, so I just ignore the right side first, directly enter the left side of E2E.<br>The right side of the component testing may be used later. The future is bright.</p>
+<br>
+
 <p><img src="https://s2.loli.net/2023/03/06/z1i8hG75HQXLFgd.png" alt="welcome.png"></p>
 <br>
 <br>
 
 <h2 id="Usage"><a href="#Usage" class="headerlink" title="Usage"></a>Usage</h2><p>Select the required browser after entering E2E Testing.</p>
-<p><img src="https://s2.loli.net/2023/03/06/9Zfze8pKldTOoVC.png" alt="browser_choose.png"><br><br></p>
-<p>Then you can enter the new version of the dashboard of cypress, which has become much more elegant.<br><br></p>
-<p><img src="https://s2.loli.net/2023/03/06/4EFjMeouaIT2n5t.png" alt="new_interface_1.png"><br><br></p>
-<p><img src="https://s2.loli.net/2023/03/06/IXURxlvTzAetabu.png" alt="new_interface_2.png"><br><br><br><br><br><br></p>
+<p><img src="https://s2.loli.net/2023/03/06/9Zfze8pKldTOoVC.png" alt="browser_choose.png"></p>
+<br>
 
+<p>Then you can enter the new version of the dashboard of cypress, which has become much more elegant.</p>
+<br>
+
+<p><img src="https://s2.loli.net/2023/03/06/4EFjMeouaIT2n5t.png" alt="new_interface_1.png"></p>
+<br>
+
+<p><img src="https://s2.loli.net/2023/03/06/IXURxlvTzAetabu.png" alt="new_interface_2.png"></p>
+<br>
+<br>
+<br>
         </div>
 
         
@@ -365,9 +392,9 @@
                 <span class="tag">
                     
                     
-                        <a href="/tags/Node-js/"># Node.js</a>
-                    
                         <a href="/tags/Cypress/"># Cypress</a>
+                    
+                        <a href="/tags/Node-js/"># Node.js</a>
                     
                         
                 </span>

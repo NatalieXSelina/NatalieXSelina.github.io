@@ -15,7 +15,7 @@
 
 
 
-<title>How to check Actual Format of files | L i f e L i n e</title>
+<title>test-ops | L i f e L i n e</title>
 
 
 
@@ -129,76 +129,11 @@
                 <div class="container">
     
     
-        <div class="post-toc">
-    <div class="tocbot-list">
-    </div>
-    <div class="tocbot-list-menu">
-        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
-        <a onclick="go_top()">Back to top</a>
-        <a onclick="go_bottom()">Go to bottom</a>
-    </div>
-</div>
-
-<script>
-    var tocbot_timer;
-    var DEPTH_MAX = 6; // 为 6 时展开所有
-    var tocbot_default_config = {
-        tocSelector: '.tocbot-list',
-        contentSelector: '.post-content',
-        headingSelector: 'h1, h2, h3, h4, h5',
-        orderedList: false,
-        scrollSmooth: true,
-        onClick: extend_click,
-    };
-
-    function extend_click() {
-        clearTimeout(tocbot_timer);
-        tocbot_timer = setTimeout(function() {
-            tocbot.refresh(obj_merge(tocbot_default_config, {
-                hasInnerContainers: true
-            }));
-        }, 420); // 这个值是由 tocbot 源码里定义的 scrollSmoothDuration 得来的
-    }
-
-    document.ready(function() {
-        tocbot.init(obj_merge(tocbot_default_config, {
-            collapseDepth: 1
-        }));
-    });
-
-    function expand_toc() {
-        var b = document.querySelector('.tocbot-toc-expand');
-        var expanded = b.getAttribute('data-expanded');
-        expanded ? b.removeAttribute('data-expanded') : b.setAttribute('data-expanded', true);
-        tocbot.refresh(obj_merge(tocbot_default_config, {
-            collapseDepth: expanded ? 1 : DEPTH_MAX
-        }));
-        b.innerText = expanded ? 'Expand all' : 'Collapse all';
-    }
-
-    function go_top() {
-        window.scrollTo(0, 0);
-    }
-
-    function go_bottom() {
-        window.scrollTo(0, document.body.scrollHeight);
-    }
-
-    function obj_merge(target, source) {
-        for (var item in source) {
-            if (source.hasOwnProperty(item)) {
-                target[item] = source[item];
-            }
-        }
-        return target;
-    }
-</script>
-    
 
     
     <article class="post-wrap">
         <header class="post-header">
-            <h1 class="post-title">How to check Actual Format of files</h1>
+            <h1 class="post-title">test-ops</h1>
             
                 <div class="post-meta">
                     
@@ -207,59 +142,44 @@
 
                     
                         <span class="post-time">
-                        Date: <a href="#">June 26, 2021&nbsp;&nbsp;14:16:57</a>
+                        Date: <a href="#">April 20, 2023&nbsp;&nbsp;14:54:46</a>
                         </span>
                     
-                    
-                        <span class="post-category">
-                    Category:
-                            
-                                <a href="/categories/Tips/">Tips</a>
-                            
-                        </span>
                     
                 </div>
             
         </header>
 
         <div class="post-content">
-            <h1 id="Have-to-know"><a href="#Have-to-know" class="headerlink" title="Have to know"></a>Have to know</h1><h2 id="File-Extension-and-File-Format"><a href="#File-Extension-and-File-Format" class="headerlink" title="File Extension and File Format"></a>File Extension and File Format</h2><p>Computers cannot identify the file format based on the file extension, they parse the file to confirm if its parsed result matches file signature.</p>
-<br>
+            <p>Linux环境地址和登录方式<br>172.24.33.83<br>账号密码：root&#x2F;FineX2015<br>jenkins服务访问地址<br><a target="_blank" rel="noopener" href="http://172.24.33.83:8080/">http://172.24.33.83:8080/</a><br>账号密码：natalie&#x2F;123456<br>简道云服务访问地址<br><a target="_blank" rel="noopener" href="http://172.24.33.83:30001/">http://172.24.33.83:30001/</a><br>代码仓库（testops分支，因为经历过package-lock.json的问题创了个新分支..整个任务前半段的思考和问题解决是体现在ops分支的）<br>fx-code-pc<br>fx-code-mobile<br>fx-code</p>
+<p>过程中遇到的问题及解决：<br>jenkins.war启动后，无法访问8080</p>
+<p>防火墙问题，解决手段：<br>sudo systemctl stop firewalld.service #临时关闭防火墙（重启服务器后又会开启的）<br>systemctl disable firewalld # 永久关闭防火墙（一劳永逸~）</p>
+<p>工程中使用到的插件，需要安装一下，非jenkins默认安装的插件</p>
+<p>安装 Copy Artifact 插件-&gt;fx-code获取前端构建结果<br>unzip-&gt;安装Pipeline Utility Steps插件</p>
+<p>前端工程npm install报错</p>
+<p>npm install 报错EAI_AGAIN，和dns有关，配置daemon.json解决</p>
+<p>{<br>    “dns”: [“10.0.0.2”, “8.8.8.8”]<br>}</p>
+<p>mkdir .&#x2F;views&#x2F;pc的时候，第一次需要递归创建。否则会报错</p>
+<p>mkdir -p .&#x2F;views&#x2F;pc&#x2F;</p>
+<p>后端工程npm install报错（此处感谢老刘，不然我还得排查好久）</p>
+<p>是package-lock.json中包的hash不对，重新复制一份即可（但是由于时间间隔久，最新的lock文件已经对不上代码了，重新根据dev创了一份新的）</p>
+<p>保存fx-code镜像至服务器的时候，提示磁盘不足，需要进行扩容（早知道一开始就建80G了）</p>
+<p>1、在pve上调整磁盘大小</p>
+<p>2、扩容sda3：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/chuanghongmeng/p/16278040.html">https://www.cnblogs.com/chuanghongmeng/p/16278040.html</a></p>
+<p>3、再扩容centos-root</p>
+<p>lvextend -l +100%FREE &#x2F;dev&#x2F;mapper&#x2F;centos-root<br>xfs_growfs &#x2F;</p>
+<p>根据develop.yml启动后，30001访问（docker run配置的映射端口），报错找不到..&#x2F;fx-code-web&#x2F;views的资源</p>
+<p>看了一下，本地开发的时候，fx-code-pc打包后会生成fx-code-web的静态资源。<br>然后在fx-code的develop.yml（本地开发配置）中定义了路径</p>
+<p>  static:<br>    public: ..&#x2F;fx-code-web&#x2F;dist<br>    views: ..&#x2F;fx-code-web&#x2F;views<br>这边浪费了蛮多时间，一开始以为需要再针对fx-code-web工程处理一下。一个上午都在看怎么在不构建web工程的情况下，把静态资源放进去。</p>
+<p>后来在刘大哥的提醒下，仔细看了一下针对2个环境，前端webpack打包的区别，发现本地开发的时候，是专门复制了一份web资源出去，所以才在本地看到了fx-code-web的目录，但是dev环境的是全部打到web.zip下，只是本地开发的那份yml的static设置是基于前者的，将其调整一下即可</p>
+<p>  static:<br>    public: .&#x2F;public<br>    views: .&#x2F;views</p>
+<p>耶，能登录了，撒花<br>看了下PC和Mobile工程都在的~</p>
+<p>( •̀ ω •́ )y ✌</p>
+<p>感想<br>之前的插桩任务正好熟悉了前端工程的构建，一开始的时候还算得心应手。</p>
+<p>后端的fx-code工程还是比较复杂，通过整个任务，浅浅了解了一下前后端的构建逻辑。</p>
+<p>为什么说浅捏，因为关于cdn、argoCD、harbor本次任务都避开了。</p>
+<p>解决问题的时候虽然走入了一些误区，但同时也误打误撞了解了后端的json-schema、docker容器日志排查(比如容器自己退出了，只用docker ps是看不到滴，要用docker ps -a) 、.npmrc等。</p>
 
-<h1 id="How-to-know-the-Actual-Format"><a href="#How-to-know-the-Actual-Format" class="headerlink" title="How to know the Actual Format"></a>How to know the Actual Format</h1><h2 id="Use-file-command"><a href="#Use-file-command" class="headerlink" title="Use file command"></a>Use <strong>file</strong> command</h2><p>Under Linux, you can use the <strong>file</strong> command.</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">file binfile</span><br></pre></td></tr></table></figure>
-
-<br>
-
-<p>Example Output:</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">binfile: JPEG image data, JFIF standard 1.01, resolution (DPI), density 96x96, segment length 16, baseline, precision 8, 768x576, frames 3</span><br></pre></td></tr></table></figure>
-
-<br>
-
-<p><em>It completely ignores the file extension, but rather relies on information in the file header.</em></p>
-<br>
-<br>
-
-<h2 id="View-Files-in-Hexadecimal"><a href="#View-Files-in-Hexadecimal" class="headerlink" title="View Files in Hexadecimal"></a>View Files in Hexadecimal</h2><ul>
-<li>windows<br>  Use hex editors, such as UltraEdit, winhex, etc.</li>
-</ul>
-<br>
-
-<ul>
-<li>macOS<br>  use the <strong>hexdump</strong> command.  <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">hexdump -C binfile | less</span><br></pre></td></tr></table></figure></li>
-</ul>
-<br>
-
-<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><em>The header of different file signature: <a target="_blank" rel="noopener" href="https://filesignatures.net/">https://filesignatures.net/</a></em></p>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
         </div>
 
         
@@ -273,7 +193,7 @@
                 
                     <p class="copyright-item">
                         <span>Permalink:</span>
-                        <span><a href="https://nataliexselina.github.io/How-to-check-Actual-Format-of-files/">https://nataliexselina.github.io/How-to-check-Actual-Format-of-files/</a></span>
+                        <span><a href="https://nataliexselina.github.io/test-ops/">https://nataliexselina.github.io/test-ops/</a></span>
                     </p>
                 
                 
@@ -291,12 +211,6 @@
                 <span>Tag(s):</span>
                 <span class="tag">
                     
-                    
-                        <a href="/tags/Test-Tricks/"># Test Tricks</a>
-                    
-                        <a href="/tags/HEX/"># HEX</a>
-                    
-                        
                 </span>
             </div>
             <div>
@@ -307,10 +221,10 @@
         </section>
         <section class="post-nav">
             
-                <a class="prev" rel="prev" href="/VS-plugins/">VS plugins</a>
+                <a class="prev" rel="prev" href="/Cypress-istanbul-code-coverage/">Cypress-istanbul-code-coverage</a>
             
             
-            <a class="next" rel="next" href="/How-to-Write-A-Test-Plan/">How to Write A Test Plan</a>
+            <a class="next" rel="next" href="/ocr-diff/">ocr-diff</a>
             
         </section>
 

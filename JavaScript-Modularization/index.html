@@ -223,12 +223,25 @@
         </header>
 
         <div class="post-content">
-            <h2 id="What-is-Modularization"><a href="#What-is-Modularization" class="headerlink" title="What is Modularization"></a>What is Modularization</h2><blockquote><p>Let’s take a bicycle for an illustration. A bicycle is made up of several parts, each of these parts is made up of various components. All of these parts are put together to form a bicycle.<br><br><br>In software development, this concept is termed REUSABILITY.<br><br><br>Since a bicycle is composed of small parts, each of those parts can be built or repaired by engineers while not hindering one another.Also, if some of its parts get damaged, instead of replacing the whole bicycle, just the damaged parts have to be replaced. In software development, this concept is termed ISOLATION.<br><br><br>The benefit of these concepts holds the same in software development.<br><br></p>
+            <h2 id="What-is-Modularization"><a href="#What-is-Modularization" class="headerlink" title="What is Modularization"></a>What is Modularization</h2><blockquote><p>Let’s take a bicycle for an illustration. A bicycle is made up of several parts, each of these parts is made up of various components. All of these parts are put together to form a bicycle.</p>
+<br>
+
+<p>In software development, this concept is termed REUSABILITY.</p>
+<br>
+
+<p>Since a bicycle is composed of small parts, each of those parts can be built or repaired by engineers while not hindering one another.Also, if some of its parts get damaged, instead of replacing the whole bicycle, just the damaged parts have to be replaced. In software development, this concept is termed ISOLATION.</p>
+<br>
+
+<p>The benefit of these concepts holds the same in software development.</p>
+<br>
 <footer><strong>From</strong><cite><a target="_blank" rel="noopener" href="https://codesource.io/how-to-modularize-javascript-code/">codesource.io/how-to-modularize-javascript-code</a></cite></footer></blockquote>
 
 <br>
 
-<h2 id="Why-Modules-in-JavaScript"><a href="#Why-Modules-in-JavaScript" class="headerlink" title="Why Modules in JavaScript?"></a>Why Modules in JavaScript?</h2><blockquote><p>A typical real program grows gradually. New pieces of functionality are added as new needs come up.This will make the parts of the program to become deeply entangled.<br><br><br>If you want to use any of the functionality from such a program in another situation, rewriting it may be easier than trying to disentangle it from its context (i.e issues with the reusability of code).</p>
+<h2 id="Why-Modules-in-JavaScript"><a href="#Why-Modules-in-JavaScript" class="headerlink" title="Why Modules in JavaScript?"></a>Why Modules in JavaScript?</h2><blockquote><p>A typical real program grows gradually. New pieces of functionality are added as new needs come up.This will make the parts of the program to become deeply entangled.</p>
+<br>
+
+<p>If you want to use any of the functionality from such a program in another situation, rewriting it may be easier than trying to disentangle it from its context (i.e issues with the reusability of code).</p>
 </blockquote>
 
 <br>
@@ -236,6 +249,7 @@
 <h2 id="JavaScript-Module-Formats"><a href="#JavaScript-Module-Formats" class="headerlink" title="JavaScript Module Formats"></a>JavaScript Module Formats</h2><p>When it comes to <strong>Cypress</strong>, there are two module formats in JavaScript, CommonJS and ES6 Modules format.</p>
 <h3 id="CommonJS"><a href="#CommonJS" class="headerlink" title="CommonJS"></a>CommonJS</h3><p>Loading a CommonJS module is a synchronous operation. That means that when the require (module-name) function call returns, the module has been located and completely read into memory and is ready for use.</p>
 <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> <span class="title class_">Math</span>=<span class="built_in">require</span>(<span class="string">&#x27;math&#x27;</span>);</span><br><span class="line"><span class="keyword">var</span> add=<span class="built_in">require</span>(<span class="string">&#x27;./add.js&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
 <br>
 
 <p>The module is cached in memory so that subsequent require (module-name) calls return immediately, and all return the exact same object. Objects and functions can be exposed from a CommonJS module using module and exports.</p>
@@ -247,6 +261,7 @@
 <p>The <strong>export</strong> keyword is used to export function, class, or binding definition. It may appear in front of a function, class, or binding definition ( let, const, or var ). </p>
 <p>Also, the <strong>import</strong> keyword is used to import function, class, or binding definition. It is possible to rename imported bindings using the word as:</p>
 <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123;months <span class="keyword">as</span> monthNames&#125; <span class="keyword">from</span> <span class="string">&quot;date-names&quot;</span>;</span><br></pre></td></tr></table></figure>
+
 <br>
 
 <h3 id="Example-Given"><a href="#Example-Given" class="headerlink" title="Example Given"></a>Example Given</h3><p>Open your favourite code editor and create a folder “modular code”. Create a file module_1.js with the following code.</p>

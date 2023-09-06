@@ -228,10 +228,13 @@
 <br>
 
 <h2 id="Reason"><a href="#Reason" class="headerlink" title="Reason"></a>Reason</h2><p>If there is <strong>a re-rendering in the process</strong>, the previous element may be found by Cypress. Such problems are particularly likely to occur on pages using <strong>React</strong>. </p>
-<p><strong>The actual problem</strong> is that an element has been <strong>re-rendered</strong> during the process, but the keyword for position is the same (assumed to be <strong>Element A</strong>). <strong>Element A</strong> already existed before <strong>Command L2</strong> was executed, <strong>Command L1</strong> caused <strong>Element A</strong> to be re-rendered, but <strong>Command L1</strong> was delayed for some reasons, and when <strong>Command L2</strong> was being executed, <strong>Element A</strong> was re-rendered and was judged to be detached.<br><br></p>
+<p><strong>The actual problem</strong> is that an element has been <strong>re-rendered</strong> during the process, but the keyword for position is the same (assumed to be <strong>Element A</strong>). <strong>Element A</strong> already existed before <strong>Command L2</strong> was executed, <strong>Command L1</strong> caused <strong>Element A</strong> to be re-rendered, but <strong>Command L1</strong> was delayed for some reasons, and when <strong>Command L2</strong> was being executed, <strong>Element A</strong> was re-rendered and was judged to be detached.</p>
+<br>
+
 <h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><p>Many Cypress users have given feedback about this problem: <a target="_blank" rel="noopener" href="https://github.com/cypress-io/cypress/issues/7306">https://github.com/cypress-io/cypress/issues/7306</a></p>
 <h3 id="When-You-Need-to-Interact-With-The-Element"><a href="#When-You-Need-to-Interact-With-The-Element" class="headerlink" title="When You Need to Interact With The Element"></a>When You Need to Interact With The Element</h3><p><strong>The easiest way</strong> is use <strong>{force:true}</strong>:</p>
 <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">cy.<span class="title function_">get</span>(<span class="string">&#x27;element&#x27;</span>).<span class="title function_">click</span>(&#123;<span class="attr">force</span>:<span class="literal">true</span>&#125;)</span><br></pre></td></tr></table></figure>
+
 <br>
 
 <p>Also, you can fix it by <strong>anther way</strong> ( I will show you below ).</p>

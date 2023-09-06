@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="NatalieXSelina">
+
+
+    <meta name="subtitle" content=" b l o g">
+
+
+
+
+<title>jest for React | L i f e L i n e</title>
+
+
+
+    <link rel="icon" href="/favicon.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+<body>
+    <script>
+        // this function is used to check current theme before page loaded.
+        (() => {
+            const currentTheme = window.localStorage && window.localStorage.getItem('theme') || '';
+            const isDark = currentTheme === 'dark';
+            const pagebody = document.getElementsByTagName('body')[0]
+            if (isDark) {
+                pagebody.classList.add('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Dark"
+            } else {
+                pagebody.classList.remove('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Light"
+            }
+        })();
+    </script>
+
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">L i f e L i n e</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">L i f e L i n e</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+            <div class="main">
+                <div class="container">
+    
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">jest for React</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">NatalieXSelina</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">April 24, 2023&nbsp;&nbsp;16:46:44</a>
+                        </span>
+                    
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <p>单元测试框架介绍<br>React<br>用于构建用户界面的JavaScript库</p>
+<p>Jest<br>Jest是一个令人愉快的JavaScript测试框架，专注于简单性</p>
+<p>Jest是一个框架，而不是一个库，它配备了测试运行器，断言库和良好的模拟支持，Jest建立在Jasmine的基础之上</p>
+<p>Jest有一种测试React组件的方法：快照测试</p>
+<p>通过快照测试，将当前测试运行的输入和先前测试运行的快照进行比较，如果输出和快照匹配则测试通过</p>
+<p>Enzyme<br>Enzyme是React的JavaScript测试实用程序，可以更轻松地测试React组件的输出</p>
+<p>Enzyme是一个库，包装了多个工具包如React TestUtils、JSDOM、CheerIO等，为编写单元测试提供简单直观的接口</p>
+<p>React TestUtils：可以将React组件渲染到文档中并模拟事件<br>JSDOM：是DOM（Document对象模型）的JavaScript实现，DOM标识UI组件的树结构<br>CheerIO：实现了jQuery核心的子集，用于查询DOM<br>Enzyme不是单元测试框架，它没有运行器或断言库，它适用于任何测试运行器和断言库</p>
+<p>Jest + Enzyme 进行 React 单元测试<br>依赖安装<br>安装jest</p>
+<p>npm install –save-dev jest<br>为支持ES6语法，安装babel-jest</p>
+<p>npm install –save-dev babel-jest<br>为支持TypeScript语法，安装ts-jest（如未使用TypeScript则不需安装）</p>
+<p>npm install –save-dev ts-jest<br>安装enzyme</p>
+<p>npm install –save-dev enzyme<br>根据react版本安装enzyme-adapter-react，可使用最新版本</p>
+<p>npm install –save-dev enzyme-adapter-react-16<br>环境配置<br>Jest配置jest.config.js</p>
+<p>moduleFileExtendsions：代表支持加载的文件名，此处支持ts、tsx、js、jsx文件<br>transform：用于语法编译，此处ts、tsx使用ts-jest编译，js、jsx使用js-test编译<br>snapshotSerializers：用于快照序列化</p>
+<p>module.exports &#x3D; {<br>   “setupFilesAfterEnv”: [“<rootDir>&#x2F;jest.setup.js”],<br>   “moduleFileExtensions”: [“ts”, “tsx”, “js”, “jsx”],<br>   “testPathIgnorePatterns”: [“&#x2F;node_modules&#x2F;“],<br>   “transform”: {<br>      “\.tsx?$”: “ts-jest”,<br>      “\.jsx?$”: “babel-jest”<br>   },<br>   “testRegex”: “&#x2F;<strong>tests</strong>&#x2F;.<em>\.(ts|tsx|js)$”,<br>   “snapshotSerializers”: [“enzyme-to-json&#x2F;serializer”],<br>   “testURL”: “<a target="_blank" rel="noopener" href="http://localhost/">http://localhost/</a>“,<br>   “transformIgnorePatterns”: [“<rootDir>&#x2F;node_modules&#x2F;[^&#x2F;]+?&#x2F;(?!(es|node_modules)&#x2F;)”],<br>   “globals”: {<br>      “ts-jest”: {<br>         “tsConfig”: “.&#x2F;tsconfig.test.json”,<br>      },<br>   },<br>   collectCoverageFrom: [<br>      “<rootDir>&#x2F;src&#x2F;components&#x2F;**&#x2F;</em>.{ts,tsx}”<br>   ]<br>};<br>Enzyme安装适配jest.setup.js</p>
+<p>const Enzyme &#x3D; require(‘enzyme’);<br>const Adapter &#x3D; require(‘enzyme-adapter-react-16’);</p>
+<p>Enzyme.configure({<br>   adapter: new Adapter(),<br>});<br>TypeScript配置tsconfig.test.json（如未使用TypeScript则不需配置）</p>
+<p>{<br>  “extends”: “.&#x2F;tsconfig.json”,<br>  “compilerOptions”: {<br>    “jsx”: “react”,<br>    “allowSyntheticDefaultImports”: true<br>  }<br>}<br>测试用例<br>添加__tests__文件夹，Jest会自动查找文件夹下的测试文件</p>
+<p>编写一个按钮的测试用例button.test.js：</p>
+<p>describe函数：用于编写测试套件<br>it函数：用于定义测试用例<br>expect函数：是Jest断言库一部分<br>toMathSnapShot方法：将JSON输出和先前测试运行中的JSON快照比较<br>import React from ‘react’;<br>import { render } from ‘enzyme’;<br>import renderer from ‘react-test-renderer’;<br>import { Button } from ‘..&#x2F;..&#x2F;src’;</p>
+<p>describe(‘Button’, () &#x3D;&gt; {<br>   it(‘snapshot’, () &#x3D;&gt; {<br>      const wrapper &#x3D; render(<Button>Test</Button>);<br>      expect(wrapper).toMatchSnapshot();<br>   });<br>});<br>命令行运行测试用例</p>
+<p>jest<br>控制台输出运行结果：</p>
+<p>包含快照测试运行后会自动生成快照文件：</p>
+<p>exports[<code>Button render correctly 1</code>] &#x3D; &#96;</p>
+<div
+  class="x-button size-normal style-normal"
+>
+  <span>
+    Test
+  </span>
+</div>
+`;
+组件测试方式
+结构测试
+测试组件结构是否正常渲染
+
+<p>Enzyme渲染API</p>
+<p>shallow：浅渲染，仅渲染至虚拟节点，不返回真实节点，性能好，但不适合测试包含子组件、需要测试生命周期的组件<br>mount：全渲染，适用于使用DOM API的交互组件、需要测试完整生命周期的组件<br>render：静态渲染，用于将组件渲染成静态的HTML并分析生成的HTML结构（使用了HTML解析器和Cheerio）<br>it(‘structure’, () &#x3D;&gt; {<br>   const wrapper &#x3D; shallow(<Button>Test</Button>);<br>   expect(wrapper.find(‘.x-btn’).exists());<br>   expect(wrapper.find(‘span’).text()).toBe(‘Test’);<br>});<br>行为测试<br>测试组件交互行为是否正常触发</p>
+<p>Enzyme模拟事件API</p>
+<p>simulate：模拟事件<br>it(‘behavior’, () &#x3D;&gt; {<br>   class DefaultButton extends React.Component {<br>      state &#x3D; {<br>         loading: false,<br>      };</p>
+<pre><code>  enterLoading = () =&gt; &#123;
+     this.setState(&#123; loading: true &#125;);
+  &#125;;
+
+  render() &#123;
+     const &#123; loading &#125; = this.state;
+     return (
+        &lt;Button loading=&#123;loading&#125; onClick=&#123;this.enterLoading&#125;&gt;
+           Button
+        &lt;/Button&gt;
+     );
+  &#125;
+</code></pre>
+<p>   }<br>   const wrapper &#x3D; mount(<DefaultButton />);<br>   wrapper.simulate(‘click’);<br>   expect(wrapper.find(‘Button’).prop(‘loading’)).toBe(true);<br>   expect(wrapper.find(‘.loader’).length).toBe(1);<br>});<br>快照测试<br>使用snapshot进行UI测试</p>
+<p>快照测试第一次运行时会将React组件在不同情况下的渲染结果（挂载前）保存一份快照文件，之后再运行快照测试时，都会和第一次比较</p>
+<p>it(‘snapshot’, () &#x3D;&gt; {<br>   const wrapper &#x3D; render(<Button>Test</Button>);<br>   expect(wrapper).toMatchSnapshot();<br>});<br>如果要更新快照</p>
+<p>npm run test – -u<br>生命周期测试<br>对组件生命周期进行测试</p>
+<p>spy是sinon提供的函数，可以获取函数调用信息（调用次数、参数、返回值、抛错等），用于测试函数是否被正确调用</p>
+<p>import React from ‘react’;<br>import { mount } from ‘enzyme’;<br>import sinon from ‘sinon’;<br>import { Form } from ‘..&#x2F;..&#x2F;src’;</p>
+<p>describe(‘Form’, () &#x3D;&gt; {<br>    it(‘life’, () &#x3D;&gt; {<br>        sinon.spy(Form.prototype, ‘shouldComponentUpdate’);<br>        const wrapper &#x3D; mount(<Form/>);<br>        wrapper.setProps({layout: ‘vertical’});<br>        expect(Form.prototype.shouldComponentUpdate.calledOnce).toBe(true);<br>    });<br>});<br>测试覆盖率报告<br>Jest添加–coverage参数即可生成测试覆盖率报告</p>
+<p>jest –coverage</p>
+<p>Stmts：语句覆盖率，是否每个语句都执行了<br>Branch：分支覆盖率，是否每个分支都执行了<br>Funcs：函数覆盖率，是否每个函数都调用了<br>Lines：行覆盖率，是否每行都执行了<br>API参考<br>Jest API<br>Jest API专注定义测试、断言和创建模拟的能力</p>
+<p>describe：定义测试套件<br>it：定义测试用例<br>beforeEach：每个测试用例运行前的钩子<br>expect：断言<br>jest.fn：创建模拟函数<br>断言方法</p>
+<p>toEqual：检查两个对象是否值相同<br>toBe：检查两个对象是否值和类型都相同<br>toBeDefined：检查对象是否已定义<br>toContain：检查列表中是否存在<br>toBeCalled：检查是否调用了mock函数<br>mock方法</p>
+<p>mockImplementation：为mock函数提供实现<br>mockReturnValue：调用mock函数返回一个值<br>Enzyme API<br>Enzyme专注渲染React组件，并从渲染树中检索特定节点</p>
+<p>渲染组件方法</p>
+<p>shallow：仅渲染被测组件（无从属组件）<br>mount：在JSDOM中加载完整组件<br>render：将组件渲染成静态的HTML<br>检索节点方法（类似jQuery）</p>
+<p>find：接受选择器，检索和选择器匹配的节点<br>findWhere：检索谓词选择的节点<br>some：如果有节点与选择器匹配，则返回true<br>someWhere：如果谓词选中了节点，则返回true<br>first：返回集合第一个节点<br>html：获取节点的HTML<br>text：获取节点的文本<br>组件交互方法</p>
+<p>simulate：模拟事件<br>setProps：设置props<br>setState：设置state<br>setContext：设置上下文<br>prop(key)：检索props<br>state(key)：检索state<br>constext(key)：检索上下文<br>React组件<br>组件状态State &amp; 组件属性Props<br>React渲染结果由组件属性和状态共同决定，状态和属性的区别是：状态维护在组件内部，属性由外部控制</p>
+<p>每个组件都可以存储自己的当前状态</p>
+<p>属性是由父组件传递的，组件自身不能修改</p>
+<p>测试状态State &amp; 属性Props<br>设置属性</p>
+<p>wrapper.setState({visible: false});</p>
+<p>设置状态</p>
+<p>wrapper.setProps({visible: false});</p>
+<p>读取状态</p>
+<p>expect(wrapper.state(‘visible’)).toBe(false);</p>
+<p>读取属性</p>
+<p>expect(wrapper.prop(‘visible’)).toBe(false);</p>
+<p>测试事件模拟<br>一般通过模拟事件的方式，触发组件的回调，修改组件状态 &amp; 属性</p>
+<p>事件模拟<br>wrapper.simulate(‘click’);</p>
+<p>常用事件列表</p>
+<p>Focus	<br>focus<br>blur<br>Mouse	<br>click<br>dblclick<br>mousedown<br>mouseenter<br>mouseleave<br>mousemove<br>mouseout<br>mouseover<br>mouseup<br>Wheel	<br>wheel<br>Keyboard	<br>keydown<br>keyup<br>Change	<br>change<br>延迟操作处理<br>组件实现过程中会加入动画、延迟等处理，单元测试的时候需要进行Mock</p>
+<p>动画处理Mock<br>global.requestAnimationFrame &#x3D; cb &#x3D;&gt; setTimeout(cb, 0);<br>global.cancelAnimationFrame &#x3D; cb &#x3D;&gt; clearTimeout(cb, 0);</p>
+<p>Mock Timer<br>&#x2F;&#x2F;使用仿造计时器（setTimeout, setInterval, clearTimeout, clearInterval, nextTick, setImmediate, clearImmediate）<br>jest.useFakeTimers();<br>&#x2F;&#x2F;还原计时器<br>jest.useRealTimers();<br>&#x2F;&#x2F;快进时间跳过延迟<br>jest.runAllTimers()</p>
+<p>测试用例举例<br>prompt入场动画输入框激活</p>
+<p>jest.useFakeTimers();<br>const wrapper &#x3D; mount(<Prompt visible/>);<br>jest.runAllTimers();<br>wrapper.update();<br>expect(wrapper.find(‘.x-input.prompt-input’).hasClass(‘input-focus’)).toBe(true);<br>jest.useRealTimers();</p>
+<p>tag离场动画后消失</p>
+<p>jest.useFakeTimers();<br>const close &#x3D; jest.fn();<br>const wrapper &#x3D; mount(<Tag hasClose onClose={close}/>);<br>expect(wrapper.state(‘visible’)).toBe(true);<br>wrapper.find(‘i.tag-close’).simulate(‘click’);<br>jest.runAllTimers();<br>expect(close).toBeCalled();<br>expect(wrapper.state(‘visible’)).toBe(false);<br>wrapper.update();<br>expect(wrapper.find(‘div.x-tag’).length).toBe(0);<br>jest.useRealTimers();</p>
+<p>快照测试问题处理<br>portal不支持直接render测试<br>使用enzyme的render方法直接渲染包含createPortal的组件会抛错不支持server render</p>
+<p>可以先mount组件再render获取快照结构进行匹配</p>
+<p>const wrapper &#x3D; mount(<Prompt visible/>);<br>expect(wrapper.render()).toMatchSnapshot();</p>
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>NatalieXSelina</span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="https://nataliexselina.github.io/jest-for-React/">https://nataliexselina.github.io/jest-for-React/</a></span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>License:</span>
+                        <span>Copyright (c) 2019 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc/4.0/">CC-BY-NC-4.0</a> LICENSE</span>
+                    </p>
+                
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+            
+            <a class="next" rel="next" href="/Cypress-istanbul-fix/">Cypress-istanbul-fix</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+            </div>
+            <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© NatalieXSelina | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+
+</html>

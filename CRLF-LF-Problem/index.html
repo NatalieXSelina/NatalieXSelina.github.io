@@ -238,15 +238,19 @@
 <p>Referance: <a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/1967370/git-replacing-lf-with-crlf">https://stackoverflow.com/questions/1967370/git-replacing-lf-with-crlf</a></p>
 </blockquote>
 <p>The value of <strong>core.autocrlf</strong> needs to be configured manually, due to the default is <strong>false</strong> on Windows.</p>
-<p>The problem can be partially solved by configuring it as <strong>true&#x2F;input</strong>.<br><strong>input</strong> is better.<br><br></p>
+<p>The problem can be partially solved by configuring it as <strong>true&#x2F;input</strong>.<br><strong>input</strong> is better.</p>
+<br>
+
 <p>It <strong>only works for new files</strong>, the existing CRLF files in the repository are still CRLF.</p>
 <br>
 
 
 <h2 id="Use-VSCode-plugin-EditorConfig-for-VS-Code"><a href="#Use-VSCode-plugin-EditorConfig-for-VS-Code" class="headerlink" title="Use VSCode plugin EditorConfig for VS Code"></a>Use VSCode plugin <em>EditorConfig for VS Code</em></h2><p>Install VSCode plugin <em>EditorConfig for VS Code</em> and create configuration file <em>.editorconfig</em>.<br>It can ensure that manually re-save&#x2F;create files are LF by default, but <strong>old ones need to be all re-saved for them to take effect</strong>.</p>
 <ul>
-<li>VSCode plugin <em>EditorConfig for VS Code</em>:<br></li>
+<li>VSCode plugin <em>EditorConfig for VS Code</em>:</li>
 </ul>
+<br>
+
 <p><img src="https://s2.loli.net/2023/03/06/oWqQhzeBLCwb2ig.png" alt="editorconfig-plugin.png"></p>
 <ul>
 <li><p>Create configuration file <em>.editorconfig</em>:</p>
@@ -260,7 +264,9 @@
 <h2 id="Batch-conversion-of-existing-CRLF-files-to-LF"><a href="#Batch-conversion-of-existing-CRLF-files-to-LF" class="headerlink" title="Batch conversion of existing CRLF files to LF"></a>Batch conversion of existing <code>CRLF</code> files to <code>LF</code></h2><p>VSCode does not provide a method for batch conversion, only individual file conversion.</p>
 <br>
 
-<p>We can use <strong>Dos2Unix</strong> for batch conversion.<br><br></p>
+<p>We can use <strong>Dos2Unix</strong> for batch conversion.</p>
+<br>
+
 <ol>
 <li><p>Installation package: <a target="_blank" rel="noopener" href="https://waterlan.home.xs4all.nl/dos2unix/dos2unix-7.4.3-win64.zip">https://waterlan.home.xs4all.nl/dos2unix/dos2unix-7.4.3-win64.zip</a></p>
 </li>
@@ -338,6 +344,8 @@
             </div>
         </section>
         <section class="post-nav">
+            
+                <a class="prev" rel="prev" href="/Mongodb-bson/">Mongodb-bson</a>
             
             
             <a class="next" rel="next" href="/Cypress-allure-plugin/">Cypress-allure plugin</a>

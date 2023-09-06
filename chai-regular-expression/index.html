@@ -15,7 +15,7 @@
 
 
 
-<title>How to check Actual Format of files | L i f e L i n e</title>
+<title>chai-regular expression | L i f e L i n e</title>
 
 
 
@@ -129,76 +129,11 @@
                 <div class="container">
     
     
-        <div class="post-toc">
-    <div class="tocbot-list">
-    </div>
-    <div class="tocbot-list-menu">
-        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
-        <a onclick="go_top()">Back to top</a>
-        <a onclick="go_bottom()">Go to bottom</a>
-    </div>
-</div>
-
-<script>
-    var tocbot_timer;
-    var DEPTH_MAX = 6; // 为 6 时展开所有
-    var tocbot_default_config = {
-        tocSelector: '.tocbot-list',
-        contentSelector: '.post-content',
-        headingSelector: 'h1, h2, h3, h4, h5',
-        orderedList: false,
-        scrollSmooth: true,
-        onClick: extend_click,
-    };
-
-    function extend_click() {
-        clearTimeout(tocbot_timer);
-        tocbot_timer = setTimeout(function() {
-            tocbot.refresh(obj_merge(tocbot_default_config, {
-                hasInnerContainers: true
-            }));
-        }, 420); // 这个值是由 tocbot 源码里定义的 scrollSmoothDuration 得来的
-    }
-
-    document.ready(function() {
-        tocbot.init(obj_merge(tocbot_default_config, {
-            collapseDepth: 1
-        }));
-    });
-
-    function expand_toc() {
-        var b = document.querySelector('.tocbot-toc-expand');
-        var expanded = b.getAttribute('data-expanded');
-        expanded ? b.removeAttribute('data-expanded') : b.setAttribute('data-expanded', true);
-        tocbot.refresh(obj_merge(tocbot_default_config, {
-            collapseDepth: expanded ? 1 : DEPTH_MAX
-        }));
-        b.innerText = expanded ? 'Expand all' : 'Collapse all';
-    }
-
-    function go_top() {
-        window.scrollTo(0, 0);
-    }
-
-    function go_bottom() {
-        window.scrollTo(0, document.body.scrollHeight);
-    }
-
-    function obj_merge(target, source) {
-        for (var item in source) {
-            if (source.hasOwnProperty(item)) {
-                target[item] = source[item];
-            }
-        }
-        return target;
-    }
-</script>
-    
 
     
     <article class="post-wrap">
         <header class="post-header">
-            <h1 class="post-title">How to check Actual Format of files</h1>
+            <h1 class="post-title">chai-regular expression</h1>
             
                 <div class="post-meta">
                     
@@ -207,59 +142,48 @@
 
                     
                         <span class="post-time">
-                        Date: <a href="#">June 26, 2021&nbsp;&nbsp;14:16:57</a>
+                        Date: <a href="#">April 20, 2023&nbsp;&nbsp;14:52:02</a>
                         </span>
                     
-                    
-                        <span class="post-category">
-                    Category:
-                            
-                                <a href="/categories/Tips/">Tips</a>
-                            
-                        </span>
                     
                 </div>
             
         </header>
 
         <div class="post-content">
-            <h1 id="Have-to-know"><a href="#Have-to-know" class="headerlink" title="Have to know"></a>Have to know</h1><h2 id="File-Extension-and-File-Format"><a href="#File-Extension-and-File-Format" class="headerlink" title="File Extension and File Format"></a>File Extension and File Format</h2><p>Computers cannot identify the file format based on the file extension, they parse the file to confirm if its parsed result matches file signature.</p>
-<br>
+            <p>背景：</p>
+<p>现象：导入重名校验自动化用例失败</p>
+<p>调查原因：后端返回顺序变动，可能是数据库索引变更，但是排序是由前台完成的，因此顺序变动可能是常态</p>
+<p>fix：避免后端返回顺序变动导致失败，使用正则匹配</p>
+<p>一些前置知识：js正则匹配  |  chai断言库(主要讲的是各种相等、包含)  |  chai中match断言的使用 </p>
+<p>由前置知识可得：</p>
+<p>正则匹配需要使用(x|y)<br>相等、包含等断言方法在本次场景中无法完成正则匹配（需要字符串）<br>代码中需要改用match断言<br>&#x3D;&gt;具体代码中：</p>
+<p>1、先使用toString方法将数组转为字符串</p>
+<p>2、进行正则匹配</p>
+<p>新代码</p>
+<pre><code>        cy.task(&#39;readExcelFile&#39;, dateString).then((list) =&gt; &#123; // 下载的重名情况Excel文件名称包含当前年月日
+            expect(list[0]).to.deep.equal([&#39;重名部门/成员&#39;, &#39;所处部门&#39;, &#39;部门/成员id&#39;, &#39;建议导入样式&#39;])
+            // 避免后端返回顺序变动导致失败，使用正则匹配
+            expect(list[1].toString()).to.match(/重名部门,内部组织\/ExcelTest,(3|4),重名部门#(3|4)#/)
+            expect(list[2].toString()).to.match(/重名部门,内部组织\/ExcelTest,(3|4),重名部门#(3|4)#/)
+            expect(list[3].toString()).to.match(/重名成员,内部组织\/ExcelTest,(0001|0002),重名成员#(0001|0002)#/)
+            expect(list[4].toString()).to.match(/重名成员,内部组织\/ExcelTest,(0001|0002),重名成员#(0001|0002)#/)
+            expect(list[5].toString()).to.match(/exceltest,内部组织\/ExcelTest,(999|jdy-azceqq08krlv),exceltest#(999|jdy-azceqq08krlv)#/)
+            expect(list[6].toString()).to.match(/exceltest,内部组织\/ExcelTest,(999|jdy-azceqq08krlv),exceltest#(999|jdy-azceqq08krlv)#/)
+        &#125;)
+</code></pre>
+<p>旧代码</p>
+<pre><code>        cy.task(&#39;readExcelFile&#39;, dateString).then((list) =&gt; &#123; // 下载的重名情况Excel文件名称包含当前年月日
+            expect(list[0], &#39;header&#39;).to.deep.equal([&#39;重名部门/成员&#39;, &#39;所处部门&#39;, &#39;部门/成员id&#39;, &#39;建议导入样式&#39;])
+            expect(list[1], &#39;content&#39;).to.deep.equal([&#39;重名部门&#39;, &#39;内部组织/ExcelTest&#39;, &#39;3&#39;, &#39;重名部门#3#&#39;])
+            expect(list[2], &#39;content&#39;).to.deep.equal([&#39;重名部门&#39;, &#39;内部组织/ExcelTest&#39;, &#39;4&#39;, &#39;重名部门#4#&#39;])
+            expect(list[3], &#39;content&#39;).to.deep.equal([&#39;重名成员&#39;, &#39;内部组织/ExcelTest&#39;, &#39;0001&#39;, &#39;重名成员#0001#&#39;])
+            expect(list[4], &#39;content&#39;).to.deep.equal([&#39;重名成员&#39;, &#39;内部组织/ExcelTest&#39;, &#39;0002&#39;, &#39;重名成员#0002#&#39;])
+            expect(list[5], &#39;content&#39;).to.deep.equal([&#39;exceltest&#39;, &#39;内部组织/ExcelTest&#39;, &#39;999&#39;, &#39;exceltest#999#&#39;])
+            expect(list[6], &#39;content&#39;).to.deep.equal([&#39;exceltest&#39;, &#39;内部组织/ExcelTest&#39;, &#39;jdy-azceqq08krlv&#39;, &#39;exceltest#jdy-azceqq08krlv#&#39;])
+        &#125;)
+</code></pre>
 
-<h1 id="How-to-know-the-Actual-Format"><a href="#How-to-know-the-Actual-Format" class="headerlink" title="How to know the Actual Format"></a>How to know the Actual Format</h1><h2 id="Use-file-command"><a href="#Use-file-command" class="headerlink" title="Use file command"></a>Use <strong>file</strong> command</h2><p>Under Linux, you can use the <strong>file</strong> command.</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">file binfile</span><br></pre></td></tr></table></figure>
-
-<br>
-
-<p>Example Output:</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">binfile: JPEG image data, JFIF standard 1.01, resolution (DPI), density 96x96, segment length 16, baseline, precision 8, 768x576, frames 3</span><br></pre></td></tr></table></figure>
-
-<br>
-
-<p><em>It completely ignores the file extension, but rather relies on information in the file header.</em></p>
-<br>
-<br>
-
-<h2 id="View-Files-in-Hexadecimal"><a href="#View-Files-in-Hexadecimal" class="headerlink" title="View Files in Hexadecimal"></a>View Files in Hexadecimal</h2><ul>
-<li>windows<br>  Use hex editors, such as UltraEdit, winhex, etc.</li>
-</ul>
-<br>
-
-<ul>
-<li>macOS<br>  use the <strong>hexdump</strong> command.  <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">hexdump -C binfile | less</span><br></pre></td></tr></table></figure></li>
-</ul>
-<br>
-
-<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><em>The header of different file signature: <a target="_blank" rel="noopener" href="https://filesignatures.net/">https://filesignatures.net/</a></em></p>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
         </div>
 
         
@@ -273,7 +197,7 @@
                 
                     <p class="copyright-item">
                         <span>Permalink:</span>
-                        <span><a href="https://nataliexselina.github.io/How-to-check-Actual-Format-of-files/">https://nataliexselina.github.io/How-to-check-Actual-Format-of-files/</a></span>
+                        <span><a href="https://nataliexselina.github.io/chai-regular-expression/">https://nataliexselina.github.io/chai-regular-expression/</a></span>
                     </p>
                 
                 
@@ -291,12 +215,6 @@
                 <span>Tag(s):</span>
                 <span class="tag">
                     
-                    
-                        <a href="/tags/Test-Tricks/"># Test Tricks</a>
-                    
-                        <a href="/tags/HEX/"># HEX</a>
-                    
-                        
                 </span>
             </div>
             <div>
@@ -307,10 +225,10 @@
         </section>
         <section class="post-nav">
             
-                <a class="prev" rel="prev" href="/VS-plugins/">VS plugins</a>
+                <a class="prev" rel="prev" href="/ocr-diff/">ocr-diff</a>
             
             
-            <a class="next" rel="next" href="/How-to-Write-A-Test-Plan/">How to Write A Test Plan</a>
+            <a class="next" rel="next" href="/Mongodb-bson/">Mongodb-bson</a>
             
         </section>
 

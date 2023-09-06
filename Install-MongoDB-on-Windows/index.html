@@ -255,9 +255,13 @@
 <p><img src="https://s2.loli.net/2023/03/06/qJamPXwEnfyWxdg.png" alt="mongos2.png"></p>
 <br>
 <br>
-> Tips:
-> - Pay attention to the difference between __mongos__ and __mongod__
 
+<blockquote>
+<p>Tips:</p>
+<ul>
+<li>Pay attention to the difference between <strong>mongos</strong> and <strong>mongod</strong></li>
+</ul>
+</blockquote>
 <br>
 <br>
 
@@ -273,17 +277,17 @@
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">configdb=config-a/hostname:5001,hostname:5002,hostname:5003</span><br><span class="line">logpath=E:\mongodb\datas\mongos\log\mongos.log</span><br><span class="line">logappend=true</span><br><span class="line">port=6000</span><br></pre></td></tr></table></figure>
 
 <br>
-## Host all nodes on Windows Service
 
-<h3 id="Open-the-Command-Prompt-with-Administrative-Privileges"><a href="#Open-the-Command-Prompt-with-Administrative-Privileges" class="headerlink" title="Open the Command Prompt with Administrative Privileges"></a>Open the Command Prompt with Administrative Privileges</h3><p><strong>All shard and config nodes</strong> ( modify the service name and .cfg file path )</p>
+<h2 id="Host-all-nodes-on-Windows-Service"><a href="#Host-all-nodes-on-Windows-Service" class="headerlink" title="Host all nodes on Windows Service"></a>Host all nodes on Windows Service</h2><h3 id="Open-the-Command-Prompt-with-Administrative-Privileges"><a href="#Open-the-Command-Prompt-with-Administrative-Privileges" class="headerlink" title="Open the Command Prompt with Administrative Privileges"></a>Open the Command Prompt with Administrative Privileges</h3><p><strong>All shard and config nodes</strong> ( modify the service name and .cfg file path )</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sc create MongoShardA1 binPath= &quot;E:\mongodb\bin\mongod.exe --config=E:\mongodb\datas\shard-a1\mongod.cfg --service&quot;</span><br><span class="line">net start MongoShardA1</span><br></pre></td></tr></table></figure>
 <br>
-**mongos node**
 
+<p><strong>mongos node</strong></p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sc create MongoRouter binPath= &quot;E:\mongodb\bin\mongos.exe --config=E:\mongodb\datas\mongos\mongos.cfg --service&quot;</span><br><span class="line">net start MongoRouter</span><br></pre></td></tr></table></figure>
-<br>
-You can use **netstat -nao** command to check
 
+<br>
+
+<p>You can use <strong>netstat -nao</strong> command to check</p>
 <br>
 <br>
 
@@ -297,8 +301,8 @@ You can use **netstat -nao** command to check
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">mongo --port 3001</span><br><span class="line">rs.initiate()</span><br><span class="line">rs.add(&quot;hostname:3002&quot;)</span><br><span class="line">rs.add(&quot;hostname:3003&quot;,&#123;arbiterOnly:true&#125;)  # config: rs.add(&quot;hostname:5003&quot;)</span><br><span class="line">rs.status()</span><br></pre></td></tr></table></figure>
 
 <br>
-**shard-b and config-a** are same to configure the replica set, **the difference is that the config replica set does not need to specify an arbitrator node**.
 
+<p><strong>shard-b and config-a</strong> are same to configure the replica set, <strong>the difference is that the config replica set does not need to specify an arbitrator node</strong>.</p>
 <br>
 <br>
 
@@ -311,13 +315,13 @@ You can use **netstat -nao** command to check
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">mongo --port 6000                                </span><br><span class="line">sh.addShard(&quot;shard-a/hostname:3001,hostname:3002,hostname:3003&quot;)</span><br><span class="line">sh.addShard(&quot;shard-b/hostname:4001,hostname:4002,hostname:4003&quot;)</span><br><span class="line">db.getSiblingDB(&quot;config&quot;).shards.find()</span><br></pre></td></tr></table></figure>
 
 <br>
-## Enable shard on database
 
-<ul>
+<h2 id="Enable-shard-on-database"><a href="#Enable-shard-on-database" class="headerlink" title="Enable shard on database"></a>Enable shard on database</h2><ul>
 <li>Use <strong>sh.enableSharding(“dbName”)</strong> to enable shard on database</li>
 <li>Use <strong>db.getSiblingDB(“config”).databases.find()</strong> to check</li>
 </ul>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sh.enableSharding(&quot;testdb&quot;)            </span><br><span class="line">db.getSiblingDB(&quot;config&quot;).databases.find() </span><br></pre></td></tr></table></figure>
+
 <br>
 
 <h2 id="Slice-Collection"><a href="#Slice-Collection" class="headerlink" title="Slice Collection"></a>Slice Collection</h2><ul>
@@ -326,12 +330,12 @@ You can use **netstat -nao** command to check
 </ul>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sh.shardCollection(&quot;testdb.testform&quot;,&#123;_id:1&#125;)  # use _id to slice</span><br><span class="line">db.getSiblingDB(&quot;config&quot;).collections.find()</span><br></pre></td></tr></table></figure>
 <br>
-## Verify: Insert a large amount of data
 
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">use testdb                              </span><br><span class="line">for(i=0;i&lt;1000000;i++)&#123;db.testform.insert(&#123;Uid:i,Desc:&quot;This is a test data&quot;,Data:new Date()&#125;)&#125;</span><br><span class="line">mongo --port 6000   </span><br><span class="line">sh.status()                               </span><br></pre></td></tr></table></figure>
+<h2 id="Verify-Insert-a-large-amount-of-data"><a href="#Verify-Insert-a-large-amount-of-data" class="headerlink" title="Verify: Insert a large amount of data"></a>Verify: Insert a large amount of data</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">use testdb                              </span><br><span class="line">for(i=0;i&lt;1000000;i++)&#123;db.testform.insert(&#123;Uid:i,Desc:&quot;This is a test data&quot;,Data:new Date()&#125;)&#125;</span><br><span class="line">mongo --port 6000   </span><br><span class="line">sh.status()                               </span><br></pre></td></tr></table></figure>
 
 <br>
-You can see that the data is allocated to two slices for storage.
+
+<p>You can see that the data is allocated to two slices for storage.</p>
 <br>
 <br>
 <br>

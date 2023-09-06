@@ -225,34 +225,36 @@
         <div class="post-content">
             <h2 id="Directory-Structure-of-Cypress"><a href="#Directory-Structure-of-Cypress" class="headerlink" title="Directory Structure of Cypress"></a>Directory Structure of Cypress</h2><p><img src="https://s2.loli.net/2023/03/06/e1gEkIFPjiyTcHb.png" alt="Cypress.png"></p>
 <br>
-## Define Methods in Your Project
 
-<ol>
+<h2 id="Define-Methods-in-Your-Project"><a href="#Define-Methods-in-Your-Project" class="headerlink" title="Define Methods in Your Project"></a>Define Methods in Your Project</h2><ol>
 <li><p><strong>Its own API</strong></p>
 <p> <strong>Cypress comes with its own API:</strong> you can call it directly without additional processing.</p>
 <p> For details on how to use it, please refer to the documentation: <a target="_blank" rel="noopener" href="https://docs.cypress.io/api">https://docs.cypress.io/api</a></p>
 </li>
 </ol>
 <br>
-2. **Custom global methods**
 
-<pre><code>**Custom global methods:** there are many scenarios in the test cases are the same, the code of these scenarios can be encapsulated to facilitate a unified call, which can not only reduce duplicate code, but also to unify the code specification.
-
-In this case, you can use **Cypress.Commands.add** in **/support/command.js**.
-</code></pre>
+<ol start="2">
+<li><p><strong>Custom global methods</strong></p>
+<p> <strong>Custom global methods:</strong> there are many scenarios in the test cases are the same, the code of these scenarios can be encapsulated to facilitate a unified call, which can not only reduce duplicate code, but also to unify the code specification.</p>
+<p> In this case, you can use <strong>Cypress.Commands.add</strong> in <strong>&#x2F;support&#x2F;command.js</strong>.</p>
+</li>
+</ol>
 <br>
-3. **cy.task() and cy.exec()**
 
-<pre><code>As Cypress is executed in the browser, some operations may need to be executed **using nodejs or command**.
-
-In this case, you need to use **cy.task()** or **cy.exec()**. 
-Of course you need to define your own methods, where the **task** method needs to be defined in **/plugins** directory and the **exec** method needs to be defined in **root(/)** directory.
-</code></pre>
+<ol start="3">
+<li><p><strong>cy.task() and cy.exec()</strong></p>
+<p> As Cypress is executed in the browser, some operations may need to be executed <strong>using nodejs or command</strong>.</p>
+<p> In this case, you need to use <strong>cy.task()</strong> or <strong>cy.exec()</strong>.<br> Of course you need to define your own methods, where the <strong>task</strong> method needs to be defined in <strong>&#x2F;plugins</strong> directory and the <strong>exec</strong> method needs to be defined in <strong>root(&#x2F;)</strong> directory.</p>
+</li>
+</ol>
 <br>
-4. **A single function or class**
 
-<pre><code>When **a function needs to be called just in a number of other files**, but does not need to be defined globally, you can use this way.
-</code></pre>
+<ol start="4">
+<li><p><strong>A single function or class</strong></p>
+<p> When <strong>a function needs to be called just in a number of other files</strong>, but does not need to be defined globally, you can use this way.</p>
+</li>
+</ol>
 <br>
 
 <h2 id="Examples-for-call-methods"><a href="#Examples-for-call-methods" class="headerlink" title="Examples for call methods"></a>Examples for call methods</h2><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">cy.<span class="title function_">login</span>() <span class="comment">// login() is defined in command.js</span></span><br><span class="line">cy.<span class="title function_">task</span>(<span class="string">&#x27;A&#x27;</span>) <span class="comment">// task A is defined in plugins/index.js</span></span><br><span class="line">cy.<span class="title function_">exec</span>(<span class="string">&#x27;node test.js&#x27;</span>) <span class="comment">// test.js is defined in root directory</span></span><br><span class="line">dash.<span class="title function_">check</span>()  <span class="comment">// function check() is defined in dash.utils.js</span></span><br></pre></td></tr></table></figure>
@@ -300,9 +302,9 @@ Of course you need to define your own methods, where the **task** method needs t
                     
                         <a href="/tags/Tools/"># Tools</a>
                     
-                        <a href="/tags/Node-js/"># Node.js</a>
-                    
                         <a href="/tags/Cypress/"># Cypress</a>
+                    
+                        <a href="/tags/Node-js/"># Node.js</a>
                     
                         
                 </span>

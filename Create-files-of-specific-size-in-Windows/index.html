@@ -224,16 +224,17 @@
 
         <div class="post-content">
             <h2 id="Export-Single-File"><a href="#Export-Single-File" class="headerlink" title="Export Single File"></a>Export Single File</h2><h3 id="CMD-Command"><a href="#CMD-Command" class="headerlink" title="CMD Command"></a>CMD Command</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">fsutil file createNew &lt;filename&gt; &lt;length&gt;</span><br></pre></td></tr></table></figure>
+
 <br>
-Example
+
+<p>Example</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">fsutil file createNew C:\testfile.txt 1000</span><br></pre></td></tr></table></figure>
 
 <br>
-> Tips:
-> 10K =10 * 1024 = 10240
-> 10M = 10 * 1024 * 1024 = 10485760
-> 100M = 100 * 1024 * 1024 = 10485760
 
+<blockquote>
+<p>Tips:<br>10K &#x3D;10 * 1024 &#x3D; 10240<br>10M &#x3D; 10 * 1024 * 1024 &#x3D; 10485760<br>100M &#x3D; 100 * 1024 * 1024 &#x3D; 10485760</p>
+</blockquote>
 <br>
 
 <h2 id="Export-Mutiple-Files"><a href="#Export-Mutiple-Files" class="headerlink" title="Export Mutiple Files"></a>Export Mutiple Files</h2><h3 id="Create-a-bat-file"><a href="#Create-a-bat-file" class="headerlink" title="Create a .bat file"></a>Create a .bat file</h3><figure class="highlight dos"><table><tr><td class="code"><pre><span class="line">@<span class="built_in">echo</span> off</span><br><span class="line"></span><br><span class="line"><span class="built_in">set</span> a=<span class="number">0</span></span><br><span class="line">:loop</span><br><span class="line">fsutil file createnew file<span class="variable">%a%</span>.txt <span class="number">10485760</span>  # size: <span class="number">10</span>M</span><br><span class="line"><span class="built_in">echo</span> file<span class="variable">%a%</span> done</span><br><span class="line"><span class="built_in">set</span> /a a+=<span class="number">1</span></span><br><span class="line"><span class="keyword">if</span> <span class="variable">%a%</span> <span class="keyword">lss</span> <span class="number">20</span> <span class="keyword">goto</span> :loop  # <span class="number">20</span> files</span><br><span class="line"></span><br><span class="line"><span class="built_in">pause</span></span><br></pre></td></tr></table></figure>

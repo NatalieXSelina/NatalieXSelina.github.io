@@ -237,7 +237,10 @@
 
 
 
-<p>Also my application is calling <strong>googleAPIs for location</strong>, and the network in China causes location to fail (even if browser permissions are allowed).<br><br><br>So I started looking for alternatives.</p>
+<p>Also my application is calling <strong>googleAPIs for location</strong>, and the network in China causes location to fail (even if browser permissions are allowed).</p>
+<br>
+
+<p>So I started looking for alternatives.</p>
 <br>
 
 <h2 id="Something-About-cypress-browser-permissions-Plugin"><a href="#Something-About-cypress-browser-permissions-Plugin" class="headerlink" title="Something About cypress-browser-permissions Plugin"></a>Something About cypress-browser-permissions Plugin</h2><p>For browser permissions, Cypress provides <strong>before:browser:launch</strong> configuration:<br><a target="_blank" rel="noopener" href="https://docs.cypress.io/api/plugins/browser-launch-api#Modify-browser-launch-arguments-preferences-and-extensions">https://docs.cypress.io/api/plugins/browser-launch-api#Modify-browser-launch-arguments-preferences-and-extensions</a></p>
@@ -254,7 +257,11 @@
 <p>Using <strong>cypress-browser-permissions</strong> requires the browser to be running in <strong>headed</strong> mode.<br>So it is intended to be used in conjunction with <strong>xvfb</strong> on <strong>CI</strong>.</p>
 <br>
 
-<p>And after replacing it with my new method, it can <strong>run successfully in CI</strong> in <strong>headless</strong> mode.<br><br><br><br></p>
+<p>And after replacing it with my new method, it can <strong>run successfully in CI</strong> in <strong>headless</strong> mode.</p>
+<br>
+<br>
+
+
 <h2 id="Simulation-of-location-failure"><a href="#Simulation-of-location-failure" class="headerlink" title="Simulation of location failure"></a>Simulation of location failure</h2><br>
 
 <p>Use the method below to <strong>throw an error, which can make location to fail</strong>.</p>

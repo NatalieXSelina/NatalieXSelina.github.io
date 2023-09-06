@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="NatalieXSelina">
+
+
+    <meta name="subtitle" content=" b l o g">
+
+
+
+
+<title>Mongodb-bson | L i f e L i n e</title>
+
+
+
+    <link rel="icon" href="/favicon.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+<body>
+    <script>
+        // this function is used to check current theme before page loaded.
+        (() => {
+            const currentTheme = window.localStorage && window.localStorage.getItem('theme') || '';
+            const isDark = currentTheme === 'dark';
+            const pagebody = document.getElementsByTagName('body')[0]
+            if (isDark) {
+                pagebody.classList.add('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Dark"
+            } else {
+                pagebody.classList.remove('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Light"
+            }
+        })();
+    </script>
+
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">L i f e L i n e</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">L i f e L i n e</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+            <div class="main">
+                <div class="container">
+    
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">Mongodb-bson</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">NatalieXSelina</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">April 20, 2023&nbsp;&nbsp;14:47:24</a>
+                        </span>
+                    
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <p>背景</p>
+<p>总体决策思路<br>放在哪部分做？UI自动化+入库校验 or jmeter接口+入库校验 or 后端自动化</p>
+<p>&#x3D;&gt;</p>
+<p>组内暂无合适的后端自动化项目，刘大哥的pytest主要是完成定时任务的自动化 ；</p>
+<p>UI界面操作耗时，且入库校验理论上不应该由E2E自动化来做；</p>
+<p>因此初定为jmeter接口+入库校验</p>
+<p>后基于jmeter工具后续可能替换 + cypress本身也有支持APItest的能力(至少可以完成REST接口) + 部分场景由UI+接口协同更优 这三点原因，决定在uitest项目中进行实现</p>
+<p>datas表中，全字段数据类型校验的脚本<br>var MongoClient &#x3D; require(‘mongodb’).MongoClient;<br>var ObjectID &#x3D; require(‘mongodb’).ObjectID;</p>
+<p>var url &#x3D; ‘mongodb:&#x2F;&#x2F;admin:<a href="mailto:&#x41;&#x69;&#118;&#100;&#51;&#87;&#x36;&#68;&#x4e;&#55;&#50;&#57;&#x38;&#68;&#84;&#55;&#x51;&#50;&#x70;&#122;&#x58;&#120;&#115;&#x69;&#64;&#100;&#x65;&#118;&#46;&#x6a;&#x69;&#97;&#110;&#100;&#97;&#111;&#121;&#x75;&#110;&#46;&#x63;&#111;&#109;">&#x41;&#x69;&#118;&#100;&#51;&#87;&#x36;&#68;&#x4e;&#55;&#50;&#57;&#x38;&#68;&#84;&#55;&#x51;&#50;&#x70;&#122;&#x58;&#120;&#115;&#x69;&#64;&#100;&#x65;&#118;&#46;&#x6a;&#x69;&#97;&#110;&#100;&#97;&#111;&#121;&#x75;&#110;&#46;&#x63;&#111;&#109;</a>:27017&#x2F;‘</p>
+<p>var appId &#x3D; ‘638f1431dbc9950007dd9e47’<br>var entryId &#x3D; ‘638f1433dbc9950007dd9e58’</p>
+<p>&#x2F;&#x2F; 将全字段划分为5个json进行比对，出错时方便排查<br>&#x2F;&#x2F; 此处仅举例结构比较复杂的增强字段</p>
+<p>const EnhanceField &#x3D; {<br>    _widget_1670321204204: {<br>        province: ‘string’,<br>        …<br>        lnglatXY: { ‘0’: ‘number’, ‘1’: ‘number’ }<br>    },<br>    _widget_1670321204205: {<br>        ‘0’: {<br>            _id: ‘string’,<br>            …<br>        }<br>    }<br>}</p>
+<p>&#x2F;&#x2F;用于查询数据库数据类型<br>MongoClient.connect(url, {<br>    useNewUrlParser: true,<br>    useUnifiedTopology: true<br>}, function (err, db) {<br>    if (err) throw err;<br>    var dbo &#x3D; db.db(‘finex’);&#x2F;&#x2F;数据库<br>    var queryStr &#x3D; { appId: new ObjectID(appId), entryId: new ObjectID(entryId) }<br>    dbo.collection(‘datas’).findOne(queryStr, function (err, doc) {<br>        if (err) {<br>            console.error(err);<br>            return;<br>        }<br>        db.close();</p>
+<pre><code>    function checkType (doc) &#123;
+        const json = &#123;&#125;;
+        // 遍历
+        for (let key in doc) &#123;
+            const value = doc[key];
+            if (value &amp;&amp; value instanceof ObjectID) &#123; // 值是oid
+                json[key] = &#39;ObjectID&#39;;
+            &#125; else if (value instanceof Date) &#123; // 值是date
+                json[key] = &#39;Date&#39;;
+            &#125; else if (typeof value == &#39;object&#39;) &#123; // 值是其他需要展开的 object 类型，则递归处理
+                json[key] = &#123;&#125;;
+                json[key] = checkType(value)
+            &#125; 
+            else &#123; // 针对datas表，其余情况为string or number
+                json[key] = typeof value;
+            &#125;
+        &#125;
+        return json;
+        
+    &#125;
+    function isContain (a, b) &#123; // 判断2个json对象的关系是否为包含
+        // 确保两个参数都是对象
+        if (typeof a !== &#39;object&#39; || typeof b !== &#39;object&#39;) &#123;
+            return false;
+        &#125;
+      
+        // 获取key
+        const aKeys = Object.keys(a);
+        const bKeys = Object.keys(b);
+      
+        // 检查a中的每个key是否都在b中，并检查与每个value是否相等
+        return aKeys.every(key =&gt; &#123;
+            const aValue = a[key];
+            const bValue = b[key];
+      
+            // 如果遇到value是一个对象或数组，进行递归
+            if (typeof aValue === &#39;object&#39; &amp;&amp; typeof bValue === &#39;object&#39;) &#123;
+                return isContain(aValue, bValue);
+            &#125; else &#123;
+                return bKeys.includes(key) &amp;&amp; aValue === bValue;
+            &#125;
+        &#125;);
+    &#125;
+    
+    // 将全字段划分为5个json进行比对，出错时方便排查
+    var result = checkType(doc)
+    console.log(`SystemField $&#123;isContain(SystemField, result)&#125;`) // 系统字段:_id appId entryId creator等
+    console.log(`BaseField $&#123;isContain(BaseField, result)&#125;`) // 基础字段
+    console.log(`EnhanceField $&#123;isContain(EnhanceField, result)&#125;`) // 增强字段
+    console.log(`MemberAndDept $&#123;isContain(MemberAndDept, result)&#125;`) // 成员部门
+    console.log(`SubField $&#123;isContain(SubField, result)&#125;`) // 子表单
+&#125;)
+</code></pre>
+<p>})</p>
+<p>第一阶段：</p>
+<p>仅使用typeof时，无法对Object类型进行精确校验 &#x3D;&gt; 因此还需要使用instanceof运算符<br>array或者object在能够展开的情况下需要递归进行校验 &#x3D;&gt; 取出oid、date、Int32等类型后，对object类型进行展开、递归校验，最后按照层级存入json对象中<br>第二阶段：</p>
+<p>尝试mongo和bson库均无法校验出Int32数字类型，js从mongodb取出来时可能就已经处理过BSON文档，导致数字的Int32类型无法直接校验，js会将其校验为number &#x3D;&gt; 尝试通过调整测试数据，校验入库数据的长度 &#x3D;&gt; 遇到数字0的值被识别为false，从而变为布尔类型的问题<br>本身产品中入库的数字字段就拥有Int32和double类型，可以不需要专门输出，保留number类型即可（也可以避免数字0的问题）<br>第三阶段：</p>
+<p>定义判断2个json对象的关系是否为包含的方法，并将全字段划分为5个json进行比对，出错时方便排查<br>后续需要完善demo：比如某些字段在特定场景下值为空or不存在这个字段</p>
+<pre><code>    if(args[2] === &#39;del&#39;) &#123;
+        SystemField.deleteTime = &#39;Date&#39;
+        SystemField.deleter = &#39;ObjectID&#39;
+        SystemField.expireTime = &#39;Date&#39;
+    &#125;
+    if(args[2] === &#39;trigger&#39;) &#123; // 智能助手无手写签名、手机、关联数据、ip和ua
+        delete EnhanceField._widget_1670321204209
+        delete EnhanceField._widget_1670321204211
+        delete EnhanceField._widget_1670321204208
+        delete SubField._widget_1670321204218[0]._widget_1670321204239
+        delete SubField._widget_1670321204218[0]._widget_1670321204238
+        delete SystemField.ip
+        delete SystemField.userAgent
+    &#125;
+</code></pre>
+<p>datas表入库场景-表单模块<br>增<br>单条新增<br>&#x2F;<em>&#x2F;data_process&#x2F;data&#x2F;create<br>&#x2F;</em>&#x2F;data_process&#x2F;admin&#x2F;data&#x2F;create<br>导入新增（成员&#x2F;admin）<br>成员-1条<br>成员-501条<br>admin-1条<br>admin-501条<br>导入upsert-新增（admin）<br>admin-1条<br>admin-501条<br>导入创建表单时新增数据（admin）<br>admin-1条<br>admin-501条<br>trigger新增<br>openApi<br>新增单条<br>新增多条</p>
+<p>改<br>单条修改<br>&#x2F;<em>&#x2F;data_process&#x2F;data&#x2F;update<br>&#x2F;</em>&#x2F;data_process&#x2F;admin&#x2F;data&#x2F;update<br>导入更新（成员&#x2F;admin）<br>成员-1条<br>成员-501条<br>admin-1条<br>admin-501条<br>导入upsert-更新（admin）<br>admin-1条<br>admin-501条<br>trigger修改<br>批量修改（需要分500条以下和500条以上2种情况）<br>&#x2F;<em>&#x2F;data_process&#x2F;data&#x2F;batch_update（1条）<br>&#x2F;</em>&#x2F;data_process&#x2F;data&#x2F;batch_update（501条）<br>&#x2F;<em>&#x2F;data_process&#x2F;admin&#x2F;data&#x2F;batch_update（1条）<br>&#x2F;</em>&#x2F;data_process&#x2F;admin&#x2F;data&#x2F;batch_update（501条）<br>openApi<br>编辑单条<br>编辑多条</p>
+<p>恢复<br>数据回收站<br>&#x2F;_&#x2F;data_process&#x2F;admin&#x2F;data&#x2F;recover</p>
+<p>其他模块如有覆盖的需要，可自行根据本文档进行适配。</p>
+<p>Question1：</p>
+<p>为了尽量减少fixture下的文件数量以及项目体积，对于相似度高的json对象进行操作使其符合传参</p>
+<pre><code>    it(&#39;trigger&#39;, () =&gt; &#123;
+        cy.fixture(&#39;create_req.json&#39;).then((json) =&gt; &#123; // 修改create_req.json文件的entryid为触发表
+            json.entryId = trigger_entryId
+            json.formId = trigger_entryId
+            cy.create_data_common(json, &#39;/_/data_process/admin/data/create&#39;)
+        &#125;)
+        cy.exec(command(&#39;trigger&#39;)).then((result) =&gt; &#123;
+            expect(result.stdout).to.not.contain(&#39;false&#39;)
+        &#125;)
+    &#125;)
+
+
+    it(&#39;update-成员&#39;, () =&gt; &#123;
+        cy.create_data_common(test_data).then((res) =&gt; &#123;
+            cy.fixture(&#39;create_req.json&#39;).then((json) =&gt; &#123; // 修改create_req.json文件成为update的req
+                json.values._widget_1670321204210.data = &#39;00001&#39;
+                json.dataId = res.body.data._id
+                delete json.skipFlow
+                cy.create_data_common(json, &#39;/_/data_process/data/update&#39;)
+            &#125;)
+        &#125;)
+        cy.exec(command(&#39;&#39;)).then((result) =&gt; &#123;
+            expect(result.stdout).to.not.contain(&#39;false&#39;)
+        &#125;)
+    &#125;)
+</code></pre>
+<p>Question2：</p>
+<p>批量修改以前写过data_pre方法，调整以进行复用</p>
+<p>Question3：</p>
+<p>批量修改需要覆盖501条的情况，因此前置数据准备需要考虑 &#x3D;&gt; 循环501次create请求不好，考虑批量创建数据 &#x3D;&gt; 有批量创建数据的 api：data_batch_create<br> 开放平台api用例的实现：附件图片等字段需要先取fileKey<br>基于上述两点考虑，</p>
+<p>update、batch_update、create、的json中，data部分完全相同，增加data_id &#x2F; data_ids</p>
+<p>batch_create则需要100份data（一次性最多创建100条）作为data_list</p>
+<p>&#x3D;&gt;  api_data.json + uuid取filekey ， 再组装成适用于四种情况的json</p>
+<p>function api_data () {<br>    return cy.fixture(‘api&#x2F;api_data.json’).then((api_data) &#x3D;&gt; {<br>        cy.uuid().then((uuid) &#x3D;&gt; {<br>            const body &#x3D; {<br>                ‘transaction_id’: uuid, &#x2F;&#x2F;事务ID<br>            }<br>            api.apiRequest(api.uploadTokenUrl(‘v1’, appId, entryId), body, (res) &#x3D;&gt; {<br>                const headers &#x3D; {<br>                    ‘Authorization’: ‘Bearer ‘ + apiKey,<br>                    ‘content-type’: ‘multipart&#x2F;form-data’<br>                }<br>                const formData &#x3D; new FormData();<br>                cy.fixture(‘.&#x2F;upload&#x2F;1.png’, ‘binary’).then((data) &#x3D;&gt; {<br>                    const blob &#x3D; Cypress.Blob.binaryStringToBlob(data, ‘image&#x2F;png’);<br>                    formData.set(‘file’, blob, ‘1.png’)<br>                    formData.set(‘token’, res.body.token_and_url_list[0].token)<br>                    cy.request({<br>                        method: ‘POST’,<br>                        url: res.body.token_and_url_list[0].url, &#x2F;&#x2F;upload.qiniu<br>                        body: formData,<br>                        headers: headers,<br>                    }).then( (res) &#x3D;&gt; {<br>                        const key &#x3D; JSON.parse(String.fromCharCode.apply(null, new Uint8Array(res.body))) &#x2F;&#x2F;arraybuffer 转json<br>                        const data &#x3D; {<br>                            ‘transaction_id’: uuid,<br>                            ‘data’: api_data,<br>                            ‘is_start_trigger’: false<br>                        }<br>                        data.data._widget_1670321204205.value[0] &#x3D; key.key<br>                        data.data._widget_1670321204206.value[0] &#x3D; key.key<br>                        data.data._widget_1670321276851.value[0] &#x3D; key.key<br>                        data.data._widget_1670321204218.value[0]._widget_1670321204235.value[0] &#x3D; key.key<br>                        data.data._widget_1670321204218.value[0]._widget_1670321204236.value[0] &#x3D; key.key<br>                        return data<br>                    })<br>                })<br>            })<br>        })<br>    })<br>}</p>
+<p>function deal_data (option, data_ids) {<br>    return api_data().then((res) &#x3D;&gt; {<br>        let data &#x3D; res<br>        if(option &#x3D;&#x3D; ‘update’) { &#x2F;&#x2F; 添加data_id<br>            data.data_id &#x3D; data_ids[0]<br>        }<br>        if(option &#x3D;&#x3D; ‘batch_update’) { &#x2F;&#x2F; 添加data_ids<br>            data.data_ids &#x3D; data_ids<br>            delete data.data._widget_1670321204218 &#x2F;&#x2F; 暂不支持子表单<br>        }<br>        if(option &#x3D;&#x3D; ‘batch_create’) { &#x2F;&#x2F; 处理data_list<br>            data.data_list &#x3D; []<br>            for(let i &#x3D; 0; i &lt; 100; i++) &#x2F;&#x2F; 一次最多100条<br>                data.data_list.push(data.data)<br>            delete data.data<br>            delete data.is_start_trigger<br>        }<br>        &#x2F;&#x2F; create 不需要修改json<br>        return data<br>    })<br>}</p>
+<p>Question4：</p>
+<p>批量修改&gt;500条时为异步task，如果依旧batch_update会出现批量修改锁4012导致失败 &#x3D;&gt; 通过hasAsyncTask参数判断，若为异步时，通过polling_task的响应结果进一步判断是否task结束 <br>                    if(resp.body.hasAsyncTask) { &#x2F;&#x2F; &gt;500条进队列，需要根据轮询接口保证task完成<br>                        function checkState () {<br>                            cy.request({<br>                                method: ‘POST’,<br>                                url: ‘&#x2F;_&#x2F;admin&#x2F;data&#x2F;batch_update&#x2F;polling_task’,<br>                                body: {<br>                                    ‘appId’: appId,<br>                                    ‘entryId’: entryId,<br>                                    ‘taskId’: resp.body.taskId<br>                                },<br>                                headers: Cypress.env(‘header’)<br>                            }).then((res) &#x3D;&gt; {<br>                                let state &#x3D; res.body.status;<br>                                if (state &#x3D;&#x3D;&#x3D; ‘running’) {<br>                                &#x2F;&#x2F; 如果状态仍为 running，则继续调用自身<br>                                    cy.wait(500) &#x2F;&#x2F; 0.5s后再查询，防止一直发送轮询请求<br>                                    checkState();<br>                                } else {<br>                                    return<br>                                }<br>                            });<br>                        }<br>                        &#x2F;&#x2F; 调用checkState函数<br>                        checkState()<br>                    }</p>
+<p>Question 5：修改excel时，如果使用cy.fixture()方法会读取文件的缓存，需要替换为cy.readFile()</p>
+<p>Question 6：put_file接口中ArrayBuffer处理</p>
+<pre><code>    const formData = new FormData();
+    cy.readFile(path, &#39;binary&#39;).then((data) =&gt; &#123;
+        const blob = Cypress.Blob.binaryStringToBlob(data, mime); 
+        formData.set(&#39;token&#39;, res.body.tokenList[0])
+        formData.set(&#39;file&#39;, blob, &#39;interface_import.xlsx&#39;)
+        cy.request(&#123;
+            method: &#39;POST&#39;,
+            url: res.body.url, // files-dev.jiandaoyun.com/_/file/upload/put_file
+            body: formData,
+            headers: &#123;
+                &#39;content-type&#39;: &#39;multipart/form-data&#39;
+            &#125;
+        &#125;).then((res) =&gt; &#123;
+            // res是ArrayBuffer
+            var enc = new TextDecoder(&#39;utf-8&#39;)
+            var uint8_msg = new Uint8Array(res.body)
+            var fileJson = JSON.parse(enc.decode(uint8_msg))
+            var fileId = fileJson.file._id
+            return fileId
+        &#125;)
+    &#125;)
+</code></pre>
+<p>Question 7：导入更新时data_ids的获取</p>
+<p>方案一：创建数据时data_batch_create接口的响应结果</p>
+<p>原本打算使用该方案，因为不需要发送多余请求or查询数据库。</p>
+<p>但apiRequest已封装好的情况下改写比较复杂</p>
+<pre><code>            for(let i = 0;i &lt; 6;i++) &#123;
+                deal_data(&#39;batch_create&#39;).then((res) =&gt; &#123;
+                    apiRequest(setBatchCreateUrl(&#39;v1&#39;, appId, entryId), res)
+                &#125;)
+            &#125;
+</code></pre>
+<p>方案二：find请求查询</p>
+<p>一次最多只能取100条，至少需要发6个请求</p>
+<p>方案三：直接查Mongodb取</p>
+<p>查询data_id在自动化过程中应该属于常用场景，可以封装一下</p>
+<p>var MongoClient &#x3D; require(‘mongodb’).MongoClient;<br>var ObjectID &#x3D; require(‘mongodb’).ObjectID;<br>var args &#x3D; process.argv.splice(2);</p>
+<p>var url &#x3D; ‘mongodb:&#x2F;&#x2F;admin:<a href="mailto:&#x41;&#105;&#x76;&#x64;&#x33;&#87;&#x36;&#68;&#x4e;&#55;&#50;&#x39;&#56;&#68;&#84;&#55;&#x51;&#x32;&#112;&#x7a;&#x58;&#x78;&#115;&#x69;&#x40;&#x64;&#101;&#118;&#46;&#106;&#x69;&#97;&#x6e;&#x64;&#x61;&#x6f;&#121;&#x75;&#x6e;&#46;&#x63;&#111;&#109;">&#x41;&#105;&#x76;&#x64;&#x33;&#87;&#x36;&#68;&#x4e;&#55;&#50;&#x39;&#56;&#68;&#84;&#55;&#x51;&#x32;&#112;&#x7a;&#x58;&#x78;&#115;&#x69;&#x40;&#x64;&#101;&#118;&#46;&#106;&#x69;&#97;&#x6e;&#x64;&#x61;&#x6f;&#121;&#x75;&#x6e;&#46;&#x63;&#111;&#109;</a>:27017&#x2F;‘</p>
+<p>MongoClient.connect(url, {<br>    useNewUrlParser: true,<br>    useUnifiedTopology: true<br>}, function (err, db) {<br>    if (err) throw err;<br>    var dbo &#x3D; db.db(‘finex’);&#x2F;&#x2F;数据库<br>    var queryStr &#x3D; { appId: new ObjectID(args[0]), entryId: new ObjectID(args[1]) }<br>    dbo.collection(‘datas’).find(queryStr).limit(0).toArray(function (err, doc) {<br>        if (err) {<br>            console.error(err);<br>            return;<br>        }<br>        db.close();</p>
+<pre><code>    let array = []
+    doc.forEach(function (doc) &#123;
+        array.push([doc._id])
+    &#125;)
+    process.stdout.write(JSON.stringify(array));
+&#125;)
+</code></pre>
+<p>})</p>
+<p>总结</p>
+<p>cypress\plugins\check_db.js：全字段数据类型校验的脚本，输出结果全为true时可视为pass</p>
+<p>cypress\e2e\check_db\check_db.utils.js：定义常量、开放平台api和接口导入的方法</p>
+<p>cypress\e2e\check_db\check_db.spec.js：testcase。构成：不同场景下的数据生成+校验该场景下支持字段的数据类型</p>
+<pre><code>    it(&#39;batch_create-api&#39;, () =&gt; &#123;
+        deal_data(&#39;batch_create&#39;).then((res) =&gt; &#123;
+            apiRequest(setBatchCreateUrl(&#39;v1&#39;, appId, entryId), res)
+        &#125;)
+        cy.exec(command(&#39;batch&#39;)).then((result) =&gt; &#123;
+            expect(result.stdout).to.not.contain(&#39;false&#39;)
+        &#125;)
+    &#125;)
+
+    it(&#39;insert-import-管理&#39;, () =&gt; &#123;
+        interface_import(&#39;insert&#39;, &#39;admin&#39;)
+        cy.exec(command(&#39;insert&#39;)).then((result) =&gt; &#123;
+            expect(result.stdout).to.not.contain(&#39;false&#39;)
+        &#125;)
+    &#125;)
+</code></pre>
+<p>调整脚本以适配特殊场景导入创建表单create_entry，尽量以最小代价改动实现覆盖：<a target="_blank" rel="noopener" href="https://code.fineres.com/users/yaqing.chang/repos/fx-ui-test/pull-requests/668/overview">https://code.fineres.com/users/yaqing.chang/repos/fx-ui-test/pull-requests/668/overview</a></p>
+<p>另：本次任务中新增的其他场景也可通用的方法</p>
+<p>改造后的batch_udpate方法已置于cypress\support\commands.js ，如有需要可以进行调用，已适配各种需求<br>&#x2F;&#x2F; 如果传入的是一维数组，将所有数据中field字段的值对应置为固定值value<br>&#x2F;&#x2F; 如果传入的是json对象，则根据key-value将所有数据中field字段的值对应置为key对应的value值<br>Cypress.Commands.add(‘batch_update’, (appId, entryId, field_arr, filter &#x3D; { ‘cond’: [], ‘rel’: ‘and’ }, value &#x3D; null, url &#x3D; ‘&#x2F;<em>&#x2F;data_process&#x2F;admin&#x2F;data’) &#x3D;&gt; {<br>    function data_pre (field, value) {<br>        cy.request({<br>            method: ‘post’,<br>            url: <code>$&#123;url&#125;/batch_update/count</code>,<br>            body: {<br>                ‘appId’: appId,<br>                ‘entryId’: entryId,<br>                ‘formId’: entryId,<br>                ‘isUpdateAll’: true,<br>                ‘filter’: filter<br>            },<br>            headers: Cypress.env(‘header’)<br>        }).then((resp) &#x3D;&gt; {<br>            expect(resp.status).to.eq(200)<br>            cy.request({<br>                method: ‘POST’,<br>                url: <code>$&#123;url&#125;/batch_update</code>,<br>                body: {<br>                    ‘appId’: appId,<br>                    ‘entryId’: entryId,<br>                    ‘formId’: entryId,<br>                    ‘dataIdList’: [],<br>                    ‘isUpdateAll’: true,<br>                    ‘field’: field,<br>                    ‘value’: value,<br>                    ‘filter’: filter,<br>                    ‘type’: ‘fixed’,<br>                    ‘formula’: ‘’,<br>                    ‘batchKey’: resp.body.batchKey<br>                },<br>                headers: Cypress.env(‘header’)<br>            }).then((resp) &#x3D;&gt; {<br>                expect(resp.status).to.eq(200)<br>                if(resp.body.hasAsyncTask) { &#x2F;&#x2F; &gt;500条进队列，需要根据轮询接口保证task完成<br>                    function checkState () {<br>                        cy.request({<br>                            method: ‘POST’,<br>                            url: ‘&#x2F;</em>&#x2F;admin&#x2F;data&#x2F;batch_update&#x2F;polling_task’,<br>                            body: {<br>                                ‘appId’: appId,<br>                                ‘entryId’: entryId,<br>                                ‘taskId’: resp.body.taskId<br>                            },<br>                            headers: Cypress.env(‘header’)<br>                        }).then((res) &#x3D;&gt; {<br>                            let state &#x3D; res.body.status;<br>                            if (state &#x3D;&#x3D;&#x3D; ‘running’) {<br>                                &#x2F;&#x2F; 如果状态仍为 running，则继续调用自身<br>                                cy.wait(500) &#x2F;&#x2F; 0.5s后再查询，防止一直发送轮询请求<br>                                checkState();<br>                            } else {<br>                                return<br>                            }<br>                        });<br>                    }<br>                    &#x2F;&#x2F; 调用checkState函数<br>                    checkState()<br>                }<br>            })<br>        })<br>    }<br>    if (typeof field_arr &#x3D;&#x3D;&#x3D; ‘object’ &amp;&amp; !Array.isArray(field_arr)) {<br>        &#x2F;&#x2F; JSON 对象<br>        for(let key in field_arr) {<br>            data_pre(key, field_arr[key])<br>        }<br>    }<br>    if (Array.isArray(field_arr)) {<br>        &#x2F;&#x2F; 一维数组<br>        field_arr.forEach(field &#x3D;&gt; {<br>            data_pre(field, value)<br>        })<br>    }</p>
+<p>})</p>
+<p>通过appId+entryId查询该表下所有data_id的脚本：cypress\plugins\mongodb_querydataId.js</p>
+<p>执行时间<br>共29条用例，本地执行总耗时约150s</p>
+<p>服务器构建结果：</p>
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>NatalieXSelina</span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="https://nataliexselina.github.io/Mongodb-bson/">https://nataliexselina.github.io/Mongodb-bson/</a></span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>License:</span>
+                        <span>Copyright (c) 2019 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc/4.0/">CC-BY-NC-4.0</a> LICENSE</span>
+                    </p>
+                
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+                <a class="prev" rel="prev" href="/chai-regular-expression/">chai-regular expression</a>
+            
+            
+            <a class="next" rel="next" href="/CRLF-LF-Problem/">CRLF&LF Problem</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+            </div>
+            <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© NatalieXSelina | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+
+</html>

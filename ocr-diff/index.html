@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="NatalieXSelina">
+
+
+    <meta name="subtitle" content=" b l o g">
+
+
+
+
+<title>ocr-diff | L i f e L i n e</title>
+
+
+
+    <link rel="icon" href="/favicon.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+<body>
+    <script>
+        // this function is used to check current theme before page loaded.
+        (() => {
+            const currentTheme = window.localStorage && window.localStorage.getItem('theme') || '';
+            const isDark = currentTheme === 'dark';
+            const pagebody = document.getElementsByTagName('body')[0]
+            if (isDark) {
+                pagebody.classList.add('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Dark"
+            } else {
+                pagebody.classList.remove('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Light"
+            }
+        })();
+    </script>
+
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">L i f e L i n e</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">L i f e L i n e</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+            <div class="main">
+                <div class="container">
+    
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">ocr-diff</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">NatalieXSelina</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">April 20, 2023&nbsp;&nbsp;14:53:19</a>
+                        </span>
+                    
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <p>背景：<br>出现多次ocr识别结果的细微变动导致自动化用例失败</p>
+<p>之前处理方案都是人工调整匹配文字，以下是相关git log记录，可以看到从 28 Sep 2021 创建至今一共有 17次 调整文本的fix</p>
+<p>$ git log –follow –all <file_path></p>
+<p>处理方案<br>PS：首先正则匹配行不通，因为ocr的识别结果的变化没有规律</p>
+<p>demo：通过diff库对比字符串，计算准确率<br>const diff &#x3D; require(‘diff’)<br>var args &#x3D; process.argv.splice(2)</p>
+<p>function compareText (text1, text2, tolerance) {<br>    const diffs &#x3D; diff.diffChars(text1, text2)<br>    let similarCount &#x3D; 0<br>    for (let i &#x3D; 0; i &lt; diffs.length; i++) {<br>        if (diffs[i].added &#x3D;&#x3D;&#x3D; undefined &amp;&amp; diffs[i].removed &#x3D;&#x3D;&#x3D; undefined) {<br>            similarCount +&#x3D; diffs[i].count<br>        }<br>    }<br>    const similarityScore &#x3D; similarCount &#x2F; Math.max(text1.length, text2.length); &#x2F;&#x2F; 除以最长文本长度以确保值小于1<br>    console.log(similarityScore)<br>    return similarityScore &gt;&#x3D; tolerance<br>}</p>
+<p>&#x2F;* ocr识别结果:args[0]，预期结果:args[1] *&#x2F;<br>&#x2F;&#x2F; 去除空格和\n对识别结果的影响<br>var ocr &#x3D; args[0].replace(&#x2F;[\n\s|]&#x2F;g, ‘’)<br>var expect &#x3D; args[1].replace(&#x2F;[\n\s|]&#x2F;g, ‘’)<br>console.log(compareText(ocr, expect, 0.7)) &#x2F;&#x2F; 准确率大于70%视为pass</p>
+<p>处理并优化原ocr相关函数的写法<br>1、处理过程中觉得类似这种一对一的关系，定义json再使用kv的形式比原来要好</p>
+<p>2、diff库虽然不支持import，但是可以写到utils中，不一定要放在nodejs脚本里</p>
+<p>3、mobile和pc其实是同一份value，只是key不同，可以使用三元运算符定义成一份</p>
+<p>4、优化后可以把原mobile.ocrFunction.js和ocrFunction.js的function挪动到testcase中定义，可移除这两个文件</p>
+<p>优化后<br>const diff &#x3D; require(‘diff’)</p>
+<p>var compareText &#x3D; function (el, expectText) {<br>    if(expectText !&#x3D; ‘’) {<br>        cy.get(el).then(($el) &#x3D;&gt; {<br>            var ocr &#x3D; (el.includes(‘input’)) ? $el.prop(‘value’) : $el.text()<br>            &#x2F;&#x2F; 去除空格和\n对识别结果的影响<br>            var ocr_result &#x3D; ocr.replace(&#x2F;[\n\s|]&#x2F;g, ‘’)<br>            var expect_result &#x3D; expectText.replace(&#x2F;[\n\s|]&#x2F;g, ‘’)<br>            const diffs &#x3D; diff.diffChars(ocr_result, expect_result)<br>            let similarCount &#x3D; 0<br>            for (let i &#x3D; 0; i &lt; diffs.length; i++) {<br>                if (diffs[i].added &#x3D;&#x3D;&#x3D; undefined &amp;&amp; diffs[i].removed &#x3D;&#x3D;&#x3D; undefined) {<br>                    similarCount +&#x3D; diffs[i].count<br>                }<br>            }<br>            const similarityScore &#x3D; similarCount &#x2F; Math.max(ocr_result.length, expect_result.length); &#x2F;&#x2F; 除以最长文本长度以确保值小于1<br>            &#x2F;&#x2F; 字符数小于等于3时，准确率有0.3以上即可；字符数大于3时，准确率需要有0.7以上<br>            ((Math.max(ocr_result.length, expect_result.length) &gt; 3)) ? expect(similarityScore).to.gte(0.7) : expect(similarityScore).to.gte(0.3)<br>        })<br>    }<br>    else{<br>        (el.includes(‘input’)) ? cy.get(el).should(‘have.text’, ‘’) : cy.get(el).should(‘have.value’, ‘’)<br>    }<br>}</p>
+<p>var dealOcrJson &#x3D; function (ua) {<br>    const ocr_json &#x3D; {<br>        ‘generalText’: {<br>            [(ua &#x3D;&#x3D; ‘pc’) ? ‘.fx-field[data-widgetname&#x3D;”_widget_1632728180067”] .fx-form-text input’ : ‘.fxm-field[data-widgetname&#x3D;”_widget_1632728180067”] .fxm-form-text .text-area’]: ‘作者：张若虚 春江潮水连海平，海上明月共潮生。 滟滟随波千万里，何处春江无月！’<br>        },<br>        ‘idCard’: {<br>            [(ua &#x3D;&#x3D; ‘pc’) ? ‘.fx-field[data-widgetname&#x3D;”_widget_1632728620755”] .fx-form-text input’ : ‘.fxm-field[data-widgetname&#x3D;”_widget_1632728620755”] .fxm-form-text .text-area’]: ‘梁淑萍’,<br>            [(ua &#x3D;&#x3D; ‘pc’) ? ‘.fx-field[data-widgetname&#x3D;”_widget_1632728620757”] .fx-form-text input’ : ‘.fxm-field[data-widgetname&#x3D;”_widget_1632728620757”] .fxm-form-text .text-area’]: ‘女’,<br>            [(ua &#x3D;&#x3D; ‘pc’) ? ‘.fx-field[data-widgetname&#x3D;”_widget_1632728620759”] .fx-form-text input’ : ‘.fxm-field[data-widgetname&#x3D;”_widget_1632728620759”] .fxm-form-text .text-area’]: ‘汉’,<br>            [(ua &#x3D;&#x3D; ‘pc’) ? ‘.fx-field[data-widgetname&#x3D;”_widget_1632728620761”] .datetime-label input’ : ‘.fxm-field[data-widgetname&#x3D;”_widget_1632728620761”] .datetime-label’]: ‘1995-07-04’,<br>            [(ua &#x3D;&#x3D; ‘pc’) ? ‘.fx-field[data-widgetname&#x3D;”_widget_1632728620763”] .fx-address .address-select .value’ : ‘.fxm-field[data-widgetname&#x3D;”_widget_1632728620763”] .address-picker-label’]: ‘江西省’,<br>            [(ua &#x3D;&#x3D; ‘pc’) ? ‘.fx-field[data-widgetname&#x3D;”_widget_1632728620763”] .fx-address .address-detail .textarea-inner’ : ‘.fxm-field[data-widgetname&#x3D;”_widget_1632728620763”] .address-detail .text-area’]: ‘南康市三江乡肖边村梁屋1号’,<br>            [(ua &#x3D;&#x3D; ‘pc’) ? ‘.fx-field[data-widgetname&#x3D;”_widget_1632728620767”] .fx-form-text input’ : ‘.fxm-field[data-widgetname&#x3D;”_widget_1632728620767”] .fxm-form-text .text-area’]: ‘360782199507043524’,<br>            [(ua &#x3D;&#x3D; ‘pc’) ? ‘.fx-field[data-widgetname&#x3D;”_widget_1632728620771”] .fx-form-text input’ : ‘.fxm-field[data-widgetname&#x3D;”_widget_1632728620771”] .fxm-form-text .text-area’]: ‘广州市公安局从化分局’,<br>            [(ua &#x3D;&#x3D; ‘pc’) ? ‘.fx-field[data-widgetname&#x3D;”_widget_1632728620773”] .datetime-label input’ : ‘.fxm-field[data-widgetname&#x3D;”_widget_1632728620773”] .datetime-label’]: ‘2015-09-06’,<br>            [(ua &#x3D;&#x3D; ‘pc’) ? ‘.fx-field[data-widgetname&#x3D;”_widget_1632728620775”] .datetime-label input’ : ‘.fxm-field[data-widgetname&#x3D;”_widget_1632728620775”] .datetime-label’]: ‘2025-09-06’<br>        },<br>        ‘vatinvoice’: {<br>            [(ua &#x3D;&#x3D; ‘pc’) ? ‘.fx-field[data-widgetname&#x3D;”_widget_1632728701935”] .fx-form-text input’ : ‘.fxm-field[data-widgetname&#x3D;”_widget_1632728701935”] .fxm-form-text .text-area’]: ‘专用发票’,<br>            [(ua &#x3D;&#x3D; ‘pc’) ? ‘.fx-field[data-widgetname&#x3D;”_widget_1632728701937”] .fx-form-text input’ : ‘.fxm-field[data-widgetname&#x3D;”_widget_1632728701937”] .fxm-form-text .text-area’]: ‘上海增值税专用发票’,<br>            [(ua &#x3D;&#x3D; ‘pc’) ? ‘.fx-field[data-widgetname&#x3D;”_widget_1632728701939”] .fx-form-text input’ : ‘.fxm-field[data-widgetname&#x3D;”_widget_1632728701939”] .fxm-form-text .text-area’]: ‘3100201130’,<br>            [(ua &#x3D;&#x3D; ‘pc’) ? ‘.fx-field[data-widgetname&#x3D;”_widget_1632728701941”] .fx-form-text input’ : ‘.fxm-field[data-widgetname&#x3D;”_widget_1632728701941”] .fxm-form-text .text-area’]: ‘’,<br>            [(ua &#x3D;&#x3D; ‘pc’) ? ‘.fx-field[data-widgetname&#x3D;”_widget_1632728701943”] .fx-form-text input’ : ‘.fxm-field[data-widgetname&#x3D;”_widget_1632728701943”] .fxm-form-text .text-area’]: ‘29358104’,<br>            [(ua &#x3D;&#x3D; ‘pc’) ? ‘.fx-field[data-widgetname&#x3D;”_widget_1632728701945”] .datetime-label input’ : ‘.fxm-field[data-widgetname&#x3D;”_widget_1632728701945”] .datetime-label’]: ‘2020-10-23’,<br>            [(ua &#x3D;&#x3D; ‘pc’) ? ‘.fx-field[data-widgetname&#x3D;”_widget_1632728701947”] .fx-form-text input’ : ‘.fxm-field[data-widgetname&#x3D;”_widget_1632728701947”] .fxm-form-text .text-area’]: ‘03*<em>07750639506+</em>&gt;7<em>90</em>3-0340&#x2F;0&gt;8<em>84-586&gt;&lt;-22612*373&gt;87++05&lt;8116*660+57+3527534&#x2F;+6&gt;770&#x2F;395499+0158-003+1720-759+’,<br>            [(ua &#x3D;&#x3D; ‘pc’) ? ‘.fx-field[data-widgetname&#x3D;”_widget_1632728701949”] .fx-form-text input’ : ‘.fxm-field[data-widgetname&#x3D;”_widget_1632728701949”] .fxm-form-text .text-area’]: ‘帆软软件有限公司’,<br>            [(ua &#x3D;&#x3D; ‘pc’) ? ‘.fx-field[data-widgetname&#x3D;”_widget_1632728701951”] .fx-form-text input’ : ‘.fxm-field[data-widgetname&#x3D;”_widget_1632728701951”] .fxm-form-text .text-area’]: ‘91320205MA1X04R87F’,<br>            [(ua &#x3D;&#x3D; ‘pc’) ? ‘.fx-field[data-widgetname&#x3D;”_widget_1632728701953”] .fx-form-text input’ : ‘.fxm-field[data-widgetname&#x3D;”_widget_1632728701953”] .fxm-form-text .text-area’]: ‘无锡市锡山区安镇街道丹山路78号锡东创融大厦A座303-5418602522339’,<br>            [(ua &#x3D;&#x3D; ‘pc’) ? ‘.fx-field[data-widgetname&#x3D;”_widget_1632728701955”] .fx-form-text input’ : ‘.fxm-field[data-widgetname&#x3D;”_widget_1632728701955”] .fxm-form-text .text-area’]: ‘中国银行无锡安镇支行509272088361’,<br>            [(ua &#x3D;&#x3D; ‘pc’) ? ‘.fx-field[data-widgetname&#x3D;”_widget_1632728701957”] .fx-form-text input’ : ‘.fxm-field[data-widgetname&#x3D;”_widget_1632728701957”] .fxm-form-text .text-area’]: ‘统一翻译(上海)有限公司’,<br>            [(ua &#x3D;&#x3D; ‘pc’) ? ‘.fx-field[data-widgetname&#x3D;”_widget_1632728701959”] .fx-form-text input’ : ‘.fxm-field[data-widgetname&#x3D;”_widget_1632728701959”] .fxm-form-text .text-area’]: ‘913100006073522721’,<br>            [(ua &#x3D;&#x3D; ‘pc’) ? ‘.fx-field[data-widgetname&#x3D;”_widget_1632728701961”] .fx-form-text input’ : ‘.fxm-field[data-widgetname&#x3D;”_widget_1632728701961”] .fxm-form-text .text-area’]: ‘上海市共和新路3088弄2号楼901室021-64811919’,<br>            [(ua &#x3D;&#x3D; ‘pc’) ? ‘.fx-field[data-widgetname&#x3D;”_widget_1632728701963”] .fx-form-text input’ : ‘.fxm-field[data-widgetname&#x3D;”_widget_1632728701963”] .fxm-form-text .text-area’]: ‘上海银行股份有限公司市北工业园区支行31636603001532951’,<br>            [(ua &#x3D;&#x3D; ‘pc’) ? ‘.fx-field[data-widgetname&#x3D;”_widget_1632728701965”] .fx-form-number input’ : ‘.fxm-field[data-widgetname&#x3D;”_widget_1632728701965”] .fxm-form-number input’]: ‘3422.64’,<br>            [(ua &#x3D;&#x3D; ‘pc’) ? ‘.fx-field[data-widgetname&#x3D;”_widget_1632728701967”] .fx-form-number input’ : ‘.fxm-field[data-widgetname&#x3D;”_widget_1632728701967”] .fxm-form-number input’]: ‘205.36’,<br>            [(ua &#x3D;&#x3D; ‘pc’) ? ‘.fx-field[data-widgetname&#x3D;”_widget_1632728701969”] .fx-form-text input’ : ‘.fxm-field[data-widgetname&#x3D;”_widget_1632728701969”] .fxm-form-text .text-area’]: ‘叁仟陆佰贰拾捌圆整’,<br>            [(ua &#x3D;&#x3D; ‘pc’) ? ‘.fx-field[data-widgetname&#x3D;”_widget_1632728701971”] .fx-form-number input’ : ‘.fxm-field[data-widgetname&#x3D;”_widget_1632728701971”] .fxm-form-number input’]: ‘3628’,<br>            [(ua &#x3D;&#x3D; ‘pc’) ? ‘.fx-field[data-widgetname&#x3D;”_widget_1632728701999”] .fx-form-text input’ : ‘.fxm-field[data-widgetname&#x3D;”_widget_1632728701999”] .fxm-form-text .text-area’]: ‘测试专用’,<br>            [(ua &#x3D;&#x3D; ‘pc’) ? ‘.fx-field[data-widgetname&#x3D;”_widget_1632728702001”] .fx-form-text input’ : ‘.fxm-field[data-widgetname&#x3D;”_widget_1632728702001”] .fxm-form-text .text-area’]: ‘潘景怡’,<br>            [(ua &#x3D;&#x3D; ‘pc’) ? ‘.fx-field[data-widgetname&#x3D;”_widget_1632728702003”] .fx-form-text input’ : ‘.fxm-field[data-widgetname&#x3D;”_widget_1632728702003”] .fxm-form-text .text-area’]: ‘谢佳’,<br>            [(ua &#x3D;&#x3D; ‘pc’) ? ‘.fx-field[data-widgetname&#x3D;”_widget_1632728702005”] .fx-form-text input’ : ‘.fxm-field[data-widgetname&#x3D;”_widget_1632728702005”] .fxm-form-text .text-area’]: ‘黄钧金’,<br>            [(ua &#x3D;&#x3D; ‘pc’) ? ‘.fx-subform .fx-subform-row:nth-child(1) .fx-sub-field[data-widgetname&#x3D;”_widget_1632728701974”] input’ : ‘.fxm-subform .subform-line:nth-child(1) .fxm-field[data-widgetname&#x3D;”_widget_1632728701974”] .fxm-form-text .text-area’]: ‘<em>现代服务</em>翻译费’,<br>            [(ua &#x3D;&#x3D; ‘pc’) ? ‘.fx-subform .fx-subform-row:nth-child(1) .fx-sub-field[data-widgetname&#x3D;”_widget_1632728701975”] input’ : ‘.fxm-subform .subform-line:nth-child(1) .fxm-field[data-widgetname&#x3D;”_widget_1632728701975”] .fxm-form-text .text-area’]: ‘34352’,<br>            [(ua &#x3D;&#x3D; ‘pc’) ? ‘.fx-subform .fx-subform-row:nth-child(1) .fx-sub-field[data-widgetname&#x3D;”_widget_1632728701976”] input’ : ‘.fxm-subform .subform-line:nth-child(1) .fxm-field[data-widgetname&#x3D;”_widget_1632728701976”] .fxm-form-number input’]: ‘1’,<br>            [(ua &#x3D;&#x3D; ‘pc’) ? ‘.fx-subform .fx-subform-row:nth-child(1) .fx-sub-field[data-widgetname&#x3D;”_widget_1632728701977”] input’ : ‘.fxm-subform .subform-line:nth-child(1) .fxm-field[data-widgetname&#x3D;”_widget_1632728701977”] .fxm-form-text .text-area’]: ‘个’,<br>            [(ua &#x3D;&#x3D; ‘pc’) ? ‘.fx-subform .fx-subform-row:nth-child(1) .fx-sub-field[data-widgetname&#x3D;”_widget_1632728701978”] input’ : ‘.fxm-subform .subform-line:nth-child(1) .fxm-field[data-widgetname&#x3D;”_widget_1632728701978”] .fxm-form-number input’]: ‘3422.64’,<br>            [(ua &#x3D;&#x3D; ‘pc’) ? ‘.fx-subform .fx-subform-row:nth-child(1) .fx-sub-field[data-widgetname&#x3D;”_widget_1632728701979”] input’ : ‘.fxm-subform .subform-line:nth-child(1) .fxm-field[data-widgetname&#x3D;”_widget_1632728701979”] .fxm-form-number input’]: ‘3422.64150943’,<br>            [(ua &#x3D;&#x3D; ‘pc’) ? ‘.fx-subform .fx-subform-row:nth-child(1) .fx-sub-field[data-widgetname&#x3D;”_widget_1632728701980”] input’ : ‘.fxm-subform .subform-line:nth-child(1) .fxm-field[data-widgetname&#x3D;”_widget_1632728701980”] .fxm-form-number input’]: ‘6’,<br>            [(ua &#x3D;&#x3D; ‘pc’) ? ‘.fx-subform .fx-subform-row:nth-child(1) .fx-sub-field[data-widgetname&#x3D;”_widget_1632728701981”] input’ : ‘.fxm-subform .subform-line:nth-child(1) .fxm-field[data-widgetname&#x3D;”_widget_1632728701981”] .fxm-form-number input’]: ‘205.36’,<br>            [(ua &#x3D;&#x3D; ‘pc’) ? ‘.fx-subform .fx-subform-row:nth-child(2) .fx-sub-field[data-widgetname&#x3D;”_widget_1632728701974”] input’ : ‘.fxm-subform .subform-line:nth-child(2) .fxm-field[data-widgetname&#x3D;”_widget_1632728701974”] .fxm-form-text .text-area’]: ‘<em>现代服务</em>翻译费’,<br>            [(ua &#x3D;&#x3D; ‘pc’) ? ‘.fx-subform .fx-subform-row:nth-child(2) .fx-sub-field[data-widgetname&#x3D;”_widget_1632728701975”] input’ : ‘.fxm-subform .subform-line:nth-child(2) .fxm-field[data-widgetname&#x3D;”_widget_1632728701975”] .fxm-form-text .text-area’]: ‘46445435’,<br>            [(ua &#x3D;&#x3D; ‘pc’) ? ‘.fx-subform .fx-subform-row:nth-child(2) .fx-sub-field[data-widgetname&#x3D;”_widget_1632728701976”] input’ : ‘.fxm-subform .subform-line:nth-child(2) .fxm-field[data-widgetname&#x3D;”_widget_1632728701976”] .fxm-form-number input’]: ‘1’,<br>            [(ua &#x3D;&#x3D; ‘pc’) ? ‘.fx-subform .fx-subform-row:nth-child(2) .fx-sub-field[data-widgetname&#x3D;”_widget_1632728701977”] input’ : ‘.fxm-subform .subform-line:nth-child(2) .fxm-field[data-widgetname&#x3D;”_widget_1632728701977”] .fxm-form-text .text-area’]: ‘个’,<br>            [(ua &#x3D;&#x3D; ‘pc’) ? ‘.fx-subform .fx-subform-row:nth-child(2) .fx-sub-field[data-widgetname&#x3D;”_widget_1632728701978”] input’ : ‘.fxm-subform .subform-line:nth-child(2) .fxm-field[data-widgetname&#x3D;”_widget_1632728701978”] .fxm-form-number input’]: ‘3422.64’,<br>            [(ua &#x3D;&#x3D; ‘pc’) ? ‘.fx-subform .fx-subform-row:nth-child(2) .fx-sub-field[data-widgetname&#x3D;”_widget_1632728701979”] input’ : ‘.fxm-subform .subform-line:nth-child(2) .fxm-field[data-widgetname&#x3D;”_widget_1632728701979”] .fxm-form-number input’]: ‘3422.64150943’,<br>            [(ua &#x3D;&#x3D; ‘pc’) ? ‘.fx-subform .fx-subform-row:nth-child(2) .fx-sub-field[data-widgetname&#x3D;”_widget_1632728701980”] input’ : ‘.fxm-subform .subform-line:nth-child(2) .fxm-field[data-widgetname&#x3D;”_widget_1632728701980”] .fxm-form-number input’]: ‘6’,<br>            [(ua &#x3D;&#x3D; ‘pc’) ? ‘.fx-subform .fx-subform-row:nth-child(2) .fx-sub-field[data-widgetname&#x3D;”_widget_1632728701981”] input’ : ‘.fxm-subform .subform-line:nth-child(2) .fxm-field[data-widgetname&#x3D;”_widget_1632728701981”] .fxm-form-number input’]: ‘205.36’<br>        },<br>        ‘businessLicense’: {<br>            [(ua &#x3D;&#x3D; ‘pc’) ? ‘.fx-field[data-widgetname&#x3D;”_widget_1632728753106”] .fx-form-text input’ : ‘.fxm-field[data-widgetname&#x3D;”_widget_1632728753106”] .fxm-form-text .text-area’]: ‘93341525MA2NU2QF9T’,<br>            [(ua &#x3D;&#x3D; ‘pc’) ? ‘.fx-field[data-widgetname&#x3D;”_widget_1632728753108”] .fx-form-text input’ : ‘.fxm-field[data-widgetname&#x3D;”_widget_1632728753108”] .fxm-form-text .text-area’]: ‘霍山洪峰石斛种植专业合作社’,<br>            [(ua &#x3D;&#x3D; ‘pc’) ? ‘.fx-field[data-widgetname&#x3D;”_widget_1632728753110”] .fx-form-text input’ : ‘.fxm-field[data-widgetname&#x3D;”_widget_1632728753110”] .fxm-form-text .text-area’]: ‘农民专业合作社’,<br>            [(ua &#x3D;&#x3D; ‘pc’) ? ‘.fx-field[data-widgetname&#x3D;”_widget_1632728753112”] .fx-address .address-detail .textarea-inner’ : ‘.fxm-field[data-widgetname&#x3D;”_widget_1632728753112”] .address-detail .text-area’]: ‘霍山县太平畈乡洪峰村仙人桥组’,<br>            [(ua &#x3D;&#x3D; ‘pc’) ? ‘.fx-field[data-widgetname&#x3D;”_widget_1632728753116”] .fx-form-text input’ : ‘.fxm-field[data-widgetname&#x3D;”_widget_1632728753116”] .fxm-form-text .text-area’]: ‘李传超’,<br>            [(ua &#x3D;&#x3D; ‘pc’) ? ‘.fx-field[data-widgetname&#x3D;”_widget_1632728753118”] .fx-form-text input’ : ‘.fxm-field[data-widgetname&#x3D;”_widget_1632728753118”] .fxm-form-text .text-area’]: ‘50万元’,<br>            [(ua &#x3D;&#x3D; ‘pc’) ? ‘.fx-field[data-widgetname&#x3D;”_widget_1632728753120”] .datetime-label input’ : ‘.fxm-field[data-widgetname&#x3D;”_widget_1632728753120”] .datetime-label’]: ‘2017-07-21’,<br>            [(ua &#x3D;&#x3D; ‘pc’) ? ‘.fx-field[data-widgetname&#x3D;”_widget_1632728753122”] .fx-form-text input’ : ‘.fxm-field[data-widgetname&#x3D;”_widget_1632728753122”] .fxm-form-text .text-area’]: ‘无’,<br>            [(ua &#x3D;&#x3D; ‘pc’) ? ‘.fx-field[data-widgetname&#x3D;”_widget_1632728753124”] .fx-form-textarea .x-resize-textarea’ : ‘.fxm-field[data-widgetname&#x3D;”_widget_1632728753124”] .fxm-form-textarea .text-area’]: ‘组织收购、销售成员种植的石斛等中药材(国家限制品种除外)、种植的苗木;组织采购、供应本社成员所需的生产资料;引进新品种、新技术;开展与上述经营有关的技术培训、技术交流和信息服务。(依法须经批准的项目,经相关部门批准后方可开展经营活动)’<br>        },<br>        ‘driveLicense’: {<br>            [(ua &#x3D;&#x3D; ‘pc’) ? ‘.fx-field[data-widgetname&#x3D;”_widget_1632729171138”] .fx-form-text input’ : ‘.fxm-field[data-widgetname&#x3D;”_widget_1632729171138”] .fxm-form-text .text-area’]: ‘610425198909102631’,<br>            [(ua &#x3D;&#x3D; ‘pc’) ? ‘.fx-field[data-widgetname&#x3D;”_widget_1632729171140”] .fx-form-text input’ : ‘.fxm-field[data-widgetname&#x3D;”_widget_1632729171140”] .fxm-form-text .text-area’]: ‘赵奥运’,<br>            [(ua &#x3D;&#x3D; ‘pc’) ? ‘.fx-field[data-widgetname&#x3D;”_widget_1632729171142”] .fx-form-text input’ : ‘.fxm-field[data-widgetname&#x3D;”_widget_1632729171142”] .fxm-form-text .text-area’]: ‘男’,<br>            [(ua &#x3D;&#x3D; ‘pc’) ? ‘.fx-field[data-widgetname&#x3D;”_widget_1632729171144”] .fx-form-text input’ : ‘.fxm-field[data-widgetname&#x3D;”_widget_1632729171144”] .fxm-form-text .text-area’]: ‘中国’,<br>            [(ua &#x3D;&#x3D; ‘pc’) ? ‘.fx-field[data-widgetname&#x3D;”_widget_1632729171146”] .fx-address .address-select .value’ : ‘.fxm-field[data-widgetname&#x3D;”_widget_1632729171146”] .address-picker-label’]: ‘陕西省’,<br>            [(ua &#x3D;&#x3D; ‘pc’) ? ‘.fx-field[data-widgetname&#x3D;”_widget_1632729171146”] .fx-address .address-detail .textarea-inner’ : ‘.fxm-field[data-widgetname&#x3D;”_widget_1632729171146”] .address-detail .text-area’]: ‘礼泉县赵镇赵家村二组’,<br>            [(ua &#x3D;&#x3D; ‘pc’) ? ‘.fx-field[data-widgetname&#x3D;”_widget_1632729171150”] .datetime-label input’ : ‘.fxm-field[data-widgetname&#x3D;”_widget_1632729171150”] .datetime-label’]: ‘1989-09-10’,<br>            [(ua &#x3D;&#x3D; ‘pc’) ? ‘.fx-field[data-widgetname&#x3D;”_widget_1632729171152”] .datetime-label input’ : ‘.fxm-field[data-widgetname&#x3D;”_widget_1632729171152”] .datetime-label’]: ‘2014-06-01’,<br>            [(ua &#x3D;&#x3D; ‘pc’) ? ‘.fx-field[data-widgetname&#x3D;”_widget_1632729171156”] .datetime-label input’ : ‘.fxm-field[data-widgetname&#x3D;”_widget_1632729171156”] .datetime-label’]: ‘2014-06-01’,<br>            [(ua &#x3D;&#x3D; ‘pc’) ? ‘.fx-field[data-widgetname&#x3D;”_widget_1632729171158”] .datetime-label input’ : ‘.fxm-field[data-widgetname&#x3D;”_widget_1632729171158”] .datetime-label’]: ‘2020-06-01’,<br>            [(ua &#x3D;&#x3D; ‘pc’) ? ‘.fx-field[data-widgetname&#x3D;”_widget_1632729171154”] .fx-form-text input’ : ‘.fxm-field[data-widgetname&#x3D;”_widget_1632729171154”] .fxm-form-text .text-area’]: ‘C1’<br>        },<br>        ‘drivePermit’: {<br>            [(ua &#x3D;&#x3D; ‘pc’) ? ‘.fx-field[data-widgetname&#x3D;”_widget_1632729207728”] .fx-form-text input’ : ‘.fxm-field[data-widgetname&#x3D;”_widget_1632729207728”] .fxm-form-text .text-area’]: ‘冀A1390X’,<br>            [(ua &#x3D;&#x3D; ‘pc’) ? ‘.fx-field[data-widgetname&#x3D;”_widget_1632729207730”] .fx-form-text input’ : ‘.fxm-field[data-widgetname&#x3D;”_widget_1632729207730”] .fxm-form-text .text-area’]: ‘小型轿车’,<br>            [(ua &#x3D;&#x3D; ‘pc’) ? ‘.fx-field[data-widgetname&#x3D;”_widget_1632729207732”] .fx-form-text input’ : ‘.fxm-field[data-widgetname&#x3D;”_widget_1632729207732”] .fxm-form-text .text-area’]: ‘刘立芳’,<br>            [(ua &#x3D;&#x3D; ‘pc’) ? ‘.fx-field[data-widgetname&#x3D;”_widget_1632729207734”] .fx-address .address-select .value’ : ‘.fxm-field[data-widgetname&#x3D;”_widget_1632729207734”] .address-picker-label’]: ‘河北省&#x2F;石家庄市&#x2F;无极县’,<br>            [(ua &#x3D;&#x3D; ‘pc’) ? ‘.fx-field[data-widgetname&#x3D;”_widget_1632729207734”] .fx-address .address-detail .textarea-inner’ : ‘.fxm-field[data-widgetname&#x3D;”_widget_1632729207734”] .address-detail .text-area’]: ‘东侯功乡西南汪村’,<br>            [(ua &#x3D;&#x3D; ‘pc’) ? ‘.fx-field[data-widgetname&#x3D;”_widget_1632729207738”] .fx-form-text input’ : ‘.fxm-field[data-widgetname&#x3D;”_widget_1632729207738”] .fxm-form-text .text-area’]: ‘非营运’,<br>            [(ua &#x3D;&#x3D; ‘pc’) ? ‘.fx-field[data-widgetname&#x3D;”_widget_1632729207740”] .fx-form-text input’ : ‘.fxm-field[data-widgetname&#x3D;”_widget_1632729207740”] .fxm-form-text .text-area’]: ‘杰牌GHW1153FRCRD’,<br>            [(ua &#x3D;&#x3D; ‘pc’) ? ‘.fx-field[data-widgetname&#x3D;”_widget_1632729207742”] .fx-form-text input’ : ‘.fxm-field[data-widgetname&#x3D;”_widget_1632729207742”] .fxm-form-text .text-area’]: ‘LVBFR1831E6054974’,<br>            [(ua &#x3D;&#x3D; ‘pc’) ? ‘.fx-field[data-widgetname&#x3D;”_widget_1632729207744”] .fx-form-text input’ : ‘.fxm-field[data-widgetname&#x3D;”_widget_1632729207744”] .fxm-form-text .text-area’]: ‘2054966’,<br>            [(ua &#x3D;&#x3D; ‘pc’) ? ‘.fx-field[data-widgetname&#x3D;”_widget_1632729207746”] .datetime-label input’ : ‘.fxm-field[data-widgetname&#x3D;”_widget_1632729207746”] .datetime-label’]: ‘2014-07-16’,<br>            [(ua &#x3D;&#x3D; ‘pc’) ? ‘.fx-field[data-widgetname&#x3D;”_widget_1632729207748”] .datetime-label input’ : ‘.fxm-field[data-widgetname&#x3D;”_widget_1632729207748”] .datetime-label’]: ‘2014-10-17’<br>        },<br>        ‘bankCard’: {<br>            [(ua &#x3D;&#x3D; ‘pc’) ? ‘.fx-field[data-widgetname&#x3D;”_widget_1632729241588”] .fx-form-text input’ : ‘.fxm-field[data-widgetname&#x3D;”_widget_1632729241588”] .fxm-form-text .text-area’]: ‘622202 1402019747879’,<br>            [(ua &#x3D;&#x3D; ‘pc’) ? ‘.fx-field[data-widgetname&#x3D;”_widget_1632729241590”] .fx-form-text input’ : ‘.fxm-field[data-widgetname&#x3D;”_widget_1632729241590”] .fxm-form-text .text-area’]: ‘12&#x2F;49’,<br>            [(ua &#x3D;&#x3D; ‘pc’) ? ‘.fx-field[data-widgetname&#x3D;”_widget_1632729241592”] .fx-form-text input’ : ‘.fxm-field[data-widgetname&#x3D;”_widget_1632729241592”] .fxm-form-text .text-area’]: ‘借记卡’,<br>            [(ua &#x3D;&#x3D; ‘pc’) ? ‘.fx-field[data-widgetname&#x3D;”_widget_1632729241594”] .fx-form-text input’ : ‘.fxm-field[data-widgetname&#x3D;”_widget_1632729241594”] .fxm-form-text .text-area’]: ‘中国工商银行’<br>        },<br>        ‘trainTicket’: {<br>            [(ua &#x3D;&#x3D; ‘pc’) ? ‘.fx-field[data-widgetname&#x3D;”_widget_1632729457920”] .fx-form-text input’ : ‘.fxm-field[data-widgetname&#x3D;”_widget_1632729457920”] .fxm-form-text .text-area’]: ‘011P027886’,<br>            [(ua &#x3D;&#x3D; ‘pc’) ? ‘.fx-field[data-widgetname&#x3D;”_widget_1632729457922”] .fx-form-text input’ : ‘.fxm-field[data-widgetname&#x3D;”_widget_1632729457922”] .fxm-form-text .text-area’]: ‘北京站’,<br>            [(ua &#x3D;&#x3D; ‘pc’) ? ‘.fx-field[data-widgetname&#x3D;”_widget_1632729457924”] .fx-form-text input’ : ‘.fxm-field[data-widgetname&#x3D;”_widget_1632729457924”] .fxm-form-text .text-area’]: ‘G247’,<br>            [(ua &#x3D;&#x3D; ‘pc’) ? ‘.fx-field[data-widgetname&#x3D;”_widget_1632729457926”] .fx-form-text input’ : ‘.fxm-field[data-widgetname&#x3D;”_widget_1632729457926”] .fxm-form-text .text-area’]: ‘上海站’,<br>            [(ua &#x3D;&#x3D; ‘pc’) ? ‘.fx-field[data-widgetname&#x3D;”_widget_1632729457928”] .datetime-label input’ : ‘.fxm-field[data-widgetname&#x3D;”_widget_1632729457928”] .datetime-label’]: ‘2016-10-16 20:16’,<br>            [(ua &#x3D;&#x3D; ‘pc’) ? ‘.fx-field[data-widgetname&#x3D;”_widget_1632729457930”] .fx-form-number input’ : ‘.fxm-field[data-widgetname&#x3D;”_widget_1632729457930”] .fxm-form-number input’]: ‘10’,<br>            [(ua &#x3D;&#x3D; ‘pc’) ? ‘.fx-field[data-widgetname&#x3D;”_widget_1632729457932”] .fx-form-text input’ : ‘.fxm-field[data-widgetname&#x3D;”_widget_1632729457932”] .fxm-form-text .text-area’]: ‘二等座’,<br>            [(ua &#x3D;&#x3D; ‘pc’) ? ‘.fx-field[data-widgetname&#x3D;”_widget_1632729457934”] .fx-form-text input’ : ‘.fxm-field[data-widgetname&#x3D;”_widget_1632729457934”] .fxm-form-text .text-area’]: ‘企鹅’,<br>            [(ua &#x3D;&#x3D; ‘pc’) ? ‘.fx-field[data-widgetname&#x3D;”_widget_1632729457936”] .fx-form-text input’ : ‘.fxm-field[data-widgetname&#x3D;”_widget_1632729457936”] .fxm-form-text .text-area’]: ‘扣247221201</em>***XXXX’,<br>            [(ua &#x3D;&#x3D; ‘pc’) ? ‘.fx-field[data-widgetname&#x3D;”_widget_1632729457938”] .fx-form-text input’ : ‘.fxm-field[data-widgetname&#x3D;”_widget_1632729457938”] .fxm-form-text .text-area’]: ‘21060310110205P027886’,<br>            [(ua &#x3D;&#x3D; ‘pc’) ? ‘.fx-field[data-widgetname&#x3D;”_widget_1632729457940”] .fx-form-text input’ : ‘.fxm-field[data-widgetname&#x3D;”_widget_1632729457940”] .fxm-form-text .text-area’]: ‘北京’<br>        }<br>    }<br>    return ocr_json<br>}</p>
+<p>export { dealOcrJson, compareText }</p>
+<p>&#x2F;&#x2F; &#x2F; <reference types="Cypress" /></p>
+<p>import { compareText, dealOcrJson } from ‘.&#x2F;ocr’</p>
+<p>function generalText () {<br>    var ocr_json &#x3D; dealOcrJson(‘pc’)<br>    const data &#x3D; ‘cypress&#x2F;fixtures&#x2F;upload&#x2F;ocr.png’<br>    cy.get(‘.fx-field[data-widgetname&#x3D;”_widget_1632728180039”] .upload-form&gt;input[type&#x3D;”file”]’).selectFile(data, { force: true })<br>    cy.get(‘.fx-field[data-widgetname&#x3D;”_widget_1632728180065”] .fx-form-image .fx-file-item’, { timeout: 20000 }).should(‘have.length’, 1)<br>    for(let key in ocr_json.generalText) {<br>        compareText(key, ocr_json.generalText[key])<br>    }<br>}</p>
+<p>describe(‘表单-字段-OCR-通用文字’, () &#x3D;&gt; {<br>    beforeEach(() &#x3D;&gt; {<br>        cy.signout()<br>        cy.login(Cypress.env(‘adminUser’), Cypress.env(‘password’))<br>    })</p>
+<pre><code>it(&#39;权限组提交&#39;, () =&gt; &#123;
+    cy.visit(&#39;/dashboard#/app/603606fa9fbbec0007447d4f/form/615174738d3c5000069bd9b3&#39;)
+    generalText()
+&#125;)
+
+it(&#39;权限组编辑&#39;, () =&gt; &#123;
+    cy.visit(&#39;/dashboard#/app/603606fa9fbbec0007447d4f/form/615174738d3c5000069bd9b3&#39;)
+    cy.switchGroup(&#39;自定义&#39;)
+    cy.get(&#39;.table-body tr[data-row-id=&quot;6152754a71e31e0006e765fe&quot;] td:not(&quot;.first&quot;)&#39;).eq(0).click()
+    cy.get(&#39;.button-pane .x-button:contains(&quot;编辑&quot;)&#39;).click()
+    generalText()
+&#125;)
+
+it(&#39;表单内链提交&#39;, () =&gt; &#123;
+    cy.visit(&#39;/app/603606fa9fbbec0007447d4f/entry/615174738d3c5000069bd9b3&#39;)
+    generalText()
+&#125;)
+
+it(&#39;表单内链编辑&#39;, () =&gt; &#123;
+    cy.visit(&#39;/app/603606fa9fbbec0007447d4f/entry/615174738d3c5000069bd9b3&#39;)
+    cy.switchGroup(&#39;自定义&#39;)
+    cy.get(&#39;.table-body tr[data-row-id=&quot;6152754a71e31e0006e765fe&quot;] td:not(&quot;.first&quot;)&#39;).eq(0).click()
+    cy.get(&#39;.button-pane .x-button:contains(&quot;编辑&quot;)&#39;).click()
+    generalText()
+&#125;)
+
+it(&#39;表单外链提交&#39;, () =&gt; &#123;
+    cy.visit(&#39;/f/615174738d3c5000069bd9b4&#39;)
+    generalText()
+&#125;)
+
+it(&#39;数据内链编辑&#39;, () =&gt; &#123;
+    cy.visit(&#39;/dashboard/app/603606fa9fbbec0007447d4f/form/615174738d3c5000069bd9b3/data/6152754a71e31e0006e765fe/qr_link&#39;)
+    cy.get(&#39;.button-pane .x-button:contains(&quot;编辑&quot;)&#39;).click()
+    generalText()
+&#125;)
+
+it(&#39;数据外链编辑&#39;, () =&gt; &#123;
+    cy.visit(&#39;/l/615174738d3c5000069bd9b4/d/6152754a71e31e0006e765fe&#39;)
+    cy.get(&#39;.button-pane .x-button:contains(&quot;编辑&quot;)&#39;).click()
+    generalText()
+&#125;)
+</code></pre>
+<p>})</p>
+<p>优化前<br>&#x2F;&#x2F; &#x2F; <reference types="Cypress" /></p>
+<p>var ocrFunc &#x3D; {</p>
+<pre><code>generalText: function () &#123;
+    const data = &#39;cypress/fixtures/upload/ocr.png&#39;
+    cy.get(&#39;.fx-field[data-widgetname=&quot;_widget_1632728180039&quot;] .upload-form&gt;input[type=&quot;file&quot;]&#39;).selectFile(data, &#123; force: true &#125;)
+    cy.get(&#39;.fx-field[data-widgetname=&quot;_widget_1632728180065&quot;] .fx-form-image .fx-file-item&#39;, &#123; timeout: 20000 &#125;).should(&#39;have.length&#39;, 1)
+    cy.get(&#39;.fx-field[data-widgetname=&quot;_widget_1632728180067&quot;] .fx-form-text input&#39;).should(&#39;have.value&#39;, &#39;作者：张若虚 春江潮水连海平，海上明月共潮生。 滟滟随波千万里，何处春江无月！&#39;)
+&#125;,
+
+idCard: function () &#123;//身份证图片我用的百度的假身份证
+    const data1 = &#39;cypress/fixtures/upload/idcard1.png&#39;
+    const data2 = &#39;cypress/fixtures/upload/idcard2.png&#39;
+    cy.get(&#39;.fx-field[data-widgetname=&quot;_widget_1632728620727&quot;] .x-upload&#39;).eq(0).find(&#39;.upload-form&gt;input[type=&quot;file&quot;]&#39;).selectFile(data2, &#123; force: true &#125;)
+    cy.get(&#39;.fx-field[data-widgetname=&quot;_widget_1632728620727&quot;] .x-upload&#39;).eq(1).find(&#39;.upload-form&gt;input[type=&quot;file&quot;]&#39;).selectFile(data1, &#123; force: true &#125;)
+    cy.get(&#39;.fx-field[data-widgetname=&quot;_widget_1632728620753&quot;] .fx-form-image .fx-file-item&#39;, &#123; timeout: 20000 &#125;).should(&#39;have.length&#39;, 1)
+    cy.get(&#39;.fx-field[data-widgetname=&quot;_widget_1632728620769&quot;] .fx-form-image .fx-file-item&#39;, &#123; timeout: 20000 &#125;).should(&#39;have.length&#39;, 1)
+    cy.get(&#39;.fx-field[data-widgetname=&quot;_widget_1632728620755&quot;] .fx-form-text input&#39;).should(&#39;have.value&#39;, &#39;梁淑萍&#39;)
+    cy.get(&#39;.fx-field[data-widgetname=&quot;_widget_1632728620757&quot;] .fx-form-text input&#39;).should(&#39;have.value&#39;, &#39;女&#39;)
+    cy.get(&#39;.fx-field[data-widgetname=&quot;_widget_1632728620759&quot;] .fx-form-text input&#39;).should(&#39;have.value&#39;, &#39;汉&#39;)
+    cy.get(&#39;.fx-field[data-widgetname=&quot;_widget_1632728620761&quot;] .datetime-label input&#39;).should(&#39;have.value&#39;, &#39;1995-07-04&#39;)
+    cy.get(&#39;.fx-field[data-widgetname=&quot;_widget_1632728620763&quot;] .fx-address .address-select .value&#39;).should(&#39;have.text&#39;, &#39;江西省&#39;)
+    cy.get(&#39;.fx-field[data-widgetname=&quot;_widget_1632728620763&quot;] .fx-address .address-detail .textarea-inner&#39;).should(&#39;have.text&#39;, &#39;南康市三江乡肖边村梁屋1号&#39;)
+    cy.get(&#39;.fx-field[data-widgetname=&quot;_widget_1632728620767&quot;] .fx-form-text input&#39;).should(&#39;have.value&#39;, &#39;360782199507043524&#39;)
+    cy.get(&#39;.fx-field[data-widgetname=&quot;_widget_1632728620771&quot;] .fx-form-text input&#39;).should(&#39;have.value&#39;, &#39;广州市公安局从化分局&#39;)
+    cy.get(&#39;.fx-field[data-widgetname=&quot;_widget_1632728620773&quot;] .datetime-label input&#39;).should(&#39;have.value&#39;, &#39;2015-09-06&#39;)
+    cy.get(&#39;.fx-field[data-widgetname=&quot;_widget_1632728620775&quot;] .datetime-label input&#39;).should(&#39;have.value&#39;, &#39;2025-09-06&#39;)
+&#125;,
+
+vatinvoice: function () &#123;
+    const data = &#39;cypress/fixtures/upload/VATinvoice.png&#39;
+    cy.get(&#39;.fx-field[data-widgetname=&quot;_widget_1632728701907&quot;] .upload-form&gt;input[type=&quot;file&quot;]&#39;).selectFile(data, &#123; force: true &#125;)
+    cy.get(&#39;.fx-field[data-widgetname=&quot;_widget_1632728701933&quot;] .fx-form-image .fx-file-item&#39;, &#123; timeout: 20000 &#125;).should(&#39;have.length&#39;, 1)
+    cy.get(&#39;.fx-field[data-widgetname=&quot;_widget_1632728701935&quot;] .fx-form-text input&#39;).should(&#39;have.value&#39;, &#39;专用发票&#39;)
+    cy.get(&#39;.fx-field[data-widgetname=&quot;_widget_1632728701937&quot;] .fx-form-text input&#39;).should(&#39;have.value&#39;, &#39;上海增值税专用发票&#39;)
+    cy.get(&#39;.fx-field[data-widgetname=&quot;_widget_1632728701939&quot;] .fx-form-text input&#39;).should(&#39;have.value&#39;, &#39;3100201130&#39;)
+    cy.get(&#39;.fx-field[data-widgetname=&quot;_widget_1632728701941&quot;] .fx-form-text input&#39;).should(&#39;have.value&#39;, &#39;&#39;)
+    cy.get(&#39;.fx-field[data-widgetname=&quot;_widget_1632728701943&quot;] .fx-form-text input&#39;).should(&#39;have.value&#39;, &#39;29358104&#39;)
+    cy.get(&#39;.fx-field[data-widgetname=&quot;_widget_1632728701945&quot;] .datetime-label input&#39;).should(&#39;have.value&#39;, &#39;2020-10-23&#39;)
+    cy.get(&#39;.fx-field[data-widgetname=&quot;_widget_1632728701947&quot;] .fx-form-text input&#39;).should(&#39;have.value&#39;, &#39;03**07750639506+*&gt;7*90*3-0340/0&gt;8*84-586&gt;&lt;-22612*373&gt;87++05&lt;8116*660+57+3527534/+6&gt;770/395499+0158-003+1720-759+&#39;)
+    cy.get(&#39;.fx-field[data-widgetname=&quot;_widget_1632728701949&quot;] .fx-form-text input&#39;).should(&#39;have.value&#39;, &#39;帆软软件有限公司&#39;)
+    cy.get(&#39;.fx-field[data-widgetname=&quot;_widget_1632728701951&quot;] .fx-form-text input&#39;).should(&#39;have.value&#39;, &#39;91320205MA1X04R87F&#39;)
+    cy.get(&#39;.fx-field[data-widgetname=&quot;_widget_1632728701953&quot;] .fx-form-text input&#39;).should(&#39;have.value&#39;, &#39;无锡市锡山区安镇街道丹山路78号锡东创融大厦A座303-5418602522339&#39;)
+    cy.get(&#39;.fx-field[data-widgetname=&quot;_widget_1632728701955&quot;] .fx-form-text input&#39;).should(&#39;have.value&#39;, &#39;中国银行无锡安镇支行509272088361&#39;)
+    cy.get(&#39;.fx-field[data-widgetname=&quot;_widget_1632728701957&quot;] .fx-form-text input&#39;).should(&#39;have.value&#39;, &#39;统一翻译(上海)有限公司&#39;)
+    cy.get(&#39;.fx-field[data-widgetname=&quot;_widget_1632728701959&quot;] .fx-form-text input&#39;).should(&#39;have.value&#39;, &#39;913100006073522721&#39;)
+    cy.get(&#39;.fx-field[data-widgetname=&quot;_widget_1632728701961&quot;] .fx-form-text input&#39;).should(&#39;have.value&#39;, &#39;上海市共和新路3088弄2号楼901室021-64811919&#39;)
+    cy.get(&#39;.fx-field[data-widgetname=&quot;_widget_1632728701963&quot;] .fx-form-text input&#39;).should(&#39;have.value&#39;, &#39;上海银行股份有限公司市北工业园区支行31636603001532951&#39;)
+    cy.get(&#39;.fx-field[data-widgetname=&quot;_widget_1632728701965&quot;] .fx-form-number input&#39;).should(&#39;have.value&#39;, &#39;3422.64&#39;)
+    cy.get(&#39;.fx-field[data-widgetname=&quot;_widget_1632728701967&quot;] .fx-form-number input&#39;).should(&#39;have.value&#39;, &#39;205.36&#39;)
+    cy.get(&#39;.fx-field[data-widgetname=&quot;_widget_1632728701969&quot;] .fx-form-text input&#39;).should(&#39;have.value&#39;, &#39;叁仟陆佰贰拾捌圆整&#39;)
+    cy.get(&#39;.fx-field[data-widgetname=&quot;_widget_1632728701971&quot;] .fx-form-number input&#39;).should(&#39;have.value&#39;, &#39;3628&#39;)
+    cy.get(&#39;.fx-field[data-widgetname=&quot;_widget_1632728701999&quot;] .fx-form-text input&#39;).should(&#39;have.value&#39;, &#39;测试专用&#39;)
+    cy.get(&#39;.fx-field[data-widgetname=&quot;_widget_1632728702001&quot;] .fx-form-text input&#39;).should(&#39;have.value&#39;, &#39;潘景怡&#39;)
+    cy.get(&#39;.fx-field[data-widgetname=&quot;_widget_1632728702003&quot;] .fx-form-text input&#39;).should(&#39;have.value&#39;, &#39;谢佳&#39;)
+    cy.get(&#39;.fx-field[data-widgetname=&quot;_widget_1632728702005&quot;] .fx-form-text input&#39;).should(&#39;have.value&#39;, &#39;黄钧金&#39;)
+    cy.get(&#39;.fx-field[data-widgetname=&quot;_widget_1632728701973&quot;] .subform-content .fx-subform-row&#39;).eq(0).find(&#39;.fx-sub-field[data-widgetname=&quot;_widget_1632728701974&quot;] input&#39;).should(&#39;have.value&#39;, &#39;*现代服务*翻译费&#39;)
+    cy.get(&#39;.fx-field[data-widgetname=&quot;_widget_1632728701973&quot;] .subform-content .fx-subform-row&#39;).eq(0).find(&#39;.fx-sub-field[data-widgetname=&quot;_widget_1632728701975&quot;] input&#39;).should(&#39;have.value&#39;, &#39;34352&#39;)
+    cy.get(&#39;.fx-field[data-widgetname=&quot;_widget_1632728701973&quot;] .subform-content .fx-subform-row&#39;).eq(0).find(&#39;.fx-sub-field[data-widgetname=&quot;_widget_1632728701976&quot;] input&#39;).should(&#39;have.value&#39;, &#39;1.3421&#39;)
+    cy.get(&#39;.fx-field[data-widgetname=&quot;_widget_1632728701973&quot;] .subform-content .fx-subform-row&#39;).eq(0).find(&#39;.fx-sub-field[data-widgetname=&quot;_widget_1632728701977&quot;] input&#39;).should(&#39;have.value&#39;, &#39;个&#39;)
+    cy.get(&#39;.fx-field[data-widgetname=&quot;_widget_1632728701973&quot;] .subform-content .fx-subform-row&#39;).eq(0).find(&#39;.fx-sub-field[data-widgetname=&quot;_widget_1632728701978&quot;] input&#39;).should(&#39;have.value&#39;, &#39;3422.64&#39;)
+    cy.get(&#39;.fx-field[data-widgetname=&quot;_widget_1632728701973&quot;] .subform-content .fx-subform-row&#39;).eq(0).find(&#39;.fx-sub-field[data-widgetname=&quot;_widget_1632728701979&quot;] input&#39;).should(&#39;have.value&#39;, &#39;3422.64150943&#39;)
+    cy.get(&#39;.fx-field[data-widgetname=&quot;_widget_1632728701973&quot;] .subform-content .fx-subform-row&#39;).eq(0).find(&#39;.fx-sub-field[data-widgetname=&quot;_widget_1632728701980&quot;] input&#39;).should(&#39;have.value&#39;, &#39;6&#39;)
+    cy.get(&#39;.fx-field[data-widgetname=&quot;_widget_1632728701973&quot;] .subform-content .fx-subform-row&#39;).eq(0).find(&#39;.fx-sub-field[data-widgetname=&quot;_widget_1632728701981&quot;] input&#39;).should(&#39;have.value&#39;, &#39;205.36&#39;)
+    cy.get(&#39;.fx-field[data-widgetname=&quot;_widget_1632728701973&quot;] .subform-content .fx-subform-row&#39;).eq(1).find(&#39;.fx-sub-field[data-widgetname=&quot;_widget_1632728701974&quot;] input&#39;).should(&#39;have.value&#39;, &#39;*现代服务*翻译费&#39;)
+    cy.get(&#39;.fx-field[data-widgetname=&quot;_widget_1632728701973&quot;] .subform-content .fx-subform-row&#39;).eq(1).find(&#39;.fx-sub-field[data-widgetname=&quot;_widget_1632728701975&quot;] input&#39;).should(&#39;have.value&#39;, &#39;46445435&#39;)
+    cy.get(&#39;.fx-field[data-widgetname=&quot;_widget_1632728701973&quot;] .subform-content .fx-subform-row&#39;).eq(1).find(&#39;.fx-sub-field[data-widgetname=&quot;_widget_1632728701976&quot;] input&#39;).should(&#39;have.value&#39;, &#39;1&#39;)
+    cy.get(&#39;.fx-field[data-widgetname=&quot;_widget_1632728701973&quot;] .subform-content .fx-subform-row&#39;).eq(1).find(&#39;.fx-sub-field[data-widgetname=&quot;_widget_1632728701977&quot;] input&#39;).should(&#39;have.value&#39;, &#39;个&#39;)
+    cy.get(&#39;.fx-field[data-widgetname=&quot;_widget_1632728701973&quot;] .subform-content .fx-subform-row&#39;).eq(1).find(&#39;.fx-sub-field[data-widgetname=&quot;_widget_1632728701978&quot;] input&#39;).should(&#39;have.value&#39;, &#39;3422.64&#39;)
+    cy.get(&#39;.fx-field[data-widgetname=&quot;_widget_1632728701973&quot;] .subform-content .fx-subform-row&#39;).eq(1).find(&#39;.fx-sub-field[data-widgetname=&quot;_widget_1632728701979&quot;] input&#39;).should(&#39;have.value&#39;, &#39;3422.64150943&#39;)
+    cy.get(&#39;.fx-field[data-widgetname=&quot;_widget_1632728701973&quot;] .subform-content .fx-subform-row&#39;).eq(1).find(&#39;.fx-sub-field[data-widgetname=&quot;_widget_1632728701980&quot;] input&#39;).should(&#39;have.value&#39;, &#39;6&#39;)
+    cy.get(&#39;.fx-field[data-widgetname=&quot;_widget_1632728701973&quot;] .subform-content .fx-subform-row&#39;).eq(1).find(&#39;.fx-sub-field[data-widgetname=&quot;_widget_1632728701981&quot;] input&#39;).should(&#39;have.value&#39;, &#39;205.36&#39;)
+&#125;,
+
+businessLicense: function () &#123;
+    const data = &#39;cypress/fixtures/upload/business_license.png&#39;
+    cy.get(&#39;.fx-field[data-widgetname=&quot;_widget_1632728753078&quot;] .upload-form&gt;input[type=&quot;file&quot;]&#39;).selectFile(data, &#123; force: true &#125;)
+    cy.get(&#39;.fx-field[data-widgetname=&quot;_widget_1632728753104&quot;] .fx-form-image .fx-file-item&#39;, &#123; timeout: 20000 &#125;).should(&#39;have.length&#39;, 1)
+    cy.get(&#39;.fx-field[data-widgetname=&quot;_widget_1632728753106&quot;] .fx-form-text input&#39;).should(&#39;have.value&#39;, &#39;93341525MA2NU2QF9T&#39;)
+    cy.get(&#39;.fx-field[data-widgetname=&quot;_widget_1632728753108&quot;] .fx-form-text input&#39;).should(&#39;have.value&#39;, &#39;霍山洪峰石斛种植专业合作社&#39;)
+    cy.get(&#39;.fx-field[data-widgetname=&quot;_widget_1632728753110&quot;] .fx-form-text input&#39;).should(&#39;have.value&#39;, &#39;农民专业合作社&#39;)
+    cy.get(&#39;.fx-field[data-widgetname=&quot;_widget_1632728753112&quot;] .fx-address .address-detail .textarea-inner&#39;).should(&#39;have.text&#39;, &#39;霍山县太平畈乡洪峰村仙人桥组&#39;)
+    cy.get(&#39;.fx-field[data-widgetname=&quot;_widget_1632728753116&quot;] .fx-form-text input&#39;).should(&#39;have.value&#39;, &#39;李传超&#39;)
+    cy.get(&#39;.fx-field[data-widgetname=&quot;_widget_1632728753118&quot;] .fx-form-text input&#39;).should(&#39;have.value&#39;, &#39;50万元&#39;)
+    cy.get(&#39;.fx-field[data-widgetname=&quot;_widget_1632728753120&quot;] .datetime-label input&#39;).should(&#39;have.value&#39;, &#39;2017-07-21&#39;)
+    cy.get(&#39;.fx-field[data-widgetname=&quot;_widget_1632728753122&quot;] .fx-form-text input&#39;).should(&#39;have.value&#39;, &#39;无&#39;)
+    cy.get(&#39;.fx-field[data-widgetname=&quot;_widget_1632728753124&quot;] .fx-form-textarea .x-resize-textarea&#39;).should(&#39;have.text&#39;, &#39;组织收购、销售成员种植的石斛等中药材(国家限制品种除外)、种植的苗木;组织采购、供应本社成员所需的生产资料;引进新品种、新技术;开展与上述经营有关的技术培训、技术交流和信息服务。(依法须经批准的项目,经相关部门批准后方可开展经营活动)&#39;)
+&#125;,
+
+driveLicense: function () &#123;
+    const data = &#39;cypress/fixtures/upload/driverLicense.png&#39;
+    cy.get(&#39;.fx-field[data-widgetname=&quot;_widget_1632729171110&quot;] .upload-form&gt;input[type=&quot;file&quot;]&#39;).selectFile(data, &#123; force: true &#125;)
+    cy.get(&#39;.fx-field[data-widgetname=&quot;_widget_1632729171136&quot;] .fx-form-image .fx-file-item&#39;, &#123; timeout: 20000 &#125;).should(&#39;have.length&#39;, 1)
+    cy.get(&#39;.fx-field[data-widgetname=&quot;_widget_1632729171138&quot;] .fx-form-text input&#39;).should(&#39;have.value&#39;, &#39;610425198909102631&#39;)
+    cy.get(&#39;.fx-field[data-widgetname=&quot;_widget_1632729171140&quot;] .fx-form-text input&#39;).should(&#39;have.value&#39;, &#39;赵奥运&#39;)
+    cy.get(&#39;.fx-field[data-widgetname=&quot;_widget_1632729171142&quot;] .fx-form-text input&#39;).should(&#39;have.value&#39;, &#39;男&#39;)
+    cy.get(&#39;.fx-field[data-widgetname=&quot;_widget_1632729171144&quot;] .fx-form-text input&#39;).should(&#39;have.value&#39;, &#39;中国&#39;)
+    cy.get(&#39;.fx-field[data-widgetname=&quot;_widget_1632729171146&quot;] .fx-address .address-select .value&#39;).should(&#39;have.text&#39;, &#39;陕西省&#39;)
+    cy.get(&#39;.fx-field[data-widgetname=&quot;_widget_1632729171146&quot;] .fx-address .address-detail .textarea-inner&#39;).should(&#39;have.text&#39;, &#39;礼泉县赵镇赵家村二组&#39;)
+    cy.get(&#39;.fx-field[data-widgetname=&quot;_widget_1632729171150&quot;] .datetime-label input&#39;).should(&#39;have.value&#39;, &#39;1989-09-10&#39;)
+    cy.get(&#39;.fx-field[data-widgetname=&quot;_widget_1632729171152&quot;] .datetime-label input&#39;).should(&#39;have.value&#39;, &#39;2014-06-01&#39;)
+    cy.get(&#39;.fx-field[data-widgetname=&quot;_widget_1632729171156&quot;] .datetime-label input&#39;).should(&#39;have.value&#39;, &#39;2014-06-01&#39;)
+    cy.get(&#39;.fx-field[data-widgetname=&quot;_widget_1632729171158&quot;] .datetime-label input&#39;).should(&#39;have.value&#39;, &#39;2020-06-01&#39;)
+    cy.get(&#39;.fx-field[data-widgetname=&quot;_widget_1632729171154&quot;] .fx-form-text input&#39;).should(&#39;have.value&#39;, &#39;C1&#39;)
+&#125;,
+
+drivePermit: function () &#123;
+    const data = &#39;cypress/fixtures/upload/drivePermit.png&#39;
+    cy.get(&#39;.fx-field[data-widgetname=&quot;_widget_1632729207700&quot;] .upload-form&gt;input[type=&quot;file&quot;]&#39;).selectFile(data, &#123; force: true &#125;)
+    cy.get(&#39;.fx-field[data-widgetname=&quot;_widget_1632729207726&quot;] .fx-form-image .fx-file-item&#39;, &#123; timeout: 20000 &#125;).should(&#39;have.length&#39;, 1)
+    cy.get(&#39;.fx-field[data-widgetname=&quot;_widget_1632729207728&quot;] .fx-form-text input&#39;).should(&#39;have.value&#39;, &#39;冀A1390X&#39;)
+    cy.get(&#39;.fx-field[data-widgetname=&quot;_widget_1632729207730&quot;] .fx-form-text input&#39;).should(&#39;have.value&#39;, &#39;小型轿车&#39;)
+    cy.get(&#39;.fx-field[data-widgetname=&quot;_widget_1632729207732&quot;] .fx-form-text input&#39;).should(&#39;have.value&#39;, &#39;刘立芳&#39;)
+    cy.get(&#39;.fx-field[data-widgetname=&quot;_widget_1632729207734&quot;] .fx-address .address-select .value&#39;).should(&#39;have.text&#39;, &#39;河北省/石家庄市/无极县&#39;)
+    cy.get(&#39;.fx-field[data-widgetname=&quot;_widget_1632729207734&quot;] .fx-address .address-detail .textarea-inner&#39;).should(&#39;have.text&#39;, &#39;东侯功乡西南汪村&#39;)
+    cy.get(&#39;.fx-field[data-widgetname=&quot;_widget_1632729207738&quot;] .fx-form-text input&#39;).should(&#39;have.value&#39;, &#39;非营运&#39;)
+    cy.get(&#39;.fx-field[data-widgetname=&quot;_widget_1632729207740&quot;] .fx-form-text input&#39;).should(&#39;have.value&#39;, &#39;杰牌GHW1153FRCRD&#39;)
+    cy.get(&#39;.fx-field[data-widgetname=&quot;_widget_1632729207742&quot;] .fx-form-text input&#39;).should(&#39;have.value&#39;, &#39;LVBFR1831E6054974&#39;)
+    cy.get(&#39;.fx-field[data-widgetname=&quot;_widget_1632729207744&quot;] .fx-form-text input&#39;).should(&#39;have.value&#39;, &#39;2054966&#39;)
+    cy.get(&#39;.fx-field[data-widgetname=&quot;_widget_1632729207746&quot;] .datetime-label input&#39;).should(&#39;have.value&#39;, &#39;2014-07-16&#39;)
+    cy.get(&#39;.fx-field[data-widgetname=&quot;_widget_1632729207748&quot;] .datetime-label input&#39;).should(&#39;have.value&#39;, &#39;2014-10-17&#39;)
+&#125;,
+
+bankCard: function () &#123;
+    const data = &#39;cypress/fixtures/upload/bankCard.png&#39;
+    cy.get(&#39;.fx-field[data-widgetname=&quot;_widget_1632729241560&quot;] .upload-form&gt;input[type=&quot;file&quot;]&#39;).selectFile(data, &#123; force: true &#125;)
+    cy.get(&#39;.fx-field[data-widgetname=&quot;_widget_1632729241586&quot;] .fx-form-image .fx-file-item&#39;, &#123; timeout: 20000 &#125;).should(&#39;have.length&#39;, 1)
+    cy.get(&#39;.fx-field[data-widgetname=&quot;_widget_1632729241588&quot;] .fx-form-text input&#39;).should(&#39;have.value&#39;, &#39;622202 1402019747879&#39;)
+    cy.get(&#39;.fx-field[data-widgetname=&quot;_widget_1632729241590&quot;] .fx-form-text input&#39;).should(&#39;have.value&#39;, &#39;12/49&#39;)
+    cy.get(&#39;.fx-field[data-widgetname=&quot;_widget_1632729241592&quot;] .fx-form-text input&#39;).should(&#39;have.value&#39;, &#39;借记卡&#39;)
+    cy.get(&#39;.fx-field[data-widgetname=&quot;_widget_1632729241594&quot;] .fx-form-text input&#39;).should(&#39;have.value&#39;, &#39;中国工商银行&#39;)
+&#125;,
+
+trainTicket: function () &#123;
+    const data = &#39;cypress/fixtures/upload/trainTicket.png&#39;
+    cy.get(&#39;.fx-field[data-widgetname=&quot;_widget_1632729457892&quot;] .upload-form&gt;input[type=&quot;file&quot;]&#39;).selectFile(data, &#123; force: true &#125;)
+    cy.get(&#39;.fx-field[data-widgetname=&quot;_widget_1632729457918&quot;] .fx-form-image .fx-file-item&#39;, &#123; timeout: 20000 &#125;).should(&#39;have.length&#39;, 1)
+    cy.get(&#39;.fx-field[data-widgetname=&quot;_widget_1632729457920&quot;] .fx-form-text input&#39;).should(&#39;have.value&#39;, &#39;011P027886&#39;)
+    cy.get(&#39;.fx-field[data-widgetname=&quot;_widget_1632729457922&quot;] .fx-form-text input&#39;).should(&#39;have.value&#39;, &#39;北京站&#39;)
+    cy.get(&#39;.fx-field[data-widgetname=&quot;_widget_1632729457924&quot;] .fx-form-text input&#39;).should(&#39;have.value&#39;, &#39;G247&#39;)
+    cy.get(&#39;.fx-field[data-widgetname=&quot;_widget_1632729457926&quot;] .fx-form-text input&#39;).should(&#39;have.value&#39;, &#39;上海站&#39;)
+    cy.get(&#39;.fx-field[data-widgetname=&quot;_widget_1632729457928&quot;] .datetime-label input&#39;).should(&#39;have.value&#39;, &#39;2016-10-16 20:16&#39;)
+    cy.get(&#39;.fx-field[data-widgetname=&quot;_widget_1632729457930&quot;] .fx-form-number input&#39;).should(&#39;have.value&#39;, &#39;10&#39;)
+    cy.get(&#39;.fx-field[data-widgetname=&quot;_widget_1632729457932&quot;] .fx-form-text input&#39;).should(&#39;have.value&#39;, &#39;二等座&#39;)
+    cy.get(&#39;.fx-field[data-widgetname=&quot;_widget_1632729457934&quot;] .fx-form-text input&#39;).should(&#39;have.value&#39;, &#39;企鹅&#39;)
+    cy.get(&#39;.fx-field[data-widgetname=&quot;_widget_1632729457936&quot;] .fx-form-text input&#39;).should(&#39;have.value&#39;, &#39;扣247221201****XXXX&#39;)
+    cy.get(&#39;.fx-field[data-widgetname=&quot;_widget_1632729457938&quot;] .fx-form-text input&#39;).should(&#39;have.value&#39;, &#39;21060310110205P027886&#39;)
+    cy.get(&#39;.fx-field[data-widgetname=&quot;_widget_1632729457940&quot;] .fx-form-text input&#39;).should(&#39;have.value&#39;, &#39;北京&#39;)
+&#125;,
+</code></pre>
+<p>}</p>
+<p>export default ocrFunc;<br>mobile还有一份utils，内容差不多就不贴了</p>
+<p>&#x2F;&#x2F; &#x2F; <reference types="Cypress" /></p>
+<p>import ocrFunc from ‘.&#x2F;ocrFunction’</p>
+<p>describe(‘表单-字段-OCR-通用文字’, () &#x3D;&gt; {<br>    beforeEach(() &#x3D;&gt; {<br>        cy.signout()<br>        cy.login(Cypress.env(‘adminUser’), Cypress.env(‘password’))<br>    })</p>
+<pre><code>it(&#39;权限组提交&#39;, () =&gt; &#123;
+    cy.visit(&#39;/dashboard#/app/603606fa9fbbec0007447d4f/form/615174738d3c5000069bd9b3&#39;)
+    ocrFunc.generalText()
+&#125;)
+
+it(&#39;权限组编辑&#39;, () =&gt; &#123;
+    cy.visit(&#39;/dashboard#/app/603606fa9fbbec0007447d4f/form/615174738d3c5000069bd9b3&#39;)
+    cy.switchGroup(&#39;自定义&#39;)
+    cy.get(&#39;.table-body tr[data-row-id=&quot;6152754a71e31e0006e765fe&quot;] td:not(&quot;.first&quot;)&#39;).eq(0).click()
+    cy.get(&#39;.button-pane .x-button:contains(&quot;编辑&quot;)&#39;).click()
+    ocrFunc.generalText()
+&#125;)
+
+it(&#39;表单内链提交&#39;, () =&gt; &#123;
+    cy.visit(&#39;/app/603606fa9fbbec0007447d4f/entry/615174738d3c5000069bd9b3&#39;)
+    ocrFunc.generalText()
+&#125;)
+
+it(&#39;表单内链编辑&#39;, () =&gt; &#123;
+    cy.visit(&#39;/app/603606fa9fbbec0007447d4f/entry/615174738d3c5000069bd9b3&#39;)
+    cy.switchGroup(&#39;自定义&#39;)
+    cy.get(&#39;.table-body tr[data-row-id=&quot;6152754a71e31e0006e765fe&quot;] td:not(&quot;.first&quot;)&#39;).eq(0).click()
+    cy.get(&#39;.button-pane .x-button:contains(&quot;编辑&quot;)&#39;).click()
+    ocrFunc.generalText()
+&#125;)
+
+it(&#39;表单外链提交&#39;, () =&gt; &#123;
+    cy.visit(&#39;/f/615174738d3c5000069bd9b4&#39;)
+    ocrFunc.generalText()
+&#125;)
+
+it(&#39;数据内链编辑&#39;, () =&gt; &#123;
+    cy.visit(&#39;/dashboard/app/603606fa9fbbec0007447d4f/form/615174738d3c5000069bd9b3/data/6152754a71e31e0006e765fe/qr_link&#39;)
+    cy.get(&#39;.button-pane .x-button:contains(&quot;编辑&quot;)&#39;).click()
+    ocrFunc.generalText()
+&#125;)
+
+it(&#39;数据外链编辑&#39;, () =&gt; &#123;
+    cy.visit(&#39;/l/615174738d3c5000069bd9b4/d/6152754a71e31e0006e765fe&#39;)
+    cy.get(&#39;.button-pane .x-button:contains(&quot;编辑&quot;)&#39;).click()
+    ocrFunc.generalText()
+&#125;)
+</code></pre>
+<p>})</p>
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>NatalieXSelina</span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="https://nataliexselina.github.io/ocr-diff/">https://nataliexselina.github.io/ocr-diff/</a></span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>License:</span>
+                        <span>Copyright (c) 2019 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc/4.0/">CC-BY-NC-4.0</a> LICENSE</span>
+                    </p>
+                
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+                <a class="prev" rel="prev" href="/test-ops/">test-ops</a>
+            
+            
+            <a class="next" rel="next" href="/chai-regular-expression/">chai-regular expression</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+            </div>
+            <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© NatalieXSelina | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+
+</html>
